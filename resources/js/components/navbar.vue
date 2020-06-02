@@ -2,9 +2,14 @@
     <div>
         <b-navbar class="nav-css" v-if="$auth.check()" toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand>
-                <router-link  class="home" to="/">
-                    <h2>Projects</h2>
-                </router-link>
+                <div class="row ml-4">
+                    <router-link  class="home" to="/">
+                        <h2>Projects</h2>
+                    </router-link>
+                    <b-button v-if="$auth.check(2) && $route.name == 'project'"  @click="$router.push({ name: 'member.dashboard'})" pill class="ml-3 outlined" variant="outline-secondary">
+                      Projects
+                    </b-button>
+                </div>
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
@@ -43,7 +48,7 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
-        <sidebar-menu v-if="$auth.check() && $auth.check(1)" :menu="adminMenu" :disableHover="true"  :collapsed="true"/>
+        <sidebar-menu  v-if="$auth.check() && $auth.check(1)" :menu="adminMenu" :disableHover="true"  :collapsed="true"/>
         <sidebar-menu v-if="$auth.check() && $auth.check(2)" :menu="memberMenu"  :disableHover="true"  :collapsed="true"/>
     </div>
 </template>
@@ -65,9 +70,14 @@
                     href: { path: '/admin' }
                 },
                 {
-                    title: 'Users',
+                    title: 'Members',
                     icon: 'fas fa-users',
-                    href: { path: '/users' }
+                    href: { path: '/admin/members' }
+                },
+                {
+                    title: 'Clients',
+                    icon: 'fas fa-address-book',
+                    href: { path: '/admin/clients' }
                 }
 
                 ],
@@ -79,24 +89,32 @@
                             path: 'home'
                         }
                     ],
-                    member_profile:[
-                        {
-                            name:'My Profile',
-                            path:'member.profile'
-                        }
-                    ],
-                    client_profile:[
-                        {
-                            name:'My Profile',
-                            path:'home'
-                        }
-                    ],
+                    // member_profile:[
+                    //     {
+                    //         name:'My Profile',
+                    //         path:'member.profile'
+                    //     }
+                    // ],
+                    // client_profile:[
+                    //     {
+                    //         name:'My Profile',
+                    //         path:'home'
+                    //     }
+                    // ],
                 }
             }
         },
     }
 </script>
-<style>
+<style scoped>
+    .outlined{
+        border-color:transparent !important ;
+        color: #67FFC8 !important;
+    }
+
+    .outlined:hover{
+        border-color: #67FFC8 !important;
+    }
     .unlogged{
         color: white;
         text-decoration: none !important;
@@ -121,24 +139,34 @@
         color: black;
         text-decoration: none !important;
     }
+    .router-link-active{
+        color: black;
+        text-decoration: none !important;
+    }
+</style>
+<style>
+
     .v-sidebar-menu{
         top:unset !important;
     }
     .v-sidebar-menu .vsm--mobile-item {
         background-color: black
     }
-    .router-link-active{
-        color: black;
-        text-decoration: none !important;
-    }
+
     .nav-css{
         background-color: #2c2e38 !important;
     }
     .v-sidebar-menu{
         background-color: #2c2e38 !important;
     }
-    .vsm--icon{
+
+    .router-link-exact-active > .vsm--icon{
         color: #67FFC8 !important;
+        background-color: #2c2e38 !important;
+    }
+
+    .vsm--icon{
+        color: #B9B9B9 !important;
         background-color: #2c2e38 !important;
     }
 

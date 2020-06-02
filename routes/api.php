@@ -34,9 +34,22 @@ Route::prefix('auth')->group(function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('logout', 'AuthController@logout')->name('logout');
+
+
         Route::get('members', 'UserController@members')->name('members');
+        Route::post('members/edit', 'UserController@membersEdit')->name('members.edit');
+        Route::post('members/delete', 'UserController@membersDelete')->name('members.delete');
+
+        Route::get('clients', 'UserController@clients')->name('clients');
+        Route::post('clients/edit', 'UserController@clientsEdit')->name('clients.edit');
+        Route::post('clients/delete', 'UserController@clientsDelete')->name('clients.delete');
+
+
         Route::get('projects', 'ProjectController@index')->name('projects');
         Route::post('projects/create', 'ProjectController@create')->name('projects.create');
+        Route::post('projects/edit', 'ProjectController@edit')->name('projects.edit');
+        Route::post('projects/state', 'ProjectController@state')->name('projects.state');
+        Route::post('projects/delete', 'ProjectController@delete')->name('projects.delete');
 
     });
 });

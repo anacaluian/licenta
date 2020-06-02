@@ -1,15 +1,27 @@
 <template>
     <div class="container-fluid ml-5 mr-5">
         <div class="row ml-2">
-            <b-button class="add-project" v-b-modal.add ><i class="fas fa-plus"></i> Add Project</b-button>
+            <b-button class="add-project" v-b-modal.add><i class="fas fa-plus"></i> Add Project</b-button>
         </div>
-        <div class="row ml-2 mt-4">
-            <b-table  dark ref="table" :items="data" :fields="fields">
+        <div class="row ml-2 mt-4 mr-5">
+            <b-table small dark ref="table" id="table" :items="data" :fields="fields">
                 <template v-slot:cell(state)="row">
                     <b-badge v-if="row.item.state == 'in_progress'" pill variant="success">In progress</b-badge>
                     <b-badge v-if="row.item.state == 'completed'" pill variant="danger">Completed</b-badge>
                 </template>
                 <template v-slot:cell(actions)="row">
+                    <b-button v-b-modal.edit @click="selectProject(row.item.id)" pill class="outlined"
+                              variant="outline-secondary">Edit
+                    </b-button>
+                    <b-button @click="changeState(row.item.id,row.item.state)" v-if="row.item.state == 'in_progress'"
+                              pill class="outlined" variant="outline-secondary">Disable
+                    </b-button>
+                    <b-button v-else @click="changeState(row.item.id,row.item.state)" pill class="outlined"
+                              variant="outline-secondary">Activate
+                    </b-button>
+                    <b-button @click="deleteProject(row.item.id)" pill class="outlined" variant="outline-secondary">
+                        Delete
+                    </b-button>
                 </template>
                 <template v-slot:cell(members)="row">
                     <div v-for="member in row.item.members">
@@ -18,12 +30,15 @@
                 </template>
             </b-table>
         </div>
+        <!--CREATE MODAL-->
         <b-modal id="add"
                  okTitle="Add"
                  ok-only
                  @ok="createProjects"
+                 title="Create a new project"
         >
             <b-form-group
+                    class="custom"
                     label="Project's name:"
             >
                 <b-form-input
@@ -33,114 +48,240 @@
                 ></b-form-input>
             </b-form-group>
             <b-form-group
-            label="Owner:"
+                    class="custom"
+                    label="Owner:"
             >
-            <b-form-input
-                    v-model="form.owner"
-                    required
-                    placeholder="Enter owner"
-            ></b-form-input>
-            </b-form-group> <b-form-group
-            label="Members:"
+                <b-form-input
+                        v-model="form.owner"
+                        required
+                        placeholder="Enter owner"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Support email:"
             >
-            <treeselect
-                    v-model="form.members"
-                    :multiple="true"
-                    :options="members"
-            ></treeselect>
+                <b-form-input
+                        v-model="form.support_email"
+                        required
+                        type="email"
+                        placeholder="Enter support email"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Members:"
+            >
+                <treeselect
+                        v-model="form.members"
+                        :multiple="true"
+                        :options="members"
+                ></treeselect>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Clients:"
+            >
+                <treeselect
+                        v-model="form.clients"
+                        :multiple="true"
+                        :options="clients"
+                ></treeselect>
+            </b-form-group>
+        </b-modal>
+        <!--EDIT MODAL-->
+        <b-modal id="edit"
+                 okTitle="Edit"
+                 ok-only
+                 @ok="editProject"
+                 title="Edit project"
+        >
+            <b-form-group
+                    class="custom"
+                    label="Project's name:"
+            >
+                <b-form-input
+                        v-model="selectedProject.name"
+                        required
+                        placeholder="Enter project's name"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Owner:"
+            >
+                <b-form-input
+                        v-model="selectedProject.owner"
+                        required
+                        placeholder="Enter owner"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Support email:"
+            >
+                <b-form-input
+                        v-model="selectedProject.support_email"
+                        required
+                        type="email"
+                        placeholder="Enter support email"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Members:"
+            >
+                <treeselect
+                        v-model="selectedProject.members"
+                        :multiple="true"
+                        :options="members"
+                ></treeselect>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+                    label="Clients:"
+            >
+                <treeselect
+                        v-model="selectedProject.clients"
+                        :multiple="true"
+                        :options="clients"
+                ></treeselect>
             </b-form-group>
         </b-modal>
     </div>
 </template>
 <script>
     export default {
-        mounted(){
+        mounted() {
             this.getMembers();
             this.getProjects();
         },
         data() {
-            return{
-            form:{
-                name:null,
-                owner:null,
-                members:null,
-            },
-                members:[],
-                data:[],
-                fields:[
-                    {
-                        key: 'name',
-                        label:'Project name',
-                        sortable: true
-                    },
-                    {
-                        key: 'owner',
-                        label:'Owner',
-                        sortable: true
-                    },
-                    {
-                        key: 'members',
-                        label:'Project members',
-                        sortable: true
-                    },
-                    {
-                        key: 'state',
-                        label:'Project state',
-                        sortable: true
-                    },
-                    {
-                        key: 'actions',
-                        label:'Actions',
-                    }
-                ],
+            return {
+                form: {
+                    name: null,
+                    owner: null,
+                    members: null,
+                    clients: null,
+                    support_email: null
+                },
+                selectedProject: {
+                    id: null,
+                    name: null,
+                    owner: null,
+                    members: null,
+                    clients: null,
+                    support_email: null
+                },
+                members: [],
+                clients: [],
+                data: [],
+                fields: ['name', 'owner', 'support_email','state','members','clients','created','actions'],
                 isLoading: false,
-        }
+            }
         },
-        methods:{
-            getMembers(){
+        methods: {
+            getMembers() {
                 this.axios({
-                    method:'get',
-                    url:laroute.route('members', {}),
+                    method: 'get',
+                    url: laroute.route('members', {}),
                 }).then((response) => {
-                    for(let member of response.data.members){
+                    for (let member of response.data.original.members) {
+
                         this.members.push({
-                            id:member.id,
+                            id: member.id,
                             label: member.first_name + ' ' + member.last_name
                         })
                     }
                 })
                     .catch((error) => console.log(error))
             },
-            getProjects(){
+            getProjects() {
                 this.axios({
-                    method:'get',
-                    url:laroute.route('projects', {}),
+                    method: 'get',
+                    url: laroute.route('projects', {}),
                 }).then((response) => {
-                    for(let project of response.data.data){
-                        let members = this.members.filter((item) => {
-                            if (project.members.includes(item.id)) {
-                                return item;
-                            }
-                        })
+                    for (let project of response.data.data) {
+                        let members = [];
+                        if (project.members) {
+                            members = this.members.filter((item) => {
+                                if (project.members.includes(item.id)) {
+                                    return item;
+                                }
+                            })
+                        }
+
                         this.data.push({
-                            name:project.name,
-                            owner:project.owner,
-                            state:project.state,
-                            members:members,
-                            clients:project.clients,
-                            created:project.created_at
+                            id: project.id,
+                            name: project.name,
+                            owner: project.owner,
+                            state: project.state,
+                            support_email: project.support_email,
+                            members: members,
+                            raw_members: project.members,
+                            clients: project.clients,
+                            created: project.created_at
                         })
                     }
                 })
                     .catch((error) => console.log(error))
             },
-            createProjects(){
+            createProjects() {
                 this.axios({
-                    method:'post',
-                    url:laroute.route('projects.create', {}),
-                    data:this.form
+                    method: 'post',
+                    url: laroute.route('projects.create', {}),
+                    data: this.form
                 }).then((response) => {
-                    this.$refs.table.refresh()
+                    this.$refs.table.refresh();
+                })
+                    .catch((error) => console.log(error))
+            },
+            selectProject(id) {
+                let data = this.data.filter((item) => item.id === id);
+                this.selectedProject.id = id;
+                this.selectedProject.name = data[0].name;
+                this.selectedProject.owner = data[0].owner;
+                this.selectedProject.support_email = data[0].support_email;
+                if (data[0].raw_members) {
+                    this.selectedProject.members = JSON.parse(data[0].raw_members);
+                }
+                if (data[0].clients) {
+                    this.selectedProject.clients = JSON.parse(data[0].clients);
+                }
+            },
+            editProject() {
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('projects.edit', {}),
+                    data: this.selectedProject
+                }).then((response) => {
+                    this.$refs.table.refresh();
+                })
+                    .catch((error) => console.log(error))
+            },
+            changeState(id, state) {
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('projects.state', {}),
+                    data: {
+                        id: id,
+                        state: state
+                    }
+                }).then((response) => {
+                    this.$refs.table.refresh();
+                })
+                    .catch((error) => console.log(error))
+            },
+            deleteProject(id) {
+                console.log(id)
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('projects.delete', {}),
+                    data: {
+                        id: id,
+                    }
+                }).then((response) => {
+                    this.$refs.table.refresh();
                 })
                     .catch((error) => console.log(error))
             }
@@ -148,20 +289,47 @@
     }
 </script>
 <style scoped>
-    button{
-       border-radius: 16px;
+    input{
+        background-color: #454d55;
+        border-color:  #67FFC8 !important;
+        color: white !important;
+    }
+    input:focus {
+        background-color: #454d55;
+        color: white;
+    }
+    .add-project {
+        border-radius: 16px;
         background-color: #67FFC8 !important;
+    }
+
+    .custom >>> legend {
+        color: #67FFC8 !important;
+    }
+
+    .outlined {
+        border-color: #67FFC8 !important;
+        color: white !important;
+    }
+
+    .outlined:hover {
+        border-color: #67FFC8 !important;
+        background-color: #67FFC8 !important;
+        color: white !important;
     }
 
 </style>
 <style>
-    .modal-content{
+
+    .modal-content {
         background-color: #373a44 !important;
     }
-    .col-form-label{
+
+    .modal-title {
         color: #67FFC8 !important;
     }
-    .modal-footer button{
+
+    .modal-footer button {
         border-radius: 16px;
         background-color: #67FFC8 !important;
     }

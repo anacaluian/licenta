@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ForgotPassword;
+use App\Mail\Register;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 
 class AuthController extends Controller
@@ -18,7 +20,7 @@ class AuthController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
+            'role' => 'required'
         ]);
         if ($v->fails()) {
             return response()->json([
@@ -30,9 +32,17 @@ class AuthController extends Controller
         $user->first_name = $request->get('first_name');
         $user->last_name = $request->get('last_name');
         $user->email = $request->get('email');
-        $user->password = bcrypt($request->get('password'));
-        $user->save();
-        return response()->json(['status' => 'success'], 200);
+        $user->role = $request->get('role');
+        if ( $request->get('phone')){
+            $user->phone = $request->get('phone');
+        }
+        $password = Str::random(10);
+        $user->password = bcrypt($password);
+        if ( $user->save()){
+            Mail::to($request->get('email'))->send(new Register( $request->get('email'),$password));
+            return response()->json(['status' => 'success'], 200);
+        }
+        return response()->json(['status' => 'error'], 500);
     }
 
     public function login(Request $request)
@@ -93,7 +103,7 @@ class AuthController extends Controller
                 return response()->json(['error' => 'No email found'], 401);
             }else
             {
-                $new_pass = Str::random(8);
+                $new_pass = Str::random(10);
                 User::where('email', $request->get('email'))->update([
                     'password' =>  bcrypt($new_pass)
                 ]);

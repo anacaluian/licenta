@@ -1,8 +1,12 @@
 import VueRouter from 'vue-router'// Pages
 import Register from './pages/register'
 import Login from './pages/login'
+import Project from './pages/member/project'
+import Discussions from './pages/member/discussions'
 import MemberDashboard from './pages/member/dashboard'
 import AdminDashboard from './pages/admin/dashboard'// Routes
+import AdminMembers from './pages/admin/members'// Routes
+import AdminClients from './pages/admin/clients'// Routes
 import ClientDashboard from './pages/client/dashboard'// Routes
 import ForgotPassword from './pages/forgot-password'// Routes
 const routes = [
@@ -11,7 +15,7 @@ const routes = [
         name: 'home',
         component: Login,
         meta: {
-
+            auth: false
         }
     },
     {
@@ -30,6 +34,22 @@ const routes = [
             auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
         }
     },
+    {
+        path: '/admin/members',
+        name: 'admin.members',
+        component: AdminMembers,
+        meta: {
+            auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+        }
+    },
+    {
+        path: '/admin/clients',
+        name: 'admin.clients',
+        component: AdminClients,
+        meta: {
+            auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+        }
+    },
     // MEMBER ROUTES
     {
         path: '/projects',
@@ -37,6 +57,21 @@ const routes = [
         component: MemberDashboard,
         meta: {
             auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
+    },
+    {
+        path: '/projects/:id',
+        name: 'project',
+        component: Project,
+        children: [
+            {
+                path: 'discussions',
+                name: 'project.discussions',
+                component: Discussions
+            }
+        ],
+        meta: {
+            auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+        }
     },
     // MEMBER ROUTES
     {

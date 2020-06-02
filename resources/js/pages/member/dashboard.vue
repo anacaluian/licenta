@@ -1,23 +1,68 @@
 <template>
     <div class="container-fluid ml-5 mr-5 mt-5">
         <div class="row ml-1">
-            <h6 class="ap">Active Projects</h6>
+            <h6 class="ap"><strong>Active Projects</strong></h6>
+        </div>
+        <div class="row ml-2 mt-4 mr-5">
+            <div class="card-group">
+                <b-card
+                        v-for="project in projects"
+                        :title="project.name"
+                        style="max-width: 20rem;"
+                        class="mb-2 project-card shadow-lg p-3 mb-5 bg-white rounded"
+                        @click="$router.push({ name: 'project', params: { id: project.id } })"
+                >
+                    <b-card-text>
+                      <div class="row">
+                          <p>for <strong>{{project.owner}}</strong></p>
+                      </div>
+                        <div class="row">
+                            <b-badge pill variant="success">{{project.state}}</b-badge>
+                        </div>
+                    </b-card-text>
+                </b-card>
+            </div>
         </div>
     </div>
 </template>
 <script>  export default {
     data() {
         return {
-            //
+            projects:[]
         }
     },
-    components: {
-        //
+    mounted(){
+        this.getProjects();
+    },
+    methods:{
+        getProjects(){
+            this.axios({
+                method: 'get',
+                url: laroute.route('projects', {}),
+                params:{
+                    member:this.$auth.user().id
+                }
+            }).then((response) => {
+               this.projects = response.data.data;
+            })
+                .catch((error) => console.log(error))
+        }
     }
 }
 </script>
 <style scoped>
     .ap{
         color: white;
+    }
+    .card-title{
+        font-weight:bold;
+        color: #B9B9B9;
+    }
+    .card-text{
+        color: #B9B9B9;
+    }
+    .project-card{
+        background-color: #373a44 !important;
+        border-radius: 12px;
     }
 </style>

@@ -9,7 +9,7 @@ class Project extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'name','state','owner', 'members', 'clients',
+        'name','state','owner','support_email', 'members', 'clients',
     ];
 
     public function members(){
