@@ -13,9 +13,7 @@
         </div>
         <div class="content-middle">
             <router-view></router-view>
-            <div  v-if="$route.name == 'project'">
-                <taskList title="Backlog" :lists="lists"> </taskList>
-            </div>
+            <taskList v-if="$route.name == 'project'"> </taskList>
         </div>
     </div>
 </template>
@@ -27,26 +25,6 @@
         },
         data(){
             return{
-                lists:{
-                    list1: [
-                        { name: "Jesus", id: 1 },
-                        { name: "Paul", id: 2 },
-                        { name: "Peter", id: 3 }
-                    ],
-                    list2: [
-                        { name: "Luc", id: 5 },
-                        { name: "Thomas", id: 6 },
-                        { name: "John", id: 7 }
-                    ],
-                    list3:[
-                        { name: "Luc", id: 5 },
-                        { name: "Thomas", id: 6 },
-                        { name: "John", id: 7 }
-                    ]
-                }
-
-
-
             }
         },
         mounted(){

@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use SoftDeletes;
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'name','state','owner','support_email', 'members', 'clients',
+        'name','state','owner','support_email', 'members', 'clients','tasks_list'
     ];
 
-    public function members(){
-        return $this->hasMany('App\User', 'id', 'members');
+    public function members()
+    {
+        return $this->hasMany('App\MemberToProject','project_id','id');
     }
-
 }

@@ -18,6 +18,7 @@ import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import VueTagsInput from '@johmun/vue-tags-input';
 
 window.Vue = require('vue');
 Vue.router = router;
@@ -43,6 +44,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 // Load Index
 Vue.component('index', Index);
 Vue.component('treeselect', Treeselect);
+Vue.component('tags', VueTagsInput);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

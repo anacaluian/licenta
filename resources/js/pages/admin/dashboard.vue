@@ -9,6 +9,11 @@
                     <b-badge v-if="row.item.state == 'in_progress'" pill variant="success">In progress</b-badge>
                     <b-badge v-if="row.item.state == 'completed'" pill variant="danger">Completed</b-badge>
                 </template>
+                <template v-slot:cell(members)="row">
+                    <div v-for="member in row.item.members">
+                        {{member.member_id}}
+                    </div>
+                </template>
                 <template v-slot:cell(actions)="row">
                     <b-button v-b-modal.edit @click="selectProject(row.item.id)" pill class="outlined"
                               variant="outline-secondary">Edit
@@ -22,11 +27,6 @@
                     <b-button @click="deleteProject(row.item.id)" pill class="outlined" variant="outline-secondary">
                         Delete
                     </b-button>
-                </template>
-                <template v-slot:cell(members)="row">
-                    <div v-for="member in row.item.members">
-                        <p>{{member.label}}</p>
-                    </div>
                 </template>
             </b-table>
         </div>
@@ -67,6 +67,18 @@
                         type="email"
                         placeholder="Enter support email"
                 ></b-form-input>
+            </b-form-group>
+            <b-form-group
+            <b-form-group
+                    class="custom"
+                    label="Lists:"
+            >
+                <tags
+                        class="custom-tags"
+                        v-model="tasks"
+                        :tags="form.tasks"
+                        @tags-changed="newTags => form.tasks = newTags"
+                />
             </b-form-group>
             <b-form-group
                     class="custom"
@@ -129,6 +141,18 @@
             </b-form-group>
             <b-form-group
                     class="custom"
+                    label="Lists:"
+            >
+                <tags
+                        v-model="tasks_edit"
+                        class="custom-tags"
+                        :tags="selectedProject.tasks"
+                        @tags-changed="(newTags) => { selectedProject.tasks = newTags }"
+                        @before-adding-tag="makeLowerCase"
+                />
+            </b-form-group>
+            <b-form-group
+                    class="custom"
                     label="Members:"
             >
                 <treeselect
@@ -158,9 +182,12 @@
         },
         data() {
             return {
+                tasks:'',
+                tasks_edit:'',
                 form: {
                     name: null,
                     owner: null,
+                    tasks:[],
                     members: null,
                     clients: null,
                     support_email: null
@@ -169,6 +196,7 @@
                     id: null,
                     name: null,
                     owner: null,
+                    tasks:[],
                     members: null,
                     clients: null,
                     support_email: null
@@ -181,13 +209,17 @@
             }
         },
         methods: {
+            makeLowerCase(obj){
+                obj.tag.text = obj.tag.text.replace(/ /g,"_");
+                obj.tag.text = obj.tag.text.toLowerCase();
+                obj.addTag();
+            },
             getMembers() {
                 this.axios({
                     method: 'get',
                     url: laroute.route('members', {}),
                 }).then((response) => {
                     for (let member of response.data.original.members) {
-
                         this.members.push({
                             id: member.id,
                             label: member.first_name + ' ' + member.last_name
@@ -202,23 +234,14 @@
                     url: laroute.route('projects', {}),
                 }).then((response) => {
                     for (let project of response.data.data) {
-                        let members = [];
-                        if (project.members) {
-                            members = this.members.filter((item) => {
-                                if (project.members.includes(item.id)) {
-                                    return item;
-                                }
-                            })
-                        }
-
                         this.data.push({
                             id: project.id,
                             name: project.name,
                             owner: project.owner,
+                            tasks:project.tasks_list,
                             state: project.state,
                             support_email: project.support_email,
-                            members: members,
-                            raw_members: project.members,
+                            members: project.members,
                             clients: project.clients,
                             created: project.created_at
                         })
@@ -242,8 +265,14 @@
                 this.selectedProject.name = data[0].name;
                 this.selectedProject.owner = data[0].owner;
                 this.selectedProject.support_email = data[0].support_email;
-                if (data[0].raw_members) {
-                    this.selectedProject.members = JSON.parse(data[0].raw_members);
+                this.selectedProject.members = [];
+                if (data[0].tasks){
+                    this.selectedProject.tasks = JSON.parse(data[0].tasks);
+                }
+                if (data[0].members){
+                    for (let member of data[0].members) {
+                        this.selectedProject.members.push(member.member_id);
+                    }
                 }
                 if (data[0].clients) {
                     this.selectedProject.clients = JSON.parse(data[0].clients);
@@ -284,13 +313,22 @@
                     this.$refs.table.refresh();
                 })
                     .catch((error) => console.log(error))
-            }
+            },
         }
     }
 </script>
 <style scoped>
+    .vue-tags-input >>> .ti-tag{
+        background-color: #67FFC8 !important;
+    }
+    .custom-tags{
+        background-color: #373a44 !important;
+    }
+    .ti-new-tag-input.ti-valid{
+        background-color: #454d55 !important;
+    }
     input{
-        background-color: #454d55;
+        background-color: #454d55 !important;
         border-color:  #67FFC8 !important;
         color: white !important;
     }

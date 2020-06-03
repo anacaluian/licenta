@@ -46,10 +46,18 @@ Route::prefix('auth')->group(function () {
 
 
         Route::get('projects', 'ProjectController@index')->name('projects');
+        Route::get('project/{id}', 'ProjectController@project')->name('projects.data');
         Route::post('projects/create', 'ProjectController@create')->name('projects.create');
         Route::post('projects/edit', 'ProjectController@edit')->name('projects.edit');
         Route::post('projects/state', 'ProjectController@state')->name('projects.state');
         Route::post('projects/delete', 'ProjectController@delete')->name('projects.delete');
+        Route::post('projects/members', 'ProjectController@members')->name('projects.members');
+
+
+        Route::post('tasks', 'TaskController@index')->name('tasks');
+        Route::post('tasks/create', 'TaskController@create')->name('tasks.create');
+        Route::post('tasks/update', 'TaskController@update')->name('tasks.update');
+
 
     });
 });

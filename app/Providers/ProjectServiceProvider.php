@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
+use App\MemberToProject;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class ProjectServiceProvider
 {
@@ -21,15 +22,27 @@ class ProjectServiceProvider
 
         if (!empty($filters['member']))
         {
-            $projects->where('members', 'LIKE', "%{$filters['member']}%");
+            $member_id = $filters['member'];
+            $projects = $projects->whereHas('members',function (Builder $query) use ($member_id){
+                $query->where('member_id', '=', $member_id);
+            })->with('members')->get();
+        }else{
+            $projects = $projects->with('members')->get();
         }
-
-        $projects = $projects->get();
 
         return [
             'status' => 'success',
             'data' => $projects
         ];
+    }
+
+    public function project($project_id){
+        $project = $this->projectModel->where('id',$project_id)->first();
+        return [
+            'status' => 'success',
+            'data' => $project
+        ];
+
     }
 
     public function create(array $data){
@@ -38,8 +51,19 @@ class ProjectServiceProvider
         $project->name = $data['name'];
         $project->owner = $data['owner'];
         $project->support_email = $data['support_email'];
-        $project->members = json_encode($data['members']);
-        if($project->save()){
+        if ($data['tasks']){
+            $project->tasks_list = json_encode($data['tasks']);
+        }
+//        $project->members = json_encode($data['members']);
+          $project->save();
+        $project_id = $project->id;
+        if($project_id){
+            foreach ($data['members'] as $key => $member_id){
+                $item = new MemberToProject();
+                $item->project_id = $project_id;
+                $item->member_id = $member_id;
+                $item->save();
+            }
             return response()->json('success', 200);
         }
 
@@ -52,10 +76,19 @@ class ProjectServiceProvider
         $project->name = $data['name'];
         $project->owner = $data['owner'];
         $project->support_email = $data['support_email'];
+        if ($data['tasks']){
+            $project->tasks_list = json_encode($data['tasks']);
+        }
         if ($data['members']){
-            $project->members = json_encode($data['members']);
+            $clear = MemberToProject::where('project_id',$data['id'])->delete();
+            foreach ($data['members'] as $key => $member_id){
+                $item = new MemberToProject();
+                $item->project_id = $data['id'];
+                $item->member_id = $member_id;
+                $item->save();
+            }
         }else{
-            $project->members = null;
+            $clear = MemberToProject::where('project_id',$data['id'])->delete();
         }
         if ($data['clients']){
             $project->clients = json_encode($data['clients']);
@@ -90,8 +123,14 @@ class ProjectServiceProvider
         if($project->delete()){
             return response()->json('success', 200);
         }
-
         return response()->json('error', 500);
+    }
 
+    public function members($project_id){
+        $members = MemberToProject::where('project_id',$project_id)->with('member')->get();
+        return [
+            'status' => 'success',
+            'data' => $members
+        ];
     }
 }

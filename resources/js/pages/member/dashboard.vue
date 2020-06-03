@@ -9,7 +9,7 @@
                         v-for="project in projects"
                         :title="project.name"
                         style="max-width: 20rem;"
-                        class="mb-2 project-card shadow-lg p-3 mb-5 bg-white rounded"
+                        class="mb-2 mr-4 project-card shadow-lg p-3 mb-5 bg-white rounded"
                         @click="$router.push({ name: 'project', params: { id: project.id } })"
                 >
                     <b-card-text>

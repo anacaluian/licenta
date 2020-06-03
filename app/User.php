@@ -12,7 +12,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use SoftDeletes;
     use Notifiable;
-
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *
@@ -49,4 +49,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Project');
+    }
+
+
 }

@@ -24,6 +24,12 @@ class ProjectController extends Controller
 
     }
 
+    public function project(Request $request){
+
+        $response = $this->projectService->project($request->route('id'));
+        return response()->json($response);
+    }
+
     public function create(Request $request){
 
         $v = Validator::make($request->all(), [
@@ -74,6 +80,21 @@ class ProjectController extends Controller
         }
 
         $response = $this->projectService->delete($request->all());
+        return response()->json($response);
+    }
+
+    public function members(Request $request){
+        $v = Validator::make($request->all(), [
+            'project_id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+
+        $response = $this->projectService->members($request->get('project_id'));
         return response()->json($response);
     }
 }
