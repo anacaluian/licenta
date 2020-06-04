@@ -10,7 +10,12 @@ class Task extends Model
     use SoftDeletes;
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name','project_id','assignee_id','label', 'due_on','task_list'
+        'name','project_id','assignee_id','label', 'due_on','task_list','details'
     ];
+
+    public function assignee()
+    {
+        return $this->hasOne('App\User','id','assignee_id');
+    }
 
 }

@@ -57,7 +57,12 @@ Route::prefix('auth')->group(function () {
         Route::post('tasks', 'TaskController@index')->name('tasks');
         Route::post('tasks/create', 'TaskController@create')->name('tasks.create');
         Route::post('tasks/update', 'TaskController@update')->name('tasks.update');
+        Route::post('tasks/update/task', 'TaskController@updateTask')->name('tasks.update.task');
 
+
+        Route::get('comments/{project}/{task}', 'CommentController@index')->name('comments');
+        Route::post('comments/create', 'CommentController@create')->name('comments.create');
+        Route::post('comments/upload/{task}', 'CommentController@upload')->name('comments.upload');
 
     });
 });

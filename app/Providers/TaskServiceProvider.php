@@ -16,7 +16,7 @@ class TaskServiceProvider
 
     public function index($project_id){
 
-        $tasks = $this->taskModel->all();
+        $tasks = $this->taskModel->where('project_id',$project_id)->with('assignee')->get();
         $collection = collect($tasks);
         $grouped = $collection->groupBy('task_list');
         $grouped->toArray();
@@ -54,5 +54,15 @@ class TaskServiceProvider
             }
         }
         return response()->json('success', 200);
+    }
+
+    public function updateTask(array $data){
+       $update = $this->taskModel->find($data['id'])->update([
+           'details' => $data['details']
+       ]);
+       if ($update){
+           return response()->json('success', 200);
+       }
+        return response()->json('error', 500);
     }
 }

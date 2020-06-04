@@ -3,7 +3,7 @@
         <b-card
                 v-for="(list, index) in lists"
                 :key="index"
-                :title="index.replace(/_/g,' ')"
+                :title="index.toString()"
                 tag="article"
                 style="max-width: 20rem; min-width: 13%;"
                 class="mb-2 card  mr-3"
@@ -35,35 +35,101 @@
                     :no-header-close="true"
                     text-variant="light"
             >
-                <b-button class="shadow-lg" id="close-btn" @click="visible=false"><i class="fas fa-times"></i></b-button>
+                <b-button class="shadow-lg" id="close-btn" @click="closeTaskDetails"><i class="fas fa-times"></i></b-button>
                 <div class="sidebar-content">
                     <div class="task-content">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <h4>#{{selectedTask.id}}: {{selectedTask.name}}</h4>
                             </div>
-                            <div class="col-md-6 d-flex justify-content-end">
-                                <b-button class="edit-btn" @click="edit_description = !edit_description"><i class="fas fa-edit"></i></b-button>
-                            </div>
                         </div>
-                        <b-form-textarea v-if="edit_description"
-                                id="textarea"
-                                v-model="text"
-                                placeholder="Enter something..."
-                                rows="3"
-                                max-rows="6"
-                        ></b-form-textarea>
-                        <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                        <editor-content :editor="editor" />
                         <hr>
                         <h6><strong>Discussion</strong></h6>
-                        <b-form-input
-                                v-model="comment"
-                                class="mt-3 col-8"
-                                required
-                                placeholder="Write a comment..."
-                        ></b-form-input>
-                        <div class="comment_section"></div>
 
+                        <div class="comment-editor">
+                            <editor-menu-bar :editor="comment" v-slot="{ commands, isActive, focused }">
+                                <div
+                                        class="menubar is-hidden"
+                                        :class="{ 'is-focused': focused }"
+                                >
+
+                                    <b-button
+                                            class="menubar__button"
+                                            :class="{ 'is-active': isActive.bold() }"
+                                            @click="commands.bold"
+                                    >
+                                        <i class="fas fa-bold"></i>
+                                    </b-button>
+
+                                    <button
+                                            class="menubar__button"
+                                            :class="{ 'is-active': isActive.italic() }"
+                                            @click="commands.italic"
+                                    >
+                                        <i class="fas fa-italic"></i>
+                                    </button>
+
+                                    <button
+                                            class="menubar__button"
+                                            :class="{ 'is-active': isActive.strike() }"
+                                            @click="commands.strike"
+                                    >
+                                        <i class="fas fa-strikethrough"></i>
+                                    </button>
+
+                                    <button
+                                            class="menubar__button"
+                                            :class="{ 'is-active': isActive.underline() }"
+                                            @click="commands.underline"
+                                    >
+                                        <i class="fas fa-underline"></i>
+                                    </button>
+                                    <label
+                                            class="menubar__button ml-2"
+                                    >
+                                        <i class="fas fa-paperclip"></i>
+                                        <input type="file" style="display: none" ref="files" class="form-control-file"  multiple="multiple" @change="uploadFiles">
+                                    </label>
+                                </div>
+                            </editor-menu-bar>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <editor-content class="editor__content__comment " :editor="comment" @keyup.enter="sendComment"/>
+                                </div>
+                                <div>
+                                    <b-button @click="sendComment" pill class="outlined" variant="outline-secondary">
+                                        <i class="fas fa-share"></i>
+                                    </b-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment_section mt-4">
+                            <div v-for="comment in taskComments">
+                                <p><strong class="mr-1">
+                                    {{comment.member.first_name}} {{comment.member.last_name[0]}}.
+                                </strong> {{comment.last_edit}}</p>
+                                <p v-html="comment.comment"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-content">
+                        <div class="p-2">
+                            <p><strong>Task List</strong></p>
+                            <h5 class="task-prop">{{selectedTask.task_list}}</h5>
+                        </div>
+                        <div class="p-2">
+                            <p><strong>Assignee</strong></p>
+                            <h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>
+                        </div>
+                        <div class="p-2">
+                            <p><strong>Assignee</strong></p>
+                            <h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>
+                        </div>
+                        <div class="p-2">
+                            <p><strong>Due on</strong></p>
+                            <h5  class="task-prop">{{selectedTask.due_on}}</h5>
+                        </div>
                     </div>
                 </div>
             </b-sidebar>
@@ -108,12 +174,20 @@
 </template>
 <script>
     import draggable from 'vuedraggable'
-    import BButton from "buefy/src/components/button/Button";
+    import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
+    import {
+        Bold,
+        Italic,
+        Link,
+        Strike,
+        Underline,
+    } from 'tiptap-extensions';
 
     export default {
         components: {
-            BButton,
             draggable,
+            EditorContent,
+            EditorMenuBar,
         },
         props: {
             title: String,
@@ -129,17 +203,36 @@
                 },
                 edit_description:false,
                 visible:false,
-                comment:'',
+                comment:null,
+                editor:null,
                 members: [],
-                lists: [],
+                lists: {},
                 project_data:'',
-                selectedTask:''
+                selectedTask:'',
+                taskComments:[]
             }
         },
         mounted() {
             this.getProject();
             this.getMembers();
             this.getTasks();
+            this.comment = new Editor({
+                extensions: [
+                    new Bold(),
+                    new Italic(),
+                    new Link(),
+                    new Strike(),
+                    new Underline(),
+                ],
+                content: '',
+            });
+            this.editor = new Editor({
+                content: '',
+            })
+        },
+        beforeDestroy() {
+            this.editor.destroy();
+            this.comment.destroy()
         },
         methods: {
             getProject() {
@@ -159,12 +252,20 @@
                         project_id: this.$route.params.id
                     }
                 }).then((response) => {
-                    this.lists = response.data.data;
-                    for (let name of JSON.parse(this.project_data.tasks_list)) {
-                        if (!Object.keys(this.lists).includes(name.text)) {
-                            this.lists[name.text] = []
+
+                    if (typeof(response.data.data) === 'object'){
+                        this.lists = response.data.data;
+                        if (this.project_data.tasks_list) {
+                            for (let name of JSON.parse(this.project_data.tasks_list)) {
+                                if (!Object.keys(this.lists).includes(name.text)) {
+                                    this.lists[name.text] = [];
+                                }
+                            }
                         }
+                    } else {
+                        this.lists['backlog'] = [];
                     }
+
                 })
                     .catch((error) => console.log(error))
             },
@@ -203,17 +304,99 @@
                     url: laroute.route('tasks.create', {}),
                     data: this.form
                 }).then((response) => {
+                    this.getTasks();
                 })
                     .catch((error) => console.log(error))
             },
-            showTaskDetails(task){
-                this.visible = !this.visible;
+            async showTaskDetails(task){
+                 this.taskComments = [];
+                 this.visible = !this.visible;
                 this.selectedTask = task;
+                this.editor.setContent(task.details);
+              await this.getComments();
+            },
+            closeTaskDetails(){
+                this.visible = false;
+                let editor_json = this.editor.getJSON();
+                let final = '';
+                for (let content of  editor_json.content) {
+                    final +=  content.content[0].text + ' ';
+                }
+                this.selectedTask.details = final;
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('tasks.update.task', {}),
+                    data: this.selectedTask
+                }).then((response) => {
+                })
+                    .catch((error) => console.log(error))            },
+            getComments(){
+                 this.axios({
+                    method: 'get',
+                    url: laroute.route('comments', { project: this.$route.params.id, task: this.selectedTask.id}),
+                }).then((response) => {
+                    this.taskComments = response.data.data;
+                })
+                    .catch((error) => console.log(error))
+            },
+            sendComment(){
+                let comment_html = this.comment.getHTML();
+                this.comment.clearContent();
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('comments.create', {}),
+                    data: {
+                        user_id:this.$auth.user().id,
+                        project_id:this.$route.params.id,
+                        task_id:this.selectedTask.id,
+                        comment:comment_html
+                    }
+                }).then((response) => {
+                    this.getComments();
+                })
+                    .catch((error) => console.log(error))
+            },
+            uploadFiles(){
+                let formData = new FormData();
+                for( var i = 0; i < this.$refs.files.files.length; i++ ){
+                    let file = this.$refs.files.files[i];
+                    console.log(file);
+                    formData.append('files[' + i + ']', file);
+                }
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('comments.upload', {task:this.selectedTask.id}),
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    data:formData
+                }).then((response) => {
+                })
+                    .catch((error) => console.log(error))
             }
         }
     }
 </script>
 <style scoped>
+    .outlined {
+        border-color: #67FFC8 !important;
+        color: white !important;
+    }
+
+    .outlined:hover {
+        border-color: #67FFC8 !important;
+        background-color: #67FFC8 !important;
+        color: white !important;
+    }
+
+    .editor__content__comment{
+        border: 1px solid #67FFC8 ;
+        border-radius: 10px;
+    }
+    .menubar__button{
+        background-color: transparent;
+        border-color: transparent;
+    }
     i{
         color:#67FFC8 !important ;
     }
@@ -241,11 +424,24 @@
         padding: 0;
         margin: 0;
         top: 5%;
-        left: 51%;
-        width: 35%;
+        left: 51.5%;
+        width: 32%;
         height: 92%;
     }
-
+    .task-prop{
+        text-transform: capitalize;
+        font-weight: bold;
+        color: #67FFC8;
+    }
+    .right-content{
+        position: fixed;
+        padding: 0;
+        margin: 0;
+        top: 3%;
+        left: 84.5%;
+        width: 15%;
+        height: 92%;
+    }
     .sidebar {
         position: fixed;
         right: 0;
@@ -306,10 +502,6 @@
         border-top-left-radius: 10px !important;
         border-bottom-left-radius: 10px !important;
     }
-    #textarea{
-        background-color: #454d55;
-        border-color: #67FFC8 ;
-    }
     #close-btn{
         right: 51%;
         position: fixed;
@@ -317,5 +509,8 @@
         top: 3%;
         background-color: #343a40;
         border-color: #343a40;
+    }
+    #close-btn > i:hover{
+        transform: rotate(30deg);
     }
 </style>

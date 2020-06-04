@@ -33,7 +33,7 @@ class TaskController extends Controller
     public function create(Request $request){
 
         $v = Validator::make($request->all(), [
-            'id' => 'required',
+            'project_id' => 'required',
         ]);
         if ($v->fails()) {
             return response()->json([
@@ -49,6 +49,12 @@ class TaskController extends Controller
     public function update(Request $request){
 
         $response = $this->taskService->update($request->all());
+        return response()->json($response);
+    }
+
+    public function updateTask(Request $request){
+
+        $response = $this->taskService->updateTask($request->all());
         return response()->json($response);
     }
 }
