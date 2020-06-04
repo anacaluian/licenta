@@ -45,15 +45,37 @@ class CommentServiceProvider
         $comment->task_id = $data['task_id'];
         $comment->comment = $data['comment'];
         if ($comment->save()){
-            return response()->json('success',200);
+            if (array_key_exists('files',$data) ){
+               $upload = $this->upload($comment->id,$data['files']);
+                if($upload) {
+                    return response()->json('success',200);
+                }
+            }
         }
         return response()->json('error',500);
 
     }
 
-    public function upload($task,$files){
+    public function upload($comment_id,$files){
+        $comment = $this->commentModel->where('id',$comment_id)->pluck('files')->first();
+        $new_files = [];
        foreach ($files as $file){
            $path = Storage::putFile('files',$file);
+           if ($comment){
+               $new_files = json_decode($comment);
+               array_push($new_files,$path);
+           }
+           else{
+               array_push($new_files,$path);
+           }
        }
+        $comment = $this->commentModel->where('id',$comment_id)->update([
+            'files' => json_encode($new_files)
+            ]);
+       if ($comment){
+           return 1;
+       }
+        return 0;
+
     }
 }

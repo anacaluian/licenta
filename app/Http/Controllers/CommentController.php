@@ -28,7 +28,6 @@ class CommentController extends Controller
             'user_id' => 'required',
             'project_id' => 'required',
             'task_id' => 'required',
-            'comment' => 'required',
         ]);
         if ($v->fails()) {
             return response()->json([

@@ -89,7 +89,7 @@
                                             class="menubar__button ml-2"
                                     >
                                         <i class="fas fa-paperclip"></i>
-                                        <input type="file" style="display: none" ref="files" class="form-control-file"  multiple="multiple" @change="uploadFiles">
+                                        <input type="file" style="display: none" ref="files" class="form-control-file"  multiple="multiple">
                                     </label>
                                 </div>
                             </editor-menu-bar>
@@ -342,38 +342,28 @@
             sendComment(){
                 let comment_html = this.comment.getHTML();
                 this.comment.clearContent();
+                let formData = new FormData();
+                for( var i = 0; i < this.$refs.files.files.length; i++ ){
+                    let file = this.$refs.files.files[i];
+                    formData.append('files[' + i + ']', file);
+                }
+                formData.append('user_id',this.$auth.user().id );
+                formData.append('project_id',this.$route.params.id );
+                formData.append('task_id', this.selectedTask.id);
+                formData.append('comment',comment_html );
                 this.axios({
                     method: 'post',
                     url: laroute.route('comments.create', {}),
-                    data: {
-                        user_id:this.$auth.user().id,
-                        project_id:this.$route.params.id,
-                        task_id:this.selectedTask.id,
-                        comment:comment_html
-                    }
+                    headers: {
+                         'Content-Type': 'multipart/form-data'
+                    },
+                    data: formData
                 }).then((response) => {
                     this.getComments();
                 })
                     .catch((error) => console.log(error))
             },
-            uploadFiles(){
-                let formData = new FormData();
-                for( var i = 0; i < this.$refs.files.files.length; i++ ){
-                    let file = this.$refs.files.files[i];
-                    console.log(file);
-                    formData.append('files[' + i + ']', file);
-                }
-                this.axios({
-                    method: 'post',
-                    url: laroute.route('comments.upload', {task:this.selectedTask.id}),
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    data:formData
-                }).then((response) => {
-                })
-                    .catch((error) => console.log(error))
-            }
+
         }
     }
 </script>
