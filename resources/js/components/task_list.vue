@@ -3,7 +3,7 @@
         <b-card
                 v-for="(list, index) in lists"
                 :key="index"
-                :title="index.toString()"
+                :title="index.replace(/_/g,' ')"
                 tag="article"
                 style="max-width: 20rem; min-width: 13%;"
                 class="mb-2 card  mr-3"
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="comment_section mt-4">
+                        <div class="comment_section">
                             <div v-for="comment in taskComments">
                                 <p><strong class="mr-1">
                                     {{comment.member.first_name}} {{comment.member.last_name[0]}}.
@@ -409,6 +409,18 @@
         color: #67FFC8 !important;
     }
 
+    .comment_section{
+        position: absolute;
+        padding-top: 5%;
+        margin: 0;
+        top: auto;
+        left: 1.5%;
+        width: 95%;
+        height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: block;
+    }
     .task-content{
         position: fixed;
         padding: 0;
@@ -417,6 +429,7 @@
         left: 51.5%;
         width: 32%;
         height: 92%;
+
     }
     .task-prop{
         text-transform: capitalize;

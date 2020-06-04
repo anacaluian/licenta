@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Comment;
+use App\File;
 use function Couchbase\defaultDecoder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +19,7 @@ class CommentServiceProvider
     }
 
     public function index($project, $task){
-        $comments = $this->commentModel->where('project_id',$project)->where('task_id',$task)->with('member')->get();
+        $comments = $this->commentModel->where('project_id',$project)->where('task_id',$task)->with('member')->with('files')->orderByDesc('id')->get();
 
         foreach ($comments as $comment) {
             $date = Carbon::parse($comment->updated_at);
@@ -46,7 +47,7 @@ class CommentServiceProvider
         $comment->comment = $data['comment'];
         if ($comment->save()){
             if (array_key_exists('files',$data) ){
-               $upload = $this->upload($comment->id,$data['files']);
+               $upload = $this->upload($comment->id,$data['project_id'],$data['files']);
                 if($upload) {
                     return response()->json('success',200);
                 }
@@ -56,26 +57,31 @@ class CommentServiceProvider
 
     }
 
-    public function upload($comment_id,$files){
-        $comment = $this->commentModel->where('id',$comment_id)->pluck('files')->first();
-        $new_files = [];
+    public function upload($comment_id,$project_id,$files){
+//        $comment = $this->commentModel->where('id',$comment_id)->pluck('files')->first();
+//        $new_files = [];
        foreach ($files as $file){
            $path = Storage::putFile('files',$file);
-           if ($comment){
-               $new_files = json_decode($comment);
-               array_push($new_files,$path);
-           }
-           else{
-               array_push($new_files,$path);
-           }
+           $file = new File();
+           $file->comment_id = $comment_id;
+           $file->project_id = $project_id;
+           $file->file_path = $path;
+           $file->save();
+//           if ($comment){
+//               $new_files = json_decode($comment);
+//               array_push($new_files,$path);
+//           }
+//           else{
+//               array_push($new_files,$path);
+//           }
        }
-        $comment = $this->commentModel->where('id',$comment_id)->update([
-            'files' => json_encode($new_files)
-            ]);
-       if ($comment){
-           return 1;
-       }
-        return 0;
-
-    }
+//        $comment = $this->commentModel->where('id',$comment_id)->update([
+//            'files' => json_encode($new_files)
+//            ]);
+//       if ($comment){
+//           return 1;
+//       }
+//        return 0;
+//
+     }
 }
