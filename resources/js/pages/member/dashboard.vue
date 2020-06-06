@@ -8,7 +8,7 @@
                 <b-card
                         v-for="project in projects"
                         :title="project.name"
-                        style="max-width: 20rem;"
+                        style="max-width: 20rem;min-height: 100%;"
                         class="mb-2 mr-4 project-card shadow-lg p-3 mb-5 bg-white rounded"
                         @click="$router.push({ name: 'project', params: { id: project.id } })"
                 >
@@ -17,7 +17,7 @@
                           <p>for <strong>{{project.owner}}</strong></p>
                       </div>
                         <div class="row">
-                            <b-badge pill variant="success">{{project.state}}</b-badge>
+                            <b-badge pill variant="success">{{project.state.replace(/_/g,' ')}}</b-badge>
                         </div>
                     </b-card-text>
                 </b-card>
@@ -64,5 +64,11 @@
     .project-card{
         background-color: #373a44 !important;
         border-radius: 12px;
+
+    }
+    .badge-success{
+        bottom: 10%;
+        position: absolute;
+        text-transform: capitalize;
     }
 </style>

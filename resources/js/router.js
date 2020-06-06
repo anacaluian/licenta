@@ -2,7 +2,8 @@ import VueRouter from 'vue-router'// Pages
 import Register from './pages/register'
 import Login from './pages/login'
 import Project from './pages/member/project'
-import Discussions from './pages/member/discussions'
+import Discussions from './components/discussions'
+import Notes from './components/notes'// Routes
 import MemberDashboard from './pages/member/dashboard'
 import AdminDashboard from './pages/admin/dashboard'// Routes
 import AdminMembers from './pages/admin/members'// Routes
@@ -67,6 +68,11 @@ const routes = [
                 path: 'discussions',
                 name: 'project.discussions',
                 component: Discussions
+            },
+            {
+                path: 'notes',
+                name: 'project.notes',
+                component: Notes
             }
         ],
         meta: {

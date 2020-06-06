@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->integer('assignee_id')->nullable();
             $table->string('label')->nullable();
             $table->string('task_list')->default('backlog');
-            $table->date('due_on')->nullable();
+            $table->string('due_on')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -5,6 +5,9 @@
                 <router-link  :to="{ name : 'project' }">
                     Tasks
                 </router-link>
+                <router-link  :to="{ name : 'project.notes' }">
+                    Notes
+                </router-link>
                 <router-link  :to="{ name : 'project.discussions' }">
                     Discussions
                 </router-link>

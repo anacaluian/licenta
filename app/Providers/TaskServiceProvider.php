@@ -58,7 +58,8 @@ class TaskServiceProvider
 
     public function updateTask(array $data){
        $update = $this->taskModel->find($data['id'])->update([
-           'details' => $data['details']
+           'details' => $data['details'],
+           'due_on' => $data['due_on']
        ]);
        if ($update){
            return response()->json('success', 200);

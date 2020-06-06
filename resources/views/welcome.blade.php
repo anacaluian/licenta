@@ -9,7 +9,9 @@
     <script src="{{ asset('js/app.js') }}" defer></script>  <!-- Fonts -->
     <script src="{{ asset('js/laroute.js') }}" defer></script>
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">  <!-- Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet" type="text/css">  <!-- Styles -->
     <link
             rel="stylesheet"
             href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"

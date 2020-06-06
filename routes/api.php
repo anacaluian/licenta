@@ -64,6 +64,10 @@ Route::prefix('auth')->group(function () {
         Route::post('comments/create', 'CommentController@create')->name('comments.create');
         Route::post('comments/upload/{task}', 'CommentController@upload')->name('comments.upload');
 
+        Route::get('notes/{project}', 'NoteController@index')->name('notes');
+        Route::post('notes/create', 'NoteController@create')->name('notes.create');
+        Route::post('notes/update', 'NoteController@update')->name('notes.update');
+
     });
 });
 

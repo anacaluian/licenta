@@ -61,11 +61,11 @@ class CommentServiceProvider
 //        $comment = $this->commentModel->where('id',$comment_id)->pluck('files')->first();
 //        $new_files = [];
        foreach ($files as $file){
-           $path = Storage::putFile('files',$file);
+           $path = Storage::disk('public')->putFile('files',$file);
            $file = new File();
            $file->comment_id = $comment_id;
            $file->project_id = $project_id;
-           $file->file_path = $path;
+           $file->file_path = Storage::url($path);
            $file->save();
 //           if ($comment){
 //               $new_files = json_decode($comment);

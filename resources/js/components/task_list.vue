@@ -33,6 +33,7 @@
                     v-model="visible"
                     bg-variant="dark"
                     :no-header-close="true"
+                    :no-close-on-esc="true"
                     text-variant="light"
             >
                 <b-button class="shadow-lg" id="close-btn" @click="closeTaskDetails"><i class="fas fa-times"></i></b-button>
@@ -109,7 +110,8 @@
                                 <p><strong class="mr-1">
                                     {{comment.member.first_name}} {{comment.member.last_name[0]}}.
                                 </strong> {{comment.last_edit}}</p>
-                                <p v-html="comment.comment"></p>
+                                <p  v-html="comment.comment"></p>
+                                <preview v-if="comment.files.length" :files="comment.files"></preview>
                             </div>
                         </div>
                     </div>
@@ -123,13 +125,10 @@
                             <h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>
                         </div>
                         <div class="p-2">
-                            <p><strong>Assignee</strong></p>
-                            <h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>
-                        </div>
-                        <div class="p-2">
                             <p><strong>Due on</strong></p>
-                            <h5  class="task-prop">{{selectedTask.due_on}}</h5>
+                            <b-form-datepicker id="datepicker" :min="today" v-model="selectedTask.due_on" class="mb-2"></b-form-datepicker>
                         </div>
+
                     </div>
                 </div>
             </b-sidebar>
@@ -157,6 +156,8 @@
                         v-model="form.assignee"
                         :options="members"
                         required
+                        placeholder="Select a member"
+                        class="assignee-select"
                 ></b-form-select>
             </b-form-group>
             <b-form-group
@@ -182,10 +183,11 @@
         Strike,
         Underline,
     } from 'tiptap-extensions';
-
+    import preview from './image_preview'
     export default {
         components: {
             draggable,
+            preview,
             EditorContent,
             EditorMenuBar,
         },
@@ -199,23 +201,27 @@
                     label: null,
                     assignee: null,
                     project_id: this.$route.params.id
-
                 },
                 edit_description:false,
                 visible:false,
                 comment:null,
                 editor:null,
-                members: [],
+                members: [
+                    { value: null, text: 'Select a member' },
+                ],
                 lists: {},
                 project_data:'',
                 selectedTask:'',
-                taskComments:[]
+                taskComments:[],
+                today:''
             }
         },
         mounted() {
             this.getProject();
             this.getMembers();
             this.getTasks();
+            const now = new Date();
+            this.today =  new Date(now.getFullYear(), now.getMonth(), now.getDate());
             this.comment = new Editor({
                 extensions: [
                     new Bold(),
@@ -253,19 +259,14 @@
                     }
                 }).then((response) => {
 
-                    if (typeof(response.data.data) === 'object'){
-                        this.lists = response.data.data;
-                        if (this.project_data.tasks_list) {
-                            for (let name of JSON.parse(this.project_data.tasks_list)) {
-                                if (!Object.keys(this.lists).includes(name.text)) {
-                                    this.lists[name.text] = [];
-                                }
+                    this.lists = response.data.data;
+                    if (this.project_data.tasks_list) {
+                        for (let name of JSON.parse(this.project_data.tasks_list)) {
+                            if (!Object.keys(this.lists).includes(name.text)) {
+                                this.lists[name.text] = [];
                             }
                         }
-                    } else {
-                        this.lists['backlog'] = [];
-                    }
-
+                     }
                 })
                     .catch((error) => console.log(error))
             },
@@ -290,6 +291,7 @@
                 window.console.log(evt);
             },
             update(){
+                console.log('here');
                 this.axios({
                     method: 'post',
                     url: laroute.route('tasks.update', {}),
@@ -310,7 +312,7 @@
             },
             async showTaskDetails(task){
                  this.taskComments = [];
-                 this.visible = !this.visible;
+                 this.visible = true;
                 this.selectedTask = task;
                 this.editor.setContent(task.details);
               await this.getComments();
@@ -368,16 +370,6 @@
     }
 </script>
 <style scoped>
-    .outlined {
-        border-color: #67FFC8 !important;
-        color: white !important;
-    }
-
-    .outlined:hover {
-        border-color: #67FFC8 !important;
-        background-color: #67FFC8 !important;
-        color: white !important;
-    }
 
     .editor__content__comment{
         border: 1px solid #67FFC8 ;
@@ -404,6 +396,13 @@
         background-color: #454d55;
         color: white;
     }
+
+    .custom-select{
+        background-color: #454d55;
+        border-color: #67FFC8 !important;
+        color: #67FFC8;
+    }
+
 
     .custom >>> legend {
         color: #67FFC8 !important;
@@ -463,7 +462,7 @@
     .card-body {
         padding-left: 0;
         padding-right: 0;
-        padding-bottom: 0;
+        padding-bottom: 30% !important;
     }
 
     .card-title {
@@ -485,11 +484,11 @@
     }
 
     .card {
-        border-radius: 10px;
-        padding: 10px;
-        background-color: #373a44;
-        height: fit-content;
-    }
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #373a44;
+            height: fit-content;
+        }
 
     .list-group {
         border-radius: 0;
@@ -499,8 +498,15 @@
         background-color: #373a44;
         color: #CFCFD0;
     }
+    .el-icon-zoom-out:after {
+        font-family: FontAwesome !important;
+        content: "\f010";
+    }
 </style>
 <style>
+    .col-form-label{
+        color: #67FFC8 !important;
+    }
     #task-preview{
         border-top-left-radius: 10px !important;
         border-bottom-left-radius: 10px !important;
@@ -516,4 +522,30 @@
     #close-btn > i:hover{
         transform: rotate(30deg);
     }
+
+    .outlined {
+        border-color: #67FFC8 !important;
+        color: white !important;
+    }
+
+    .outlined:hover {
+        border-color: #67FFC8 !important;
+        background-color: #67FFC8 !important;
+        color: white !important;
+    }
+    .el-image-viewer__close{
+        right:97% !important;
+    }
+    #datepicker__outer_{
+        background-color: #343a40;
+        border-color: #67FFC8;
+    }
+    #datepicker{
+        color: #67FFC8;
+    }
+    #datepicker__value_{
+        color: #67FFC8;
+        border-color: transparent;
+    }
+
 </style>
