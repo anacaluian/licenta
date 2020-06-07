@@ -68,6 +68,10 @@ Route::prefix('auth')->group(function () {
         Route::post('notes/create', 'NoteController@create')->name('notes.create');
         Route::post('notes/update', 'NoteController@update')->name('notes.update');
 
+        Route::get('files/{project}', 'FileController@index')->name('files');
+        Route::get('files/download/{file}', 'FileController@download')->name('files.download');
+        Route::post('files/create', 'FileController@create')->name('files.create');
+
     });
 });
 

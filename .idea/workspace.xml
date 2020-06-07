@@ -6,21 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c5bbd945-b557-49e3-8147-7b86e2a97075" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/File.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/File.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/CommentServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/CommentServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/TaskServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TaskServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_03_142542_create_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_03_142542_create_tasks_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_04_232141_create_files_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_04_232141_create_files_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/laroute.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/laroute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/notes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/notes.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/task_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/member/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/member/dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/member/discussions.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/discussions.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/member/project.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/member/project.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,55 +46,41 @@
       <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            <state relative-caret-position="563">
+              <caret line="71" column="40" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/member/project.vue">
+      <file leaf-file-name="time.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/time.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="46" column="7" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="7" />
+            <state relative-caret-position="345">
+              <caret line="63" column="26" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/member/dashboard.vue">
+      <file leaf-file-name="FileServiceProvider.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Providers/FileServiceProvider.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+            <state relative-caret-position="368">
+              <caret line="16" column="5" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="16" selection-end-column="5" />
               <folding>
-                <element signature="n#style#0;n#b-card#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#33#46#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
-              <folding>
-                <element signature="e#43#82#0" expanded="true" />
-                <element signature="e#270#324#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="task_list.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="task_list.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/task_list.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="465" column="5" lean-forward="true" selection-start-line="465" selection-start-column="5" selection-end-line="465" selection-end-column="5" />
+            <state relative-caret-position="212">
+              <caret line="129" column="62" selection-start-line="129" selection-start-column="47" selection-end-line="129" selection-end-column="62" />
               <folding>
                 <element signature="n#style#0;n#b-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#label#0;n#div#0;n#editor-menu-bar#0;n#div#1;n#div#0;n#div#0;n#b-sidebar#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="e#8235#8271#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,44 +89,17 @@
       <file leaf-file-name="notes.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/notes.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#b-card#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="239">
+              <caret line="123" column="7" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NoteServiceProvider.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Providers/NoteServiceProvider.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
-              <folding>
-                <element signature="e#33#46#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NoteController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/NoteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="47" column="36" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
-              <folding>
-                <element signature="e#40#78#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TaskServiceProvider.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Providers/TaskServiceProvider.php">
+      <file leaf-file-name="CommentServiceProvider.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Providers/CommentServiceProvider.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1426">
-              <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+              <caret line="67" column="44" selection-start-line="67" selection-start-column="44" selection-end-line="67" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -155,36 +108,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>icons</find>
-      <find>lists</find>
-      <find>child</find>
-      <find>add-project</find>
-      <find>last_e</find>
-      <find>visible</find>
-      <find>note</find>
-      <find>note-preview</find>
-      <find>closeTaskDetails</find>
-      <find>outlined</find>
-      <find>task-content</find>
-      <find>add-notes</find>
-      <find>note-content</find>
-      <find>title</find>
-      <find>nullable</find>
-      <find>editor</find>
-      <find>v-html</find>
-      <find>sidebar</find>
-      <find>due</find>
-      <find>update</find>
-      <find>selectedNote</find>
-      <find>change</find>
-      <find>assignee</find>
-      <find>members</find>
-      <find>ca</find>
-      <find>font-family: element-icons</find>
-      <find>font-family: element-icons !important</find>
       <find>capi</find>
-      <find>font-family: element-icons</find>
       <find>card-text</find>
+      <find>update</find>
+      <find>treese</find>
+      <find>close</find>
+      <find>card</find>
+      <find>30%</find>
+      <find>30</find>
+      <find>assignee</find>
+      <find>text-</find>
+      <find>sidebar</find>
+      <find>sidebar-content</find>
+      <find>task-content</find>
+      <find>tas</find>
+      <find>label</find>
+      <find>add-notes</find>
+      <find>formda</find>
+      <find>orderb</find>
+      <find>orderby</find>
+      <find>v-slot</find>
+      <find>custom-select</find>
+      <find>custom</find>
+      <find>input</find>
+      <find>getTask</find>
+      <find>treeselect</find>
+      <find>index</find>
+      <find>members</find>
+      <find>picker</find>
+      <find>description</find>
+      <find>datepicker</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -193,16 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/database/migrations/2020_06_02_143735_add_phone_to_users.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
-        <option value="$PROJECT_DIR$/resources/js/pages/admin/clients.vue" />
-        <option value="$PROJECT_DIR$/app/Providers/UserServiceProvider.php" />
-        <option value="$PROJECT_DIR$/resources/js/pages/client/project.vue" />
-        <option value="$PROJECT_DIR$/resources/js/pages/admin/members.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/navbar.vue" />
-        <option value="$PROJECT_DIR$/resources/js/pages/member/discussions.vue" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_06_02_215758_add_tasks_list_to_users.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_06_02_215758_add_tasks_list_to_projects.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_06_01_195338_create_projects_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_06_03_093429_create_members_to_projects_table.php" />
@@ -219,31 +162,41 @@
         <option value="$PROJECT_DIR$/app/Task.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_06_04_232141_create_files_table.php" />
-        <option value="$PROJECT_DIR$/app/File.php" />
         <option value="$PROJECT_DIR$/app/Comment.php" />
         <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
         <option value="$PROJECT_DIR$/config/filesystems.php" />
-        <option value="$PROJECT_DIR$/app/Providers/CommentServiceProvider.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/node_modules/@mrhanson/vue-file-preview/release/file-preview.common.js" />
         <option value="$PROJECT_DIR$/node_modules/@mrhanson/vue-file-preview/release/file-preview.umd.js" />
         <option value="$PROJECT_DIR$/resources/js/components/image_preview.vue" />
         <option value="$PROJECT_DIR$/public/.htaccess" />
         <option value="$PROJECT_DIR$/database/migrations/2020_06_03_142542_create_tasks_table.php" />
-        <option value="$PROJECT_DIR$/resources/js/router.js" />
-        <option value="$PROJECT_DIR$/resources/js/pages/member/project.vue" />
         <option value="$PROJECT_DIR$/app/Note.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_06_06_175513_create_notes_table.php" />
         <option value="$PROJECT_DIR$/app/MemberToProject.php" />
         <option value="$PROJECT_DIR$/resources/js/pages/member/notes.vue" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/NoteController.php" />
         <option value="$PROJECT_DIR$/app/Providers/NoteServiceProvider.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/notes.vue" />
         <option value="$PROJECT_DIR$/app/Providers/TaskServiceProvider.php" />
         <option value="$PROJECT_DIR$/resources/js/pages/member/dashboard.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/task_list.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/notes.vue" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_06_07_155127_add_owner_to_files_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_06_04_232141_create_files_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_06_07_173959_add_file_name_to_files_table.php" />
+        <option value="$PROJECT_DIR$/app/File.php" />
+        <option value="$PROJECT_DIR$/app/Providers/CommentServiceProvider.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Providers/FileServiceProvider.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/files.vue" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/FileController.php" />
+        <option value="$PROJECT_DIR$/resources/js/pages/member/project.vue" />
+        <option value="$PROJECT_DIR$/resources/js/router.js" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_06_07_210246_create_times_table.php" />
+        <option value="$PROJECT_DIR$/app/Time.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TimeController.php" />
+        <option value="$PROJECT_DIR$/app/Providers/TimeServiceProvider.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/time.vue" />
       </list>
     </option>
   </component>
@@ -368,7 +321,7 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="-205" />
     <option name="y" value="-8" />
     <option name="width" value="1863" />
     <option name="height" value="1096" />
@@ -378,7 +331,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -420,50 +372,6 @@
               <item name="licenta" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
               <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licenta" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licenta" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@mrhanson" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licenta" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@mrhanson" type="462c0819:PsiDirectoryNode" />
-              <item name="vue-file-preview" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licenta" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@mrhanson" type="462c0819:PsiDirectoryNode" />
-              <item name="vue-file-preview" type="462c0819:PsiDirectoryNode" />
-              <item name="release" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licenta" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@mrhanson" type="462c0819:PsiDirectoryNode" />
-              <item name="vue-file-preview" type="462c0819:PsiDirectoryNode" />
-              <item name="release" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licenta" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@mrhanson" type="462c0819:PsiDirectoryNode" />
-              <item name="vue-file-preview" type="462c0819:PsiDirectoryNode" />
-              <item name="release" type="462c0819:PsiDirectoryNode" />
-              <item name="file-preview.umd.js" type="620a8d5e:NestingTreeNode" />
             </path>
             <path>
               <item name="licenta" type="b2602c69:ProjectViewProjectNode" />
@@ -528,10 +436,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="api&#9;FILE&#9;file://D:/Licenta2.0/licenta/routes/api.php&#10;navbar&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;routes&#9;null&#9;null&#10;welco&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;welcom&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;pROJ&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Project.php&#10;pr&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Project.php&#10;index&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/index.vue&#10;nav&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;login&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/login.vue&#10;auth&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/auth.js&#10;registe&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Mail/Register.php&#10;Register&#9;null&#9;null&#10;navb&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;das&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/admin/dashboard.vue&#10;route&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/router.js&#10;app.js&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/app.js&#10;kernel&#9;null&#9;null&#10;welc&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;welo&#9;null&#9;null&#10;app.&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/app.js&#10;app&#9;FILE&#9;file://D:/Licenta2.0/licenta/routes/api.php&#10;navba&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;na&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;inde&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/index.vue" />
+    <property name="SearchEverywhereHistoryKey" value="api&#9;FILE&#9;file://D:/Licenta2.0/licenta/routes/api.php&#10;app&#9;FILE&#9;file://D:/Licenta2.0/licenta/public/js/app.js&#10;navbar&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;routes&#9;null&#9;null&#10;welco&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;welcom&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;pROJ&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Project.php&#10;pr&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Project.php&#10;index&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/index.vue&#10;nav&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;login&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/login.vue&#10;auth&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/auth.js&#10;registe&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Mail/Register.php&#10;Register&#9;null&#9;null&#10;navb&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;das&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/admin/dashboard.vue&#10;route&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/router.js&#10;app.js&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/app.js&#10;kernel&#9;null&#9;null&#10;welc&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;welo&#9;null&#9;null&#10;app.&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/app.js&#10;navba&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;na&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;inde&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/index.vue" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -579,12 +488,13 @@
       <workItem from="1591266829124" duration="42389000" />
       <workItem from="1591351289674" duration="8345000" />
       <workItem from="1591453582620" duration="565000" />
-      <workItem from="1591457510910" duration="22998000" />
+      <workItem from="1591457510910" duration="23170000" />
+      <workItem from="1591540892949" duration="20631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206368000" />
+    <option name="totallyTimeSpent" value="227171000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1863" height="1096" extended-state="6" />
@@ -597,14 +507,14 @@
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.25154004" />
-      <window_info anchor="bottom" id="TypeScript" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2778702" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.281198" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32979852" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TypeScript" order="12" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -625,115 +535,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="58" column="30" lean-forward="true" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_04_110534_add_description_to_tasks_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/icon.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1518">
-          <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-207" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_03_203759_create_comments_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/app/files/m9aZm7YevvgONnQPASsLQfyq5Yn1exs2gzRoL8KG.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_04_232141_create_files_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/File.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="22" column="60" lean-forward="true" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="129" selection-start-line="13" selection-start-column="129" selection-end-line="13" selection-end-column="129" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CommentController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-          <folding>
-            <element signature="e#40#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/filesystems.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="249" column="1734243" lean-forward="true" selection-start-line="249" selection-start-column="1734228" selection-end-line="249" selection-end-column="1734243" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@mrhanson/vue-file-preview/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -806,26 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Task.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="e#23#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Controller.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/pages/admin/dashboard.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="341" column="5" selection-start-line="338" selection-start-column="4" selection-end-line="341" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_06_175513_create_notes_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -838,11 +619,6 @@
         <state relative-caret-position="69">
           <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="46" selection-end-column="43" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/EventServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-50" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/MemberToProject.php">
@@ -859,97 +635,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Note.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="26" />
-          <folding>
-            <element signature="e#23#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/navbar.vue">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/CommentServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="33" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/NoteServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#33#46#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/NoteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="47" column="36" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
-          <folding>
-            <element signature="e#40#78#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/TaskServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1426">
-          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/notes.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#b-card#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
-          <folding>
-            <element signature="e#43#82#0" expanded="true" />
-            <element signature="e#270#324#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/pages/member/project.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="46" column="7" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/pages/member/dashboard.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
-          <folding>
-            <element signature="n#style#0;n#b-card#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@mrhanson/vue-file-preview/release/file-preview.common.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -969,21 +656,259 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
           <caret line="6" column="486170" selection-start-line="6" selection-start-column="486170" selection-end-line="6" selection-end-column="486170" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/pages/member/dashboard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="249" column="1734243" selection-start-line="249" selection-start-column="1734228" selection-end-line="249" selection-end-column="1734243" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="45" column="25" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="25" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Controller.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CommentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="15" selection-end-column="5" />
+          <folding>
+            <element signature="e#40#81#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/EventServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-188" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_04_232141_create_files_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/NoteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="36" column="9" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="36" selection-end-column="9" />
+          <folding>
+            <element signature="e#40#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/UserServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1932" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Note.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/NoteServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="32" column="16" lean-forward="true" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+          <folding>
+            <element signature="e#33#46#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_07_155127_add_owner_to_files_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="29" column="11" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="29" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_07_173959_add_file_name_to_files_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="31" column="11" lean-forward="true" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/TaskServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="46" column="44" lean-forward="true" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/pages/admin/dashboard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="11" column="32" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+          <folding>
+            <element signature="e#43#82#0" expanded="true" />
+            <element signature="e#309#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/pages/member/project.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="57" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/files.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1817">
+          <caret line="79" column="40" selection-start-line="79" selection-start-column="40" selection-end-line="79" selection-end-column="40" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#label#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="71" column="40" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_07_210246_create_times_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="28" column="7" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Time.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding>
+            <element signature="e#23#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/FileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="e#40#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Task.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="6" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="13" selection-end-column="6" />
+          <folding>
+            <element signature="e#23#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TimeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="e#40#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/FileServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="e#33#46#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/TimeServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="e#33#46#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/task_list.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="465" column="5" lean-forward="true" selection-start-line="465" selection-start-column="5" selection-end-line="465" selection-end-column="5" />
+        <state relative-caret-position="212">
+          <caret line="129" column="62" selection-start-line="129" selection-start-column="47" selection-end-line="129" selection-end-column="62" />
           <folding>
             <element signature="n#style#0;n#b-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#label#0;n#div#0;n#editor-menu-bar#0;n#div#1;n#div#0;n#div#0;n#b-sidebar#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#8235#8271#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/CommentServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1426">
+          <caret line="67" column="44" selection-start-line="67" selection-start-column="44" selection-end-line="67" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/notes.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="123" column="7" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/time.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="63" column="26" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
         </state>
       </provider>
     </entry>

@@ -47,7 +47,7 @@ class CommentServiceProvider
         $comment->comment = $data['comment'];
         if ($comment->save()){
             if (array_key_exists('files',$data) ){
-               $upload = $this->upload($comment->id,$data['project_id'],$data['files']);
+               $upload = $this->upload($comment->id,$data['user_id'],$data['project_id'],$data['files']);
                 if($upload) {
                     return response()->json('success',200);
                 }
@@ -57,31 +57,19 @@ class CommentServiceProvider
 
     }
 
-    public function upload($comment_id,$project_id,$files){
-//        $comment = $this->commentModel->where('id',$comment_id)->pluck('files')->first();
-//        $new_files = [];
-       foreach ($files as $file){
-           $path = Storage::disk('public')->putFile('files',$file);
-           $file = new File();
-           $file->comment_id = $comment_id;
-           $file->project_id = $project_id;
-           $file->file_path = Storage::url($path);
-           $file->save();
-//           if ($comment){
-//               $new_files = json_decode($comment);
-//               array_push($new_files,$path);
-//           }
-//           else{
-//               array_push($new_files,$path);
-//           }
-       }
-//        $comment = $this->commentModel->where('id',$comment_id)->update([
-//            'files' => json_encode($new_files)
-//            ]);
-//       if ($comment){
-//           return 1;
-//       }
-//        return 0;
-//
-     }
+    public function upload($comment_id,$owner,$project_id,$files)
+    {
+        foreach ($files as $file) {
+            $file_name = $file->getClientOriginalName();
+            $path = Storage::disk('public')->putFile('files', $file);
+            $file = new File();
+            $file->owner = $owner;
+            $file->comment_id = $comment_id;
+            $file->project_id = $project_id;
+            $file->file_name = $file_name;
+            $file->file_path = Storage::url($path);
+            $file->save();
+
+        }
+    }
 }

@@ -123,6 +123,9 @@
     }
 </script>
 <style scoped>
+    .card-body{
+        margin-bottom: 15%;
+    }
     .add-notes {
         border-radius: 16px;
         background-color: #67FFC8 !important;

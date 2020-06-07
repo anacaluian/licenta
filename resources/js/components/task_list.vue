@@ -34,7 +34,6 @@
                     bg-variant="dark"
                     :no-header-close="true"
                     :no-close-on-esc="true"
-                    text-variant="light"
             >
                 <b-button class="shadow-lg" id="close-btn" @click="closeTaskDetails"><i class="fas fa-times"></i></b-button>
                 <div class="sidebar-content">
@@ -122,13 +121,14 @@
                         </div>
                         <div class="p-2">
                             <p><strong>Assignee</strong></p>
-                            <h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>
+                            <treeselect  class="assignee-select"  placeholder="Select a member" v-model="selectedTask.assignee_id" :multiple="false" :options="members" />
+
+                            <!--<h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>-->
                         </div>
                         <div class="p-2">
                             <p><strong>Due on</strong></p>
                             <b-form-datepicker id="datepicker" :min="today" v-model="selectedTask.due_on" class="mb-2"></b-form-datepicker>
                         </div>
-
                     </div>
                 </div>
             </b-sidebar>
@@ -152,13 +152,13 @@
             </b-form-group>
             <b-form-group
                     label="Assignee:">
-                <b-form-select
-                        v-model="form.assignee"
-                        :options="members"
-                        required
-                        placeholder="Select a member"
-                        class="assignee-select"
-                ></b-form-select>
+                <treeselect  class="assignee-select"  placeholder="Select a member" v-model="form.assignee" :multiple="false" :options="members" />
+                <!--<b-form-select-->
+                        <!--v-model="form.assignee"-->
+                        <!--:options="members"-->
+                        <!--required-->
+                        <!--class="assignee-select"-->
+                <!--&gt;</b-form-select>-->
             </b-form-group>
             <b-form-group
                     class="custom"
@@ -206,9 +206,7 @@
                 visible:false,
                 comment:null,
                 editor:null,
-                members: [
-                    { value: null, text: 'Select a member' },
-                ],
+                members: [],
                 lists: {},
                 project_data:'',
                 selectedTask:'',
@@ -280,8 +278,8 @@
                 }).then((response) => {
                     for (let member of response.data.data) {
                         this.members.push({
-                            value: member.member.id,
-                            text: member.member.first_name + ' ' + member.member.last_name
+                            id: member.member.id,
+                            label: member.member.first_name + ' ' + member.member.last_name
                         })
                     }
                 })
@@ -291,7 +289,6 @@
                 window.console.log(evt);
             },
             update(){
-                console.log('here');
                 this.axios({
                     method: 'post',
                     url: laroute.route('tasks.update', {}),
@@ -331,7 +328,8 @@
                     data: this.selectedTask
                 }).then((response) => {
                 })
-                    .catch((error) => console.log(error))            },
+                    .catch((error) => console.log(error))
+            },
             getComments(){
                  this.axios({
                     method: 'get',
@@ -371,6 +369,9 @@
 </script>
 <style scoped>
 
+    strong{
+        color: #CFCFD0;
+    }
     .editor__content__comment{
         border: 1px solid #67FFC8 ;
         border-radius: 10px;
@@ -428,7 +429,7 @@
         left: 51.5%;
         width: 32%;
         height: 92%;
-
+        color: #CFCFD0;
     }
     .task-prop{
         text-transform: capitalize;
@@ -462,7 +463,6 @@
     .card-body {
         padding-left: 0;
         padding-right: 0;
-        padding-bottom: 30% !important;
     }
 
     .card-title {
@@ -502,11 +502,21 @@
         font-family: FontAwesome !important;
         content: "\f010";
     }
-</style>
-<style>
     .col-form-label{
         color: #67FFC8 !important;
     }
+</style>
+<style>
+    .vue-treeselect__control{
+        background: #373a44 !important;
+        border-color:#67FFC8 !important; ;
+        color:#67FFC8 !important;
+    }
+
+    .vue-treeselect__single-value{
+        color:#67FFC8 !important;
+    }
+
     #task-preview{
         border-top-left-radius: 10px !important;
         border-bottom-left-radius: 10px !important;

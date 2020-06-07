@@ -4,6 +4,8 @@ import Login from './pages/login'
 import Project from './pages/member/project'
 import Discussions from './components/discussions'
 import Notes from './components/notes'// Routes
+import Files from './components/files'// Routes
+import Time from './components/time'// Routes
 import MemberDashboard from './pages/member/dashboard'
 import AdminDashboard from './pages/admin/dashboard'// Routes
 import AdminMembers from './pages/admin/members'// Routes
@@ -73,7 +75,17 @@ const routes = [
                 path: 'notes',
                 name: 'project.notes',
                 component: Notes
-            }
+            },
+            {
+                path: 'files',
+                name: 'project.files',
+                component: Files
+            },
+            {
+                path: 'time',
+                name: 'project.time',
+                component: Time
+            },
         ],
         meta: {
             auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}

@@ -8,8 +8,11 @@
                 <router-link  :to="{ name : 'project.notes' }">
                     Notes
                 </router-link>
-                <router-link  :to="{ name : 'project.discussions' }">
-                    Discussions
+                <router-link  :to="{ name : 'project.files' }">
+                    Files
+                </router-link>
+                <router-link  :to="{ name : 'project.time' }">
+                    Time
                 </router-link>
             </div>
             <hr>
