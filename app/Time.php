@@ -12,4 +12,8 @@ class Time extends Model
     protected $fillable = [
         'time','project_id','task_id','description', 'member_id','date'
     ];
+
+    public function task(){
+        return $this->belongsTo('App\Task','task_id','id');
+    }
 }

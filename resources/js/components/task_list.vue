@@ -153,12 +153,6 @@
             <b-form-group
                     label="Assignee:">
                 <treeselect  class="assignee-select"  placeholder="Select a member" v-model="form.assignee" :multiple="false" :options="members" />
-                <!--<b-form-select-->
-                        <!--v-model="form.assignee"-->
-                        <!--:options="members"-->
-                        <!--required-->
-                        <!--class="assignee-select"-->
-                <!--&gt;</b-form-select>-->
             </b-form-group>
             <b-form-group
                     class="custom"

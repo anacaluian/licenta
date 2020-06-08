@@ -6,6 +6,7 @@ import Discussions from './components/discussions'
 import Notes from './components/notes'// Routes
 import Files from './components/files'// Routes
 import Time from './components/time'// Routes
+import Profile from './components/profile.vue'// Routes
 import MemberDashboard from './pages/member/dashboard'
 import AdminDashboard from './pages/admin/dashboard'// Routes
 import AdminMembers from './pages/admin/members'// Routes
@@ -26,6 +27,14 @@ const routes = [
         name: 'forgot.password',
         component: ForgotPassword,
         meta: {
+        }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
+        meta: {
+            auth: true
         }
     },
     // ADMIN ROUTES
@@ -91,7 +100,7 @@ const routes = [
             auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
         }
     },
-    // MEMBER ROUTES
+    // CLIENT ROUTES
     {
         path: '/dashboard',
         name: 'client.dashboard',

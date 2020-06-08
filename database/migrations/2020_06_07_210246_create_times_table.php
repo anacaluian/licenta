@@ -19,7 +19,7 @@ class CreateTimesTable extends Migration
             $table->integer('project_id');
             $table->string('time',0);
             $table->string('date');
-            $table->integer('task_id');
+            $table->integer('task_id')->default(0);
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

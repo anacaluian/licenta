@@ -72,6 +72,9 @@ Route::prefix('auth')->group(function () {
         Route::get('files/download/{file}', 'FileController@download')->name('files.download');
         Route::post('files/create', 'FileController@create')->name('files.create');
 
+        Route::get('times/{project}/{member}', 'TimeController@index')->name('times');
+        Route::post('times/create', 'TimeController@create')->name('times.create');
+
     });
 });
 

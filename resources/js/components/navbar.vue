@@ -15,30 +15,26 @@
             <b-collapse id="nav-collapse" is-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
+                    <b-avatar variant="primary" v-if="$auth.check()" :text="$auth.user().first_name[0].toUpperCase()+$auth.user().last_name[0].toUpperCase()"></b-avatar>
                     <b-nav-item-dropdown v-if="$auth.check()" :text="'Hello, ' + $auth.user().first_name" right>
-                        <b-dropdown-item v-if="$auth.check(1)" v-for="(route, key) in routes.admin" v-bind:key="route.path">
-                            <router-link class="user" :to="{ name : route.path }" :key="key">
-                                {{route.name}}
-                            </router-link>
-                        </b-dropdown-item>
-                        <b-dropdown-item v-if="$auth.check(2)" v-for="(route, key) in routes.member" v-bind:key="route.path">
-                            <router-link class="user" :to="{ name : route.path }" :key="key">
-                                {{route.name}}
-                            </router-link>
-                        </b-dropdown-item>
-                        <b-dropdown-item class="user" v-if="$auth.check(3)" v-for="(route, key) in routes.client" v-bind:key="route.path">
-                            <router-link :to="{ name : route.path }" :key="key">
-                                {{route.name}}
-                            </router-link>
-                        </b-dropdown-item>
-                        <b-dropdown-item  v-if="$auth.check(2)" v-for="(route, key) in routes.member_profile" v-bind:key="route.path">
-                            <router-link class="user" :to="{ name : route.path }" :key="key">
-                                {{route.name}}
-                            </router-link>
-                        </b-dropdown-item>
-                        <b-dropdown-item  v-if="$auth.check(3)" v-for="(route, key) in routes.client_profile" v-bind:key="route.path">
-                            <router-link  class="user" :to="{ name : route.path }" :key="key">
-                                {{route.name}}
+                        <!--<b-dropdown-item v-if="$auth.check(1)" v-for="(route, key) in routes.admin" v-bind:key="route.path">-->
+                            <!--<router-link class="user" :to="{ name : route.path }" :key="key">-->
+                                <!--{{route.name}}-->
+                            <!--</router-link>-->
+                        <!--</b-dropdown-item>-->
+                        <!--<b-dropdown-item v-if="$auth.check(2)" v-for="(route, key) in routes.member" v-bind:key="route.path">-->
+                            <!--<router-link class="user" :to="{ name : route.path }" :key="key">-->
+                                <!--{{route.name}}-->
+                            <!--</router-link>-->
+                        <!--</b-dropdown-item>-->
+                        <!--<b-dropdown-item class="user" v-if="$auth.check(3)" v-for="(route, key) in routes.client" v-bind:key="route.path">-->
+                            <!--<router-link :to="{ name : route.path }" :key="key">-->
+                                <!--{{route.name}}-->
+                            <!--</router-link>-->
+                        <!--</b-dropdown-item>-->
+                        <b-dropdown-item v-if="!$auth.check(1)">
+                            <router-link   :to="{ path : '/profile' }">
+                                Profile
                             </router-link>
                         </b-dropdown-item>
                         <b-dropdown-item v-if="$auth.check()">
@@ -89,18 +85,11 @@
                             path: 'home'
                         }
                     ],
-                    // member_profile:[
-                    //     {
-                    //         name:'My Profile',
-                    //         path:'member.profile'
-                    //     }
-                    // ],
-                    // client_profile:[
-                    //     {
-                    //         name:'My Profile',
-                    //         path:'home'
-                    //     }
-                    // ],
+                    profile:{
+                        name: 'profile',
+                        path: 'profile'
+                    }
+
                 }
             }
         },
@@ -145,7 +134,10 @@
     }
 </style>
 <style>
-
+    a{
+        color: black;
+        text-decoration: none !important;
+    }
     .v-sidebar-menu{
         top:unset !important;
     }

@@ -31,7 +31,9 @@ class TaskServiceProvider
         $task = new Task();
         $task->name = $data['name'];
         $task->project_id = $data['project_id'];
-        $task->assignee_id = $data['assignee'];
+        if (array_key_exists('assignee',$data) && $data['assignee']){
+            $task->assignee_id = $data['assignee'];
+        }
         if ($task->save()){
             return response()->json('success', 200);
         }

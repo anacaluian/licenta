@@ -30,26 +30,120 @@
 
             </b-form-group>
         </b-modal>
+        <div class="mt-4">
+            <gantt-elastic :tasks="tasks_list" :options="options"></gantt-elastic>
+            <!--<GSTC :config="config" @state="onState" />-->
+        </div>
     </div>
 
 </template>
 <script>
+    import GSTC from "vue-gantt-schedule-timeline-calendar";
+    import Header from "gantt-elastic-header";
+    import GanttElastic from "gantt-elastic";
     export default {
-        data(){
-            return{
-                form:{
-                    time:'',
-                    description:'',
-                    task:null,
-                    date:null
-                },
-                tasks:[]
-            }
+        components: {
+            GSTC,
+            Header: {template:`<span>your header</span>`}, // or Header
+            GanttElastic,
+            ganttElasticFooter: {template:`<span>your footer</span>`},
         },
+        data() {
+            return {
+                tasks_list: [],
+                options: {
+                    maxRows: 100,
+                    maxHeight: 300,
+                    title: {
+                        label: 'Your project title as html (link or whatever...)',
+                        html: false
+                    },
+                    row: {
+                        height: 24
+                    },
+                    calendar: {
+                        hour: {
+                            display: false
+                        }
+                    },
+                    chart: {
+                        progress: {
+                            bar: false
+                        },
+                        expander: {
+                            display: true
+                        }
+                    },
+                    taskList: {
+                        expander: {
+                            straight: false
+                        },
+                        columns: [
+                            {
+                                id: 0,
+                                label: '',
+                                value: 'task',
+                                width: 100,
+                                style: {
+                                    'task-list-header-label': {
+                                        'text-align': 'center',
+                                        width: '100%',
+                                    },
+                                    'task-list-item-value-container': {
+                                        'text-align': 'center',
+                                        width: '100%'
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+
+
+                    form: {
+                        time: '',
+                        description: '',
+                        task: null,
+                        date: null,
+                        project_id: this.$route.params.id,
+                        member_id: this.$auth.user().id
+                    },
+                    tasks: [],
+
+                }
+            },
         mounted(){
             this.getTasks();
+            this.getTimes();
         },
+
         methods:{
+            onState(state) {
+                this.state = this.config;
+            },
+            getTimes(state){
+                this.axios({
+                    method: 'get',
+                    url: laroute.route('times', {project:this.$route.params.id,
+                    member:this.$auth.user().id}),
+
+                }).then((response) => {
+                    let records = response.data.data;
+                    this.tasks_list = [];
+                    for (let item of records){
+                        this.tasks_list.push({
+                            id: item.id,
+                            label: item.time,
+                            start: item.date,
+                            duration:   parseInt(item.time[0] )* 60 * 60 * 1000,
+                            task: item.task_id > 0 ? item.task.name : 'Project',
+                            type: 'project',
+                        })
+                    }
+
+                })
+                    .catch((error) => console.log(error))
+            },
             getTasks() {
                 this.axios({
                     method: 'post',
@@ -72,7 +166,14 @@
                     .catch((error) => console.log(error))
             },
             addTime(){
-                console.log('here')
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('times.create', {}),
+                    data:this.form
+                }).then((response) => {
+                    this.getTimes();
+                })
+                    .catch((error) => console.log(error))
             }
         }
     }
@@ -97,4 +198,59 @@ input:focus,textarea:focus {
 .custom >>> legend {
     color: #67FFC8 !important;
 }
+</style>
+<style>
+    .gantt-elastic__main-view{
+        background: #2c2e38 !important;
+        color: white !important;
+    }
+    .gantt-elastic__main-container-wrapper{
+        border-color:white !important;
+        color: white !important;
+    }
+    .gantt-elastic__chart-row-bar-polygon.gantt-elastic__chart-row-project-polygon{
+        stroke:#67FFC8 !important;
+        fill:#67FFC8 !important;
+    }
+    .gantt-elastic__chart-row-text{
+        background:#67FFC8 !important;
+    }
+    .gantt-elastic__chart-days-highlight-rect{
+        fill:#373a44 !important;
+        color: white !important;
+    }
+    .gantt-elastic__task-list-header-column{
+        background:#2c2e38 !important;
+        color: white !important;
+    }
+    .gantt-elastic__calendar-row-rect.gantt-elastic__calendar-row-rect--month{
+        background:#2c2e38 !important;
+        color: white !important;
+    }
+    .gantt-elastic__calendar-row-text.gantt-elastic__calendar-row-text--month{
+        color: white !important;
+    }
+    .gantt-elastic__task-list-item-value{
+        background:#2c2e38 !important;
+        color: white !important;
+    }
+    .gantt-elastic__calendar-row-rect.gantt-elastic__calendar-row-rect--day{
+        background:#2c2e38 !important;
+        color: white !important;
+    }
+    .gantt-elastic__calendar-row-text.gantt-elastic__calendar-row-text--day{
+        color: white !important;
+    }
+    .gantt-elastic__chart-days-highlight-rect{
+        fill:#2c2e38 !important;
+    }
+    .gantt-elastic__grid-line-vertical{
+        stroke:white !important;
+    }
+    .gantt-elastic__grid-line-horizontal{
+        stroke:white !important;
+    }
+    .gantt-elastic__grid-line-time{
+        stroke:transparent !important;
+    }
 </style>

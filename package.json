@@ -33,9 +33,12 @@
         "bootstrap-vue": "^2.15.0",
         "buefy": "^0.8.20",
         "es6-promise": "^4.2.8",
+        "gantt-elastic": "^1.0.11",
+        "gantt-elastic-header": "^0.1.11",
         "tiptap": "^1.27.1",
         "tiptap-extensions": "^1.29.1",
         "vue-axios": "^2.1.5",
+        "vue-gantt-schedule-timeline-calendar": "^1.0.33",
         "vue-router": "^3.3.2",
         "vuedraggable": "^2.23.2"
     }
