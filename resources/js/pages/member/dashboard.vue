@@ -38,10 +38,7 @@
         getProjects(){
             this.axios({
                 method: 'get',
-                url: laroute.route('projects', {}),
-                params:{
-                    member:this.$auth.user().id
-                }
+                url: laroute.route('projects', { member:this.$auth.user().id, role:this.$auth.user().roles}),
             }).then((response) => {
                this.projects = response.data.data;
             })

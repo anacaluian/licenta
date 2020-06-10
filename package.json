@@ -40,6 +40,7 @@
         "vue-axios": "^2.1.5",
         "vue-gantt-schedule-timeline-calendar": "^1.0.33",
         "vue-router": "^3.3.2",
+        "vue2-datepicker": "^3.6.0",
         "vuedraggable": "^2.23.2"
     }
 }

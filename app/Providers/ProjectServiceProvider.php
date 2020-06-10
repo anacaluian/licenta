@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\ClientToProject;
 use App\MemberToProject;
 use App\Project;
 use Illuminate\Http\Request;
@@ -19,15 +20,27 @@ class ProjectServiceProvider
 
     public function index(array $filters){
         $projects =  $this->projectModel->newQuery();
-
-        if (!empty($filters['member']))
+        if (!empty($filters['member'] ))
         {
+            $projects->where('state' ,'!=' ,'completed');
             $member_id = $filters['member'];
-            $projects = $projects->whereHas('members',function (Builder $query) use ($member_id){
-                $query->where('member_id', '=', $member_id);
-            })->with('members')->get();
+            if ($filters['role'] == 2){
+                $projects = $projects->whereHas('members',function (Builder $query) use ($member_id){
+                    $query->where('member_id', '=', $member_id);
+                })->with('members_project')
+                    ->with('clients_project')
+                    ->get();
+            }
+            if ($filters['role'] == 3){
+                $projects = $projects->whereHas('clients',function (Builder $query) use ($member_id){
+                    $query->where('client_id', '=', $member_id);
+                })->with('members_project')
+                    ->with('clients_project')
+                    ->get();
+            }
+
         }else{
-            $projects = $projects->with('members')->get();
+            $projects = $projects->with('members_project')->with('clients_project')->get();
         }
 
         return [
@@ -37,7 +50,7 @@ class ProjectServiceProvider
     }
 
     public function project($project_id){
-        $project = $this->projectModel->where('id',$project_id)->first();
+        $project = $this->projectModel->where('id',$project_id)->with('tasks')->first();
         return [
             'status' => 'success',
             'data' => $project
@@ -54,7 +67,6 @@ class ProjectServiceProvider
         if ($data['tasks']){
             $project->tasks_list = json_encode($data['tasks']);
         }
-//        $project->members = json_encode($data['members']);
           $project->save();
         $project_id = $project->id;
         if($project_id){
@@ -71,7 +83,6 @@ class ProjectServiceProvider
     }
 
     public function edit(array $data){
-
         $project = $this->projectModel::find($data['id']);
         $project->name = $data['name'];
         $project->owner = $data['owner'];
@@ -91,10 +102,18 @@ class ProjectServiceProvider
             $clear = MemberToProject::where('project_id',$data['id'])->delete();
         }
         if ($data['clients']){
-            $project->clients = json_encode($data['clients']);
+            $clear = ClientToProject::where('project_id',$data['id'])->delete();
+            foreach ($data['clients'] as $key => $client_id){
+                $item = new ClientToProject();
+                $item->project_id = $data['id'];
+                $item->client_id = $client_id;
+                $item->save();
+            }
         }else{
-            $project->clients = null;
+            $clear = ClientToProject::where('project_id',$data['id'])->delete();
         }
+
+
         if($project->save()){
             return response()->json('success', 200);
         }

@@ -19,6 +19,8 @@ import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import VueTagsInput from '@johmun/vue-tags-input';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 
 window.Vue = require('vue');
 Vue.router = router;
@@ -28,7 +30,6 @@ Vue.use(VueAxios, axios);
 Vue.use(VueAuth, auth);
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -45,6 +46,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('index', Index);
 Vue.component('treeselect', Treeselect);
 Vue.component('tags', VueTagsInput);
+Vue.component('date-picker', DatePicker);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -56,3 +58,5 @@ const app = new Vue({
     el: '#app',
     router
 });
+
+window.EventBus = new Vue();

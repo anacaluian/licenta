@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\User;
+use http\Env\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider
@@ -108,6 +110,30 @@ class UserServiceProvider
                 'status' => 'success',
                 'user' => $user->toArray()
             ], 200);
+    }
+
+    public function profilePhoto(array $data){
+        $path = Storage::disk('public')->putFile('profile', $data['file']);
+        $profile = $this->userModel->where('id',$data['user_id'])->update([
+            'profile_photo' =>  Storage::url($path)
+        ]);
+        if ($profile){
+            return response()->json('success',200);
+        }
+        return response()->json('error',500);
+    }
+
+    public function update(array $data){
+       $update = $this->userModel->where('id',$data['user_id'])->update([
+          'first_name' => $data['first_name'],
+          'last_name' => $data['last_name'],
+          'email' => $data['email']
+       ]);
+       if ($update){
+           return response()->json('success',200);
+       }else{
+           return response()->json('error',500);
+       }
     }
 
 }

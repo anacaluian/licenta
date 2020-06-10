@@ -86,7 +86,7 @@
                                     this.$router.push({name:'member.dashboard'});
                                     break;
                                 case 3:
-                                    this.$router.push({name:'client.dashboard'});
+                                    this.$router.push({name:'member.dashboard'});
                                     break;
                             }
                         })

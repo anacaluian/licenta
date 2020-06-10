@@ -10,8 +10,13 @@
                     <b-badge v-if="row.item.state == 'completed'" pill variant="danger">Completed</b-badge>
                 </template>
                 <template v-slot:cell(members)="row">
-                    <div v-for="member in row.item.members">
-                        {{member.member_id}}
+                    <div v-for="member in row.item.members_project" >
+                        {{member.first_name + ' ' + member.last_name}}
+                    </div>
+                </template>
+                <template v-slot:cell(clients)="row">
+                    <div v-for="client in row.item.clients_project" >
+                        {{client.first_name + ' ' + client.last_name}}
                     </div>
                 </template>
                 <template v-slot:cell(actions)="row">
@@ -144,7 +149,7 @@
                     label="Lists:"
             >
                 <tags
-                        v-model="tasks_edit"
+                        v-model="selectedProject.edit"
                         class="custom-tags"
                         :tags="selectedProject.tasks"
                         @tags-changed="(newTags) => { selectedProject.tasks = newTags }"
@@ -179,6 +184,7 @@
         mounted() {
             this.getMembers();
             this.getProjects();
+            this.getClients();
         },
         data() {
             return {
@@ -187,18 +193,20 @@
                 form: {
                     name: null,
                     owner: null,
+                    edit:[],
                     tasks:[],
                     members: null,
                     clients: null,
                     support_email: null
                 },
                 selectedProject: {
+                    edit:'',
                     id: null,
                     name: null,
                     owner: null,
                     tasks:[],
-                    members: null,
-                    clients: null,
+                    members: [],
+                    clients: [],
                     support_email: null
                 },
                 members: [],
@@ -228,24 +236,27 @@
                 })
                     .catch((error) => console.log(error))
             },
+            getClients() {
+                this.axios({
+                    method: 'get',
+                    url: laroute.route('clients', {}),
+                }).then((response) => {
+                    for (let client of response.data.original.clients) {
+                        this.clients.push({
+                            id: client.id,
+                            label: client.first_name + ' ' + client.last_name
+                        })
+                    }
+                })
+                    .catch((error) => console.log(error))
+            },
             getProjects() {
                 this.axios({
                     method: 'get',
                     url: laroute.route('projects', {}),
                 }).then((response) => {
-                    for (let project of response.data.data) {
-                        this.data.push({
-                            id: project.id,
-                            name: project.name,
-                            owner: project.owner,
-                            tasks:project.tasks_list,
-                            state: project.state,
-                            support_email: project.support_email,
-                            members: project.members,
-                            clients: project.clients,
-                            created: project.created_at
-                        })
-                    }
+                    this.data = response.data.data;
+
                 })
                     .catch((error) => console.log(error))
             },
@@ -255,27 +266,28 @@
                     url: laroute.route('projects.create', {}),
                     data: this.form
                 }).then((response) => {
-                    this.$refs.table.refresh();
+                    this.getProjects();
                 })
                     .catch((error) => console.log(error))
             },
             selectProject(id) {
                 let data = this.data.filter((item) => item.id === id);
+                console.log(data);
                 this.selectedProject.id = id;
                 this.selectedProject.name = data[0].name;
                 this.selectedProject.owner = data[0].owner;
                 this.selectedProject.support_email = data[0].support_email;
                 this.selectedProject.members = [];
-                if (data[0].tasks){
-                    this.selectedProject.tasks = JSON.parse(data[0].tasks);
+                this.selectedProject.clients = [];
+                for (let member of data[0].members_project) {
+                    this.selectedProject.members.push(member.id);
                 }
-                if (data[0].members){
-                    for (let member of data[0].members) {
-                        this.selectedProject.members.push(member.member_id);
-                    }
+                for (let client of data[0].clients_project) {
+                    this.selectedProject.clients.push(client.id);
                 }
-                if (data[0].clients) {
-                    this.selectedProject.clients = JSON.parse(data[0].clients);
+                this.selectedProject.tasks =[];
+                if (data[0].tasks_list){
+                    this.selectedProject.tasks = JSON.parse(data[0].tasks_list);
                 }
             },
             editProject() {
@@ -284,7 +296,7 @@
                     url: laroute.route('projects.edit', {}),
                     data: this.selectedProject
                 }).then((response) => {
-                    this.$refs.table.refresh();
+                    this.getProjects();
                 })
                     .catch((error) => console.log(error))
             },
@@ -297,7 +309,7 @@
                         state: state
                     }
                 }).then((response) => {
-                    this.$refs.table.refresh();
+                    this.getProjects();
                 })
                     .catch((error) => console.log(error))
             },
@@ -310,7 +322,7 @@
                         id: id,
                     }
                 }).then((response) => {
-                    this.$refs.table.refresh();
+                    this.getProjects();
                 })
                     .catch((error) => console.log(error))
             },

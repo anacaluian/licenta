@@ -77,6 +77,7 @@ class AuthController extends Controller
         $userobj->id = $user->pluck('id')->first();
         $userobj->first_name = $user->pluck('first_name')->first();
         $userobj->last_name = $user->pluck('last_name')->first();
+        $userobj->profile_photo = $user->pluck('profile_photo')->first();
         $userobj->email = $user->pluck('email')->first();
         $userobj->roles =[$user->pluck('role')->first()];
 

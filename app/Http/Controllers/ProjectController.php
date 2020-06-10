@@ -18,7 +18,6 @@ class ProjectController extends Controller
     }
 
     public function index(Request $request){
-
         $response = $this->projectService->index($request->all());
         return response()->json($response);
 

@@ -17,7 +17,7 @@ class FileServiceProvider extends ServiceProvider
     }
 
     public function index($project){
-        $files = $this->fileModel->where('project_id',$project)->with('owner')->get()->groupBy(function($date) {
+        $files = $this->fileModel->where('project_id',$project)->with('owner')->latest()->get()->groupBy(function($date) {
             return Carbon::parse($date->created_at)->format('Y-m-d');
         });
 

@@ -106,7 +106,12 @@
                         </div>
                         <div class="comment_section">
                             <div v-for="comment in taskComments">
-                                <p><strong class="mr-1">
+
+                                <p>
+                                    <b-avatar id="comment_avatar" v-if="comment.member.profile_photo" :src="comment.member.profile_photo"></b-avatar>
+                                    <b-avatar id="comment_avatar_text" v-else  variant="primary"
+                                              :text="comment.member.first_name[0].toUpperCase()+comment.member.last_name[0].toUpperCase()"></b-avatar>
+                                    <strong class="ml-1 mr-1">
                                     {{comment.member.first_name}} {{comment.member.last_name[0]}}.
                                 </strong> {{comment.last_edit}}</p>
                                 <p  v-html="comment.comment"></p>
@@ -121,13 +126,16 @@
                         </div>
                         <div class="p-2">
                             <p><strong>Assignee</strong></p>
-                            <treeselect  class="assignee-select"  placeholder="Select a member" v-model="selectedTask.assignee_id" :multiple="false" :options="members" />
-
-                            <!--<h5 v-if="selectedTask.assignee" class="task-prop">{{selectedTask.assignee.first_name}} {{selectedTask.assignee.last_name}}</h5>-->
+                            <div v-if="$auth.check(3)">
+                                <h5 class="task-prop">{{ selectedTask.assignee ? selectedTask.assignee.first_name +' '+ selectedTask.assignee.last_name: 'No assignee set'}}</h5>
+                            </div>
+                            <div v-else>
+                                <treeselect class="assignee-select"  placeholder="Select a member" v-model="selectedTask.assignee_id" :multiple="false" :options="members" />
+                            </div>
                         </div>
                         <div class="p-2">
                             <p><strong>Due on</strong></p>
-                            <b-form-datepicker id="datepicker" :min="today" v-model="selectedTask.due_on" class="mb-2"></b-form-datepicker>
+                            <date-picker id="picker"  class="picker" placeholder="Due On" v-model="selectedTask.due_on" valueType="format"></date-picker>
                         </div>
                     </div>
                 </div>
@@ -201,17 +209,25 @@
                 comment:null,
                 editor:null,
                 members: [],
-                lists: {},
+                lists: {
+                    backlog:[]
+                },
                 project_data:'',
                 selectedTask:'',
                 taskComments:[],
                 today:''
             }
         },
-        mounted() {
+         mounted() {
             this.getProject();
             this.getMembers();
-            this.getTasks();
+            // this.getTasks();
+             EventBus.$on('filter', (assignees,due_on) => {
+                 this.getTasks({
+                     assignees:JSON.stringify(assignees),
+                     due_on:due_on
+                 });
+             });
             const now = new Date();
             this.today =  new Date(now.getFullYear(), now.getMonth(), now.getDate());
             this.comment = new Editor({
@@ -239,26 +255,40 @@
                     url: laroute.route('projects.data', {id: this.$route.params.id}),
                 }).then((response) => {
                     this.project_data = response.data.data;
+
+                    if (response.data.data.tasks_list) {
+                        let task_list = JSON.parse(response.data.data.tasks_list);
+                        for (let name of task_list) {
+                            this.lists[name.text] = [];
+                        }
+                    }
+                    let tasks =  response.data.data.tasks
+                    for(let task of tasks) {
+                        this.lists[task.task_list].push(task);
+                    }
                 })
                     .catch((error) => console.log(error))
             },
-            getTasks() {
+            getTasks(otherParams) {
+                let params =  {
+                    project_id: this.$route.params.id
+                };
+                let merge = {...params,...otherParams};
                 this.axios({
                     method: 'post',
-                    url: laroute.route('tasks', {}),
-                    params: {
-                        project_id: this.$route.params.id
-                    }
+                    url: laroute.route('tasks', merge),
                 }).then((response) => {
 
-                    this.lists = response.data.data;
                     if (this.project_data.tasks_list) {
-                        for (let name of JSON.parse(this.project_data.tasks_list)) {
-                            if (!Object.keys(this.lists).includes(name.text)) {
-                                this.lists[name.text] = [];
-                            }
+                        let task_list = JSON.parse(this.project_data.tasks_list)
+                        for (let name of task_list) {
+                            this.lists[name.text] = [];
                         }
-                     }
+                    }
+                   for (let item in response.data.data ){
+                       this.lists[item] = response.data.data[item]
+                   }
+
                 })
                     .catch((error) => console.log(error))
             },
@@ -288,6 +318,7 @@
                     url: laroute.route('tasks.update', {}),
                     data: this.lists
                 }).then((response) => {
+                    this.getProject();
                 })
                     .catch((error) => console.log(error))
             },
@@ -297,7 +328,7 @@
                     url: laroute.route('tasks.create', {}),
                     data: this.form
                 }).then((response) => {
-                    this.getTasks();
+                    this.getProject();
                 })
                     .catch((error) => console.log(error))
             },
@@ -313,7 +344,9 @@
                 let editor_json = this.editor.getJSON();
                 let final = '';
                 for (let content of  editor_json.content) {
-                    final +=  content.content[0].text + ' ';
+                    if (content.content){
+                        final +=  content.content[0].text + ' ';
+                    }
                 }
                 this.selectedTask.details = final;
                 this.axios({
@@ -362,7 +395,12 @@
     }
 </script>
 <style scoped>
-
+    .picker{
+        width: 100% !important;
+    }
+    .picker > div > input{
+        color:#67FFC8 !important ;
+    }
     strong{
         color: #CFCFD0;
     }
@@ -444,9 +482,8 @@
         right: 0;
         top: 15px;
         width: fit-content;
-        /*border-bottom-left-radius: 10px;*/
-        /*border-top-left-radius: 10px;*/
         min-width: 50%;
+        z-index: 9999;
     }
 
     .sidebar-content {
@@ -540,16 +577,15 @@
     .el-image-viewer__close{
         right:97% !important;
     }
-    #datepicker__outer_{
-        background-color: #343a40;
-        border-color: #67FFC8;
+    #comment_avatar > span > img{
+        width: 7% !important;
     }
-    #datepicker{
-        color: #67FFC8;
-    }
-    #datepicker__value_{
-        color: #67FFC8;
-        border-color: transparent;
+    #comment_avatar_text {
+        width: 6%;
+        height: auto;
+        display: inline-flex;
+        justify-content: center;
+        line-height: 2.5;
     }
 
 </style>

@@ -6,35 +6,22 @@
                     <router-link  class="home" to="/">
                         <h2>Projects</h2>
                     </router-link>
-                    <b-button v-if="$auth.check(2) && $route.name == 'project'"  @click="$router.push({ name: 'member.dashboard'})" pill class="ml-3 outlined" variant="outline-secondary">
-                      Projects
-                    </b-button>
+                    <!--<b-button v-if="$auth.check(2) && $route.name == 'project'"  @click="$router.push({ name: 'member.dashboard'})" pill class="ml-3 outlined" variant="outline-secondary">-->
+                      <!--Projects-->
+                    <!--</b-button>-->
                 </div>
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-avatar variant="primary" v-if="$auth.check()" :text="$auth.user().first_name[0].toUpperCase()+$auth.user().last_name[0].toUpperCase()"></b-avatar>
+                    <b-avatar v-if="$auth.user().profile_photo" :src="$auth.user().profile_photo"></b-avatar>
+                    <b-avatar v-else  variant="primary"
+                              :text="$auth.user().first_name[0].toUpperCase()+$auth.user().last_name[0].toUpperCase()"></b-avatar>
                     <b-nav-item-dropdown v-if="$auth.check()" :text="'Hello, ' + $auth.user().first_name" right>
-                        <!--<b-dropdown-item v-if="$auth.check(1)" v-for="(route, key) in routes.admin" v-bind:key="route.path">-->
-                            <!--<router-link class="user" :to="{ name : route.path }" :key="key">-->
-                                <!--{{route.name}}-->
-                            <!--</router-link>-->
-                        <!--</b-dropdown-item>-->
-                        <!--<b-dropdown-item v-if="$auth.check(2)" v-for="(route, key) in routes.member" v-bind:key="route.path">-->
-                            <!--<router-link class="user" :to="{ name : route.path }" :key="key">-->
-                                <!--{{route.name}}-->
-                            <!--</router-link>-->
-                        <!--</b-dropdown-item>-->
-                        <!--<b-dropdown-item class="user" v-if="$auth.check(3)" v-for="(route, key) in routes.client" v-bind:key="route.path">-->
-                            <!--<router-link :to="{ name : route.path }" :key="key">-->
-                                <!--{{route.name}}-->
-                            <!--</router-link>-->
-                        <!--</b-dropdown-item>-->
-                        <b-dropdown-item v-if="!$auth.check(1)">
-                            <router-link   :to="{ path : '/profile' }">
-                                Profile
+                        <b-dropdown-item  v-if="$auth.check()">
+                            <router-link  :to="{ path : '/profile' }">
+                               My Profile
                             </router-link>
                         </b-dropdown-item>
                         <b-dropdown-item v-if="$auth.check()">
@@ -46,6 +33,7 @@
         </b-navbar>
         <sidebar-menu  v-if="$auth.check() && $auth.check(1)" :menu="adminMenu" :disableHover="true"  :collapsed="true"/>
         <sidebar-menu v-if="$auth.check() && $auth.check(2)" :menu="memberMenu"  :disableHover="true"  :collapsed="true"/>
+        <sidebar-menu v-if="$auth.check() && $auth.check(3)" :menu="clientMenu"  :disableHover="true"  :collapsed="true"/>
     </div>
 </template>
 <script>
@@ -57,6 +45,11 @@
                         title: 'Projects',
                         icon: 'fas fa-th-large',
                         href: { path: '/projects' }
+                    },
+                    {
+                        title: 'Members',
+                        icon: 'fas fa-users',
+                        href: { path: '/members' }
                     },
                 ],
                 adminMenu:[
@@ -75,7 +68,13 @@
                     icon: 'fas fa-address-book',
                     href: { path: '/admin/clients' }
                 }
-
+                ],
+                clientMenu:[
+                    {
+                        title: 'Projects',
+                        icon: 'fas fa-th-large',
+                        href: { path: '/projects' }
+                    },
                 ],
                 routes: {
                     //HOME

@@ -34,6 +34,8 @@ Route::prefix('auth')->group(function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('logout', 'AuthController@logout')->name('logout');
+        Route::post('profile/photo', 'UserController@profilePhoto')->name('profile.photo');
+        Route::post('user/update', 'UserController@update')->name('user.update');
 
 
         Route::get('members', 'UserController@members')->name('members');

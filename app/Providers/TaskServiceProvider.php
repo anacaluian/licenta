@@ -14,9 +14,19 @@ class TaskServiceProvider
         $this->taskModel = $task;
     }
 
-    public function index($project_id){
-
-        $tasks = $this->taskModel->where('project_id',$project_id)->with('assignee')->get();
+    public function index($data){
+        $tasks = $this->taskModel->newQuery();
+        $tasks = $tasks->where('project_id',$data['project_id']);
+        if (array_key_exists('assignees', $data) && $data['assignees'] != 'null' ){
+            $assignees = json_decode($data['assignees']);
+            if (count($assignees)){
+                $tasks = $tasks->whereIn('assignee_id',$assignees);
+            }
+        }
+        if (array_key_exists('due_on', $data) && $data['due_on'] != 'null'){
+            $tasks = $tasks->where('due_on',$data['due_on']);
+        }
+        $tasks = $tasks->with('assignee')->get();
         $collection = collect($tasks);
         $grouped = $collection->groupBy('task_list');
         $grouped->toArray();
@@ -55,7 +65,6 @@ class TaskServiceProvider
                 ]);
             }
         }
-        return response()->json('success', 200);
     }
 
     public function updateTask(array $data){

@@ -95,4 +95,36 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    public function profilePhoto(Request $request){
+        $v = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'file' => 'image',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->userService->profilePhoto($request->all());
+        return response()->json($response);
+    }
+
+    public function update(Request $request){
+        $v = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->userService->update($request->all());
+        return response()->json($response);
+    }
 }

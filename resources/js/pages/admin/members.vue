@@ -126,6 +126,7 @@
                 this.$auth.register({
                     data:this.form,
                     success: function () {
+                        this.getMembers()
                     },
                     error: function (res) {
                         console.log(res.response.data.errors)
@@ -137,6 +138,7 @@
                     method: 'get',
                     url: laroute.route('members', {}),
                 }).then((response) => {
+                    this.data = []
                     for (let member of response.data.original.members) {
                         this.data.push({
                             id:member.id,
@@ -167,6 +169,7 @@
                     url: laroute.route('members.edit', {}),
                     data:this.selectedMember
                 }).then((response) => {
+                    this.getMembers()
                 })
                     .catch((error) => console.log(error))
             },
@@ -178,6 +181,7 @@
                         id:id
                     }
                 }).then((response) => {
+                    this.getMembers()
                 })
                     .catch((error) => console.log(error))
             }

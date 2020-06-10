@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Comment;
 use App\File;
+use App\User;
 use function Couchbase\defaultDecoder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
@@ -52,6 +53,12 @@ class CommentServiceProvider
                     return response()->json('success',200);
                 }
             }
+            activity()
+                ->causedBy( $data['user_id'])
+                ->performedOn($comment)
+                ->withProperties(['key' => 'comment'])
+                ->createdAt(now())
+                ->log('User commented on Task #' .  $data['task_id']);
         }
         return response()->json('error',500);
 

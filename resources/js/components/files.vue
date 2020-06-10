@@ -8,7 +8,7 @@
         </div>
         <div class="mt-3"  v-for="(file,index) in files">
             <h5 class="text-white">{{index}}</h5>
-            <b-table small :dark="true"  hover :items="files[index]" :fields="fields">
+            <b-table class="table-sm" :dark="true"  hover :items="files[index]" :fields="fields">
                 <template v-slot:cell(download)="row">
                     <b-button @click="download(row.item.id,row.item.file_name)" class="add-files"> <i class="fas fa-download"></i> Download</b-button>
                 </template>

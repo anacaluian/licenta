@@ -6,7 +6,9 @@
                 <treeselect  class="assignee-select"  placeholder="Select a task" v-model="form.task" :multiple="false" :options="tasks" />
             </b-form-group>
             <b-form-group>
-                <b-form-datepicker id="datepicker" v-model="form.date" class="mb-2"></b-form-datepicker>
+                <!--<b-form-datepicker id="datepicker" v-model="form.date" class="mb-2"></b-form-datepicker>-->
+                <date-picker id="picker"  class="picker" placeholder="Select Date" v-model="form.date" valueType="format"></date-picker>
+
             </b-form-group>
             <b-form-group
                     class="custom"
@@ -32,7 +34,6 @@
         </b-modal>
         <div class="mt-4">
             <gantt-elastic :tasks="tasks_list" :options="options"></gantt-elastic>
-            <!--<GSTC :config="config" @state="onState" />-->
         </div>
     </div>
 
@@ -179,6 +180,9 @@
     }
 </script>
 <style scoped>
+    .picker{
+        width: 100% !important;
+    }
 .add-time{
     border-radius: 16px;
     background-color: #67FFC8 !important;

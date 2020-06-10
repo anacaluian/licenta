@@ -1,9 +1,11 @@
 <template>
     <div class="profile shadow-lg">
         <h5 class="pl-5 pt-5">BASIC INFO</h5>
+        <hr>
         <div class="p-4 row">
             <div class="col-md-3">
-                <b-avatar id="avatar" v-if="$auth.check()" variant="primary"
+                <b-avatar v-if="$auth.user().profile_photo" :src="$auth.user().profile_photo"></b-avatar>
+                <b-avatar v-else id="avatar"  variant="primary"
                           :text="$auth.user().first_name[0].toUpperCase()+$auth.user().last_name[0].toUpperCase()"></b-avatar>
             </div>
             <div class="col-md-6">
@@ -13,7 +15,7 @@
                 >
                     <label>
                         <span class=" btn  btn-secondary add-photo"> Choose File </span>
-                        <input type="file" style="display: none" ref="files" class="form-control-file">
+                        <input  @change="addPhoto" type="file" style="display: none" ref="files" class="form-control-file">
                     </label>
                 </b-form-group>
             </div>
@@ -49,6 +51,9 @@
                     placeholder="Email Address"
             ></b-form-input>
         </b-form-group>
+        <div class="p-3">
+            <b-button @click="save" class="save">Save Changes </b-button>
+        </div>
     </div>
 </template>
 <script>
@@ -58,13 +63,47 @@
                 form: {
                     first_name: this.$auth.user().first_name,
                     last_name: this.$auth.user().last_name,
-                    email: this.$auth.user().email
+                    email: this.$auth.user().email,
+                    user_id:this.$auth.user().id
                 }
+            }
+        },
+        methods:{
+            addPhoto(){
+                let formData = new FormData();
+                let file = this.$refs.files.files[0];
+                formData.append('file', file);
+                formData.append('user_id', this.$auth.user().id);
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('profile.photo', {}),
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    data: formData
+                }).then((response) => {
+                    this.$auth.refresh();
+                })
+                    .catch((error) => console.log(error))
+            },
+            save(){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('user.update', {}),
+                    data:this.form
+                }).then((response) => {
+                    this.$auth.refresh();
+                })
+                    .catch((error) => console.log(error))
             }
         }
     }
 </script>
 <style scoped>
+    .save{
+        border-radius: 16px;
+        background-color: #67FFC8 !important;
+    }
     h5{
         color: #67FFC8;
     }
@@ -118,7 +157,17 @@
     #avatar > span {
         display: flex;
         justify-content: center;
-        line-height: 6;
+        line-height: 3.5;
+    }
+
+    #avatar > span > span{
+        font-size: 188%;
+    }
+
+    .b-avatar-img > img{
+        border-radius: 50%;
+        height: auto;
+        width: 100%;
     }
 
 </style>

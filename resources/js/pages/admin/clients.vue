@@ -146,6 +146,7 @@
                     method: 'get',
                     url: laroute.route('clients', {}),
                 }).then((response) => {
+                    this.data = []
                     for (let client of response.data.original.clients) {
                         this.data.push({
                             id:client.id,
@@ -162,6 +163,7 @@
                 this.$auth.register({
                     data:this.form,
                     success: function () {
+                        this.getClients()
                     },
                     error: function (res) {
                         console.log(res.response.data.errors)
@@ -169,7 +171,6 @@
                 })
             },
             selectClient(id){
-                console.log(id)
                 if (id && this.data) {
                     let client = this.data.filter((item) => item.id === id);
                     if (client){
@@ -189,6 +190,7 @@
                     url: laroute.route('clients.edit', {}),
                     data:this.selectedClient
                 }).then((response) => {
+                    this.getClients()
                 })
                     .catch((error) => console.log(error))
             },
@@ -201,6 +203,7 @@
                         id:id
                     }
                 }).then((response) => {
+                    this.getClients()
                 })
                     .catch((error) => console.log(error))
             }

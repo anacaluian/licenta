@@ -19,7 +19,6 @@ class CreateProjectsTable extends Migration
             $table->enum('state',['in_progress','completed'])->default('in_progress');
             $table->string('owner');
             $table->string('support_email');
-            $table->text('clients')->nullable();
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });

@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'// Pages
 import Register from './pages/register'
 import Login from './pages/login'
 import Project from './pages/member/project'
+import Members from './pages/member/members'
 import Discussions from './components/discussions'
 import Notes from './components/notes'// Routes
 import Files from './components/files'// Routes
@@ -64,11 +65,18 @@ const routes = [
     },
     // MEMBER ROUTES
     {
+        path: '/members',
+        name: 'member.members',
+        component: Members,
+        meta: {
+            auth: {roles: [2], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
+    },
+    {
         path: '/projects',
         name: 'member.dashboard',
         component: MemberDashboard,
         meta: {
-            auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
+            auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
     },
     {
         path: '/projects/:id',
@@ -83,21 +91,30 @@ const routes = [
             {
                 path: 'notes',
                 name: 'project.notes',
-                component: Notes
+                component: Notes,
+                meta: {
+                    auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                }
             },
             {
                 path: 'files',
                 name: 'project.files',
-                component: Files
+                component: Files,
+                meta: {
+                    auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                }
             },
             {
                 path: 'time',
                 name: 'project.time',
-                component: Time
+                component: Time,
+                meta: {
+                    auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                }
             },
         ],
         meta: {
-            auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+            auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
         }
     },
     // CLIENT ROUTES
