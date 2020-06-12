@@ -9,6 +9,7 @@ class Comment extends Model
 {
     use SoftDeletes;
     protected $primaryKey = 'id';
+    protected static $logName = 'comment';
     protected $fillable = [
         'user_id','project_id','task_id','comment', 'files'
     ];

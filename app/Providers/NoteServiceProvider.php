@@ -58,4 +58,12 @@ class NoteServiceProvider extends ServiceProvider
 
     }
 
+    public function delete($id){
+        $delete = $this->noteModel->find($id)->delete();
+        if ($delete){
+            return response()->json('success', 200);
+        }
+        return response()->json('error', 500);
+    }
+
 }

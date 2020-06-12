@@ -22,7 +22,8 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.6.11",
         "vue-sidebar-menu": "^4.5.4",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "vue-timeline": "^0.1.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",

@@ -9,6 +9,7 @@ class Note extends Model
 {
     use SoftDeletes;
     protected $primaryKey = 'id';
+    protected static $logName = 'note';
     protected $fillable = [
         'title','content','project_id','created_by'
     ];

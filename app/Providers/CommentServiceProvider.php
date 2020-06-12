@@ -6,6 +6,7 @@ use App\Comment;
 use App\File;
 use App\User;
 use function Couchbase\defaultDecoder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
@@ -56,9 +57,9 @@ class CommentServiceProvider
             activity()
                 ->causedBy( $data['user_id'])
                 ->performedOn($comment)
-                ->withProperties(['key' => 'comment'])
+                ->withProperties(['project' => $data['project_id']])
                 ->createdAt(now())
-                ->log('User commented on Task #' .  $data['task_id']);
+                ->log(Auth::user()->first_name .' '. Auth::user()->last_name . ' commented on Task #' .  $data['task_id'] . '.');
         }
         return response()->json('error',500);
 
@@ -78,5 +79,19 @@ class CommentServiceProvider
             $file->save();
 
         }
+    }
+
+    public function delete($id){
+        $files = File::where('comment_id',$id)->get();
+        foreach ($files as $file){
+            $explode = explode('/',$file->file_path);
+           Storage::disk('public')->delete('files/' . end($explode) );
+           $file->delete();
+        }
+        $comment = $this->commentModel->find($id)->delete();
+        if ($comment){
+            return response()->json('success',200);
+        }
+        return response()->json('error',500);
     }
 }

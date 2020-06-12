@@ -67,7 +67,12 @@
                     title: 'Clients',
                     icon: 'fas fa-address-book',
                     href: { path: '/admin/clients' }
-                }
+                },
+                {
+                    title: 'Emails',
+                    icon: 'fas fa-envelope',
+                    href: { path: '/admin/emails' }
+                },
                 ],
                 clientMenu:[
                     {

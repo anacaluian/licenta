@@ -42,7 +42,10 @@
                 <b-button class="shadow-lg" id="close-btn" @click="closeTaskDetails"><i class="fas fa-times"></i></b-button>
                 <div class="sidebar-content">
                     <div class="note-content">
-                        <editor-content class="ml-4 text-dark h3" :editor="title" />
+                        <div class="row">
+                            <editor-content class="ml-4 text-dark h3 col-10" :editor="title" />
+                            <span @click="deleteNote(selectedNote.id)"><i class="fas fa-trash-alt"></i></span>
+                        </div>
                         <editor-content class="ml-4 mt-4 text-dark" :editor="content" />
                     </div>
                 </div>
@@ -116,6 +119,20 @@
                         content:this.content.getHTML()
                     }
                 }).then((response) => {
+                    this.getNotes();
+                })
+                    .catch((error) => console.log(error))
+            },
+            deleteNote(id){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('notes.delete', {}),
+                    data:{
+                        id:id
+                    }
+                }).then((response) => {
+                    this.visible = false;
+                    this.getNotes();
                 })
                     .catch((error) => console.log(error))
             }
@@ -123,6 +140,9 @@
     }
 </script>
 <style scoped>
+    i{
+        color:#67FFC8 !important ;
+    }
     .card-body{
         margin-bottom: 15%;
     }
@@ -150,6 +170,7 @@
         top: 15px;
         width: fit-content;
         min-width: 50%;
+        z-index: 200;
     }
 
     .sidebar-content {

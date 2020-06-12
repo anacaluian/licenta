@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Comment;
+use App\File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use App\Task;
 
@@ -45,6 +49,14 @@ class TaskServiceProvider
             $task->assignee_id = $data['assignee'];
         }
         if ($task->save()){
+
+            activity()
+                ->causedBy(Auth::user()->id())
+                ->performedOn(new Task())
+                ->withProperties(['project' => $data['project_id']])
+                ->createdAt(now())
+                ->log(Auth::user()->first_name .' '. Auth::user()->last_name . ' added new task.');
+
             return response()->json('success', 200);
         }
         return response()->json('error', 500);
@@ -75,6 +87,27 @@ class TaskServiceProvider
        if ($update){
            return response()->json('success', 200);
        }
+        return response()->json('error', 500);
+    }
+
+    public function delete($id){
+
+        $comments = Comment::where('task_id',$id)->get();
+
+        foreach ($comments as $comment){
+            $files = File::where('comment_id',$comment->id)->get();
+            foreach ($files as $file){
+                $explode = explode('/',$file->file_path);
+                Storage::disk('public')->delete('files/' . end($explode) );
+                $file->delete();
+            }
+            $comment->delete();
+        }
+
+        $task = $this->taskModel->find($id)->delete();
+        if ($task){
+            return response()->json('success', 200);
+        }
         return response()->json('error', 500);
     }
 }

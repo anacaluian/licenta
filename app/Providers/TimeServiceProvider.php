@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Time;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class TimeServiceProvider extends ServiceProvider
@@ -64,7 +65,6 @@ class TimeServiceProvider extends ServiceProvider
         }
         return response()->json('error', 500);
         }
-
 
     }
 }

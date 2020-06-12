@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\File;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,6 +42,13 @@ class FileServiceProvider extends ServiceProvider
             $file->save();
 
         }
+
+        activity()
+            ->causedBy( $data['owner'])
+            ->performedOn(new File())
+            ->withProperties(['project' => $data['project']])
+            ->createdAt(now())
+            ->log(Auth::user()->first_name .' '. Auth::user()->last_name . ' added new files.');
     }
 
     public function download($id)

@@ -9,6 +9,7 @@ class Time extends Model
 {
     use SoftDeletes;
     protected $primaryKey = 'id';
+    protected static $logName = 'time';
     protected $fillable = [
         'time','project_id','task_id','description', 'member_id','date'
     ];

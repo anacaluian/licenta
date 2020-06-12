@@ -57,4 +57,20 @@ class NoteController extends Controller
         $response = $this->noteService->update($request->all());
         return response()->json($response);
     }
+
+    public function delete(Request $request){
+
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+
+        $response = $this->noteService->delete($request->get('id'));
+        return response()->json($response);
+    }
 }

@@ -53,4 +53,18 @@ class CommentController extends Controller
         $response = $this->commentService->upload($request->route('task'),$request->file('files'));
         return response()->json($response);
     }
+
+    public function delete(Request $request){
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->commentService->delete($request->get('id'));
+        return response()->json($response);
+    }
 }

@@ -8,10 +8,12 @@ import Notes from './components/notes'// Routes
 import Files from './components/files'// Routes
 import Time from './components/time'// Routes
 import Profile from './components/profile.vue'// Routes
+import Activity from './components/activity.vue'// Routes
 import MemberDashboard from './pages/member/dashboard'
 import AdminDashboard from './pages/admin/dashboard'// Routes
 import AdminMembers from './pages/admin/members'// Routes
 import AdminClients from './pages/admin/clients'// Routes
+import AdminEmails from './pages/admin/emails'// Routes
 import ClientDashboard from './pages/client/dashboard'// Routes
 import ForgotPassword from './pages/forgot-password'// Routes
 const routes = [
@@ -63,6 +65,14 @@ const routes = [
             auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
         }
     },
+    {
+        path: '/admin/emails',
+        name: 'admin.emails',
+        component: AdminEmails,
+        meta: {
+            auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+        }
+    },
     // MEMBER ROUTES
     {
         path: '/members',
@@ -108,6 +118,14 @@ const routes = [
                 path: 'time',
                 name: 'project.time',
                 component: Time,
+                meta: {
+                    auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                }
+            },
+            {
+                path: 'activity',
+                name: 'project.activity',
+                component: Activity,
                 meta: {
                     auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
                 }

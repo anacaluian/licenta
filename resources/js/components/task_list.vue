@@ -5,7 +5,8 @@
                 :key="index"
                 :title="index.replace(/_/g,' ')"
                 tag="article"
-                style="max-width: 20rem; min-width: 13%;"
+                style="max-width: 20rem; min-width: 13%;overflow-y: auto;
+        overflow-x: hidden;"
                 class="mb-2 card  mr-3"
         >
             <b-card-text>
@@ -39,9 +40,10 @@
                 <div class="sidebar-content">
                     <div class="task-content">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-11">
                                 <h4>#{{selectedTask.id}}: {{selectedTask.name}}</h4>
                             </div>
+                            <span @click="deleteTask(selectedTask.id)"><i class="fas fa-trash-alt"></i></span>
                         </div>
                         <editor-content :editor="editor" />
                         <hr>
@@ -113,7 +115,9 @@
                                               :text="comment.member.first_name[0].toUpperCase()+comment.member.last_name[0].toUpperCase()"></b-avatar>
                                     <strong class="ml-1 mr-1">
                                     {{comment.member.first_name}} {{comment.member.last_name[0]}}.
-                                </strong> {{comment.last_edit}}</p>
+                                    </strong> {{comment.last_edit}}
+                                    <span v-if="comment.user_id === $auth.user().id" @click="deleteComment(comment.id)" class="ml-2"><i class="fas fa-trash-alt"></i> </span>
+                                </p>
                                 <p  v-html="comment.comment"></p>
                                 <preview v-if="comment.files.length" :files="comment.files"></preview>
                             </div>
@@ -223,10 +227,10 @@
             this.getMembers();
             // this.getTasks();
              EventBus.$on('filter', (assignees,due_on) => {
-                 this.getTasks({
-                     assignees:JSON.stringify(assignees),
-                     due_on:due_on
-                 });
+                 // this.getTasks({
+                 //     assignees:JSON.stringify(assignees),
+                 //     due_on:due_on
+                 // });
              });
             const now = new Date();
             this.today =  new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -266,29 +270,6 @@
                     for(let task of tasks) {
                         this.lists[task.task_list].push(task);
                     }
-                })
-                    .catch((error) => console.log(error))
-            },
-            getTasks(otherParams) {
-                let params =  {
-                    project_id: this.$route.params.id
-                };
-                let merge = {...params,...otherParams};
-                this.axios({
-                    method: 'post',
-                    url: laroute.route('tasks', merge),
-                }).then((response) => {
-
-                    if (this.project_data.tasks_list) {
-                        let task_list = JSON.parse(this.project_data.tasks_list)
-                        for (let name of task_list) {
-                            this.lists[name.text] = [];
-                        }
-                    }
-                   for (let item in response.data.data ){
-                       this.lists[item] = response.data.data[item]
-                   }
-
                 })
                     .catch((error) => console.log(error))
             },
@@ -390,7 +371,30 @@
                 })
                     .catch((error) => console.log(error))
             },
-
+            deleteComment(id){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('comments.delete', {} ),
+                    data:{
+                        id:id
+                    }
+                }).then((response) => {
+                    this.getComments();
+                })
+                    .catch((error) => console.log(error))
+            },
+            deleteTask(id){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('tasks.delete', {} ),
+                    data:{
+                        id:id
+                    }
+                }).then((response) => {
+                    this.visible = false;
+                    this.getProject();
+                })
+                    .catch((error) => console.log(error))            }
         }
     }
 </script>

@@ -9,6 +9,7 @@ class Project extends Model
 {
     use SoftDeletes;
     protected $primaryKey = 'id';
+    protected static $logName = 'project';
     protected $fillable = [
         'name','state','owner','support_email','tasks_list'
     ];

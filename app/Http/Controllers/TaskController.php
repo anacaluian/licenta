@@ -57,4 +57,20 @@ class TaskController extends Controller
         $response = $this->taskService->updateTask($request->all());
         return response()->json($response);
     }
+
+    public function delete(Request $request){
+
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+
+        $response = $this->taskService->delete($request->get('id'));
+        return response()->json($response);
+    }
 }

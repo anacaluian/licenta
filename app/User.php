@@ -13,6 +13,7 @@ class User extends Authenticatable implements JWTSubject
     use SoftDeletes;
     use Notifiable;
     protected $primaryKey = 'id';
+    protected static $logName = 'user';
     /**
      * The attributes that are mass assignable.
      *

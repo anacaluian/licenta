@@ -60,15 +60,18 @@ Route::prefix('auth')->group(function () {
         Route::post('tasks/create', 'TaskController@create')->name('tasks.create');
         Route::post('tasks/update', 'TaskController@update')->name('tasks.update');
         Route::post('tasks/update/task', 'TaskController@updateTask')->name('tasks.update.task');
+        Route::post('tasks/delete', 'TaskController@delete')->name('tasks.delete');
 
 
         Route::get('comments/{project}/{task}', 'CommentController@index')->name('comments');
         Route::post('comments/create', 'CommentController@create')->name('comments.create');
         Route::post('comments/upload/{task}', 'CommentController@upload')->name('comments.upload');
+        Route::post('comments/delete', 'CommentController@delete')->name('comments.delete');
 
         Route::get('notes/{project}', 'NoteController@index')->name('notes');
         Route::post('notes/create', 'NoteController@create')->name('notes.create');
         Route::post('notes/update', 'NoteController@update')->name('notes.update');
+        Route::post('notes/delete', 'NoteController@delete')->name('notes.delete');
 
         Route::get('files/{project}', 'FileController@index')->name('files');
         Route::get('files/download/{file}', 'FileController@download')->name('files.download');
@@ -76,6 +79,14 @@ Route::prefix('auth')->group(function () {
 
         Route::get('times/{project}/{member}', 'TimeController@index')->name('times');
         Route::post('times/create', 'TimeController@create')->name('times.create');
+
+        Route::get('emails', 'GmailController@index')->name('emails');
+        Route::get('emails/sync', 'GmailController@sync')->name('emails.sync');
+        Route::post('emails/task', 'GmailController@task')->name('emails.task');
+        Route::post('emails/remove', 'GmailController@remove')->name('emails.remove');
+        Route::post('emails/delete', 'GmailController@delete')->name('emails.delete');
+        Route::post('emails/request', 'GmailController@requestAuthLink')->name('emails.request');
+        Route::post('emails/token', 'GmailController@generateToken')->name('emails.token');
 
     });
 });

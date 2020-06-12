@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ForgotPassword;
 use App\Mail\Register;
+use App\Providers\AuthServiceProvider;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,8 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+
+
     public function register(Request $request)
     {
         $v = Validator::make($request->all(), [
@@ -27,22 +30,25 @@ class AuthController extends Controller
                 'status' => 'error',
                 'errors' => $v->errors()
             ], 422);
-        }
-        $user = new User;
-        $user->first_name = $request->get('first_name');
-        $user->last_name = $request->get('last_name');
-        $user->email = $request->get('email');
-        $user->role = $request->get('role');
-        if ( $request->get('phone')){
-            $user->phone = $request->get('phone');
-        }
-        $password = Str::random(10);
-        $user->password = bcrypt($password);
-        if ( $user->save()){
-            Mail::to($request->get('email'))->send(new Register( $request->get('email'),$password));
-            return response()->json(['status' => 'success'], 200);
-        }
-        return response()->json(['status' => 'error'], 500);
+     }
+      $user = new User;
+      $user->first_name = $request->get('first_name');
+      $user->last_name = $request->get('last_name');
+      $user->email = $request->get('email');
+      $user->role = $request->get('role');
+      if ( $request->get('phone')){
+          $user->phone = $request->get('phone');
+      }
+      $password = Str::random(10);
+      $user->password = bcrypt($password);
+      if ( $user->save()){
+          Mail::to($request->get('email'))->send(new Register( $request->get('email'),$password));
+          return response()->json(['status' => 'success'], 200);
+      }
+      return response()->json(['status' => 'error'], 500);
+
+
+
     }
 
     public function login(Request $request)
@@ -66,9 +72,10 @@ class AuthController extends Controller
             'status' => 'success',
             'msg' => 'Logged out Successfully.'
         ], 200);
+
     }
 
-    public function user(Request $request)
+    public function user()
     {
 
         $user = User::where('id',Auth::user()->id)->get();
@@ -85,6 +92,9 @@ class AuthController extends Controller
             'status' => 'success',
             'data' => $userobj
         ]);
+
+
+
     }
 
     public function refresh()
@@ -95,9 +105,22 @@ class AuthController extends Controller
                 ->header('Authorization', $token);
         }
         return response()->json(['error' => 'refresh_token_error'], 401);
+
     }
+
     public function reset(Request $request){
-        dd( $request->get('email'));
+
+        $v = Validator::make($request->all(), [
+            'email' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+
+
         if ($request->has('email')){
             $user = User::where('email', $request->get('email'))->first();
             if ($user === null) {
@@ -113,5 +136,7 @@ class AuthController extends Controller
             }
         }
         return response()->json(['error' => 'No email found'], 401);
+
+
     }
 }
