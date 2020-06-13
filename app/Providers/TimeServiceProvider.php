@@ -17,13 +17,41 @@ class TimeServiceProvider extends ServiceProvider
     }
 
     public function index($project_id, $member_id){
+        $carbon = Carbon::now();
+        $times =  $this->timeModel->newQuery();
+        if ($project_id){
+            $times = $times->where('project_id',$project_id);
+        }
 
-        $times = $this->timeModel->where('project_id',$project_id)->where('member_id',$member_id)->with('task')->get();
+        if ($member_id){
+            $times = $times->where('member_id',$member_id);
+        }
+
+        if (!$project_id && !$member_id){
+            $times = $this->timeModel->with('task')->with('project')->get();
+            $collection = collect($times);
+            $grouped = $collection->groupBy('project.name');
+            $grouped->toArray();
+
+            return[
+                'first_day' => $carbon->startOfMonth()->toDateString(),
+                'last_day' => $carbon->endOfMonth()->toDateString(),
+                'status' => 'success',
+                'data' => $grouped
+            ];
+        }
+
+        $times = $times->with('task')->with('project')->get();
 
         return [
+            'first_day' => $carbon->startOfMonth()->toDateString(),
+            'last_day' => $carbon->endOfMonth()->toDateString(),
             'status' => 'success',
             'data' => $times
         ];
+
+
+
 
     }
 

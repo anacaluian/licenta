@@ -88,6 +88,8 @@ Route::prefix('auth')->group(function () {
         Route::post('emails/request', 'GmailController@requestAuthLink')->name('emails.request');
         Route::post('emails/token', 'GmailController@generateToken')->name('emails.token');
 
+        Route::get('activities/{project_id}', 'ActivityController@index')->name('activities');
+
     });
 });
 

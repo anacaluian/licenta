@@ -14,6 +14,7 @@ import AdminDashboard from './pages/admin/dashboard'// Routes
 import AdminMembers from './pages/admin/members'// Routes
 import AdminClients from './pages/admin/clients'// Routes
 import AdminEmails from './pages/admin/emails'// Routes
+import AdminInvoices from './pages/admin/invoices'// Routes
 import ClientDashboard from './pages/client/dashboard'// Routes
 import ForgotPassword from './pages/forgot-password'// Routes
 const routes = [
@@ -73,6 +74,15 @@ const routes = [
             auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
         }
     },
+    {
+        path: '/admin/invoices',
+        name: 'admin.invoices',
+        component: AdminInvoices,
+        meta: {
+            auth: {roles: 1, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+        }
+    },
+
     // MEMBER ROUTES
     {
         path: '/members',

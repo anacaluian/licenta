@@ -16,10 +16,9 @@ class TimeController extends Controller
     }
 
     public function index(Request $request){
-        if ($request->route('member') && $request->route('project')){
-            $response = $this->timeService->index($request->route('project'),$request->route('member'));
-            return response()->json($response);
-        }
+
+        $response = $this->timeService->index($request->route('project'),$request->route('member'));
+        return response()->json($response);
     }
 
     public function create(Request $request){

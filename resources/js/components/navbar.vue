@@ -69,6 +69,11 @@
                     href: { path: '/admin/clients' }
                 },
                 {
+                    title: 'Invoices',
+                    icon: 'fas fa-file-invoice-dollar',
+                    href: { path: '/admin/invoices' }
+                },
+                {
                     title: 'Emails',
                     icon: 'fas fa-envelope',
                     href: { path: '/admin/emails' }
