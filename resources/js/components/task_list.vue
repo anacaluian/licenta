@@ -226,11 +226,8 @@
             this.getProject();
             this.getMembers();
             // this.getTasks();
-             EventBus.$on('filter', (assignees,due_on) => {
-                 // this.getTasks({
-                 //     assignees:JSON.stringify(assignees),
-                 //     due_on:due_on
-                 // });
+             EventBus.$on('filter', (assignee,due_on) => {
+                 this.getProject(assignee,due_on);
              });
             const now = new Date();
             this.today =  new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -253,13 +250,24 @@
             this.comment.destroy()
         },
         methods: {
-            getProject() {
+            getProject(assignee, due) {
+                let data ={
+                    id: this.$route.params.id
+                };
+                if (assignee){
+                    data['assignee'] = assignee;
+                }
+                if (due){
+                    data['due'] = due;
+                }
+
                 this.axios({
-                    method: 'get',
-                    url: laroute.route('projects.data', {id: this.$route.params.id}),
+                    method: 'post',
+                    url: laroute.route('projects.data', {}),
+                    data:data
                 }).then((response) => {
                     this.project_data = response.data.data;
-
+                    this.$root.$emit('project', response.data.data.name);
                     if (response.data.data.tasks_list) {
                         let task_list = JSON.parse(response.data.data.tasks_list);
                         for (let name of task_list) {

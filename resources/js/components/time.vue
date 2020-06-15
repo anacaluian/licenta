@@ -33,72 +33,58 @@
             </b-form-group>
         </b-modal>
         <div class="mt-4">
-            <gantt-elastic :tasks="tasks_list" :options="options"></gantt-elastic>
+            <GSTC :config="data" @state="onState" />
+
         </div>
     </div>
 
 </template>
 <script>
     import GSTC from "vue-gantt-schedule-timeline-calendar";
-    import Header from "gantt-elastic-header";
-    import GanttElastic from "gantt-elastic";
+    let subs = [];
     export default {
         components: {
-            GSTC,
-            Header: {template:`<span>your header</span>`}, // or Header
-            GanttElastic,
-            ganttElasticFooter: {template:`<span>your footer</span>`},
+            GSTC
         },
         data() {
             return {
-                tasks_list: [],
-                options: {
-                    maxRows: 100,
-                    maxHeight: 300,
-                    title: {
-                        label: 'Your project title as html (link or whatever...)',
-                        html: false
-                    },
-                    row: {
-                        height: 24
-                    },
-                    calendar: {
-                        hour: {
-                            display: false
-                        }
-                    },
-                    chart: {
-                        progress: {
-                            bar: false
-                        },
-                        expander: {
-                            display: true
-                        }
-                    },
-                    taskList: {
-                        expander: {
-                            straight: false
-                        },
-                        columns: [
-                            {
-                                id: 0,
-                                label: '',
-                                value: 'task',
-                                width: 100,
-                                style: {
-                                    'task-list-header-label': {
-                                        'text-align': 'center',
-                                        width: '100%',
-                                    },
-                                    'task-list-item-value-container': {
-                                        'text-align': 'center',
-                                        width: '100%'
+
+
+                data:{
+                    list: {
+                        rows:{},
+                        columns: {
+                            data: {
+                                id: {
+                                    id: "id",
+                                    data: "id",
+                                    width: 50,
+                                    header: {
+                                        content: "ID"
+                                    }
+                                },
+                                label: {
+                                    id: "label",
+                                    data: "label",
+                                    width: 200,
+                                    header: {
+                                        content: "Label"
                                     }
                                 }
                             }
-                        ]
+                        }
+                    },
+                    chart: {
+                        spacing: 1,
+                        items:{},
+                        time: {
+                            period: 'day',
+                            from:new Date('2020-04-01').getTime(),
+                            to:new Date('2020-04-06').getTime(),
+                        }
                     }
                 },
+
 
 
                     form: {
@@ -119,10 +105,7 @@
         },
 
         methods:{
-            onState(state) {
-                this.state = this.config;
-            },
-            getTimes(state){
+            getTimes(){
                 this.axios({
                     method: 'get',
                     url: laroute.route('times', {project:this.$route.params.id,
@@ -130,17 +113,36 @@
 
                 }).then((response) => {
                     let records = response.data.data;
-                    this.tasks_list = [];
-                    for (let item of records){
-                        this.tasks_list.push({
-                            id: item.id,
-                            label: item.time,
-                            start: item.date,
-                            duration:   parseInt(item.time[0] )* 60 * 60 * 1000,
-                            task: item.task_id > 0 ? item.task.name : 'Project',
-                            type: 'project',
-                        })
+                    let first = response.data.first_day;
+                    let last = response.data.last_day;
+                    this.data.chart.time.from = new Date(first).getTime();
+                    this.data.chart.time.to = new Date(last).getTime();
+
+
+                    let rows= {};
+                    let items = {};
+                    for (let time of response.data.data){
+
+                        rows[time.task_id ? time.task_id : 0] = {
+                            id:time.task_id ? time.task_id : 0,
+                            label: time.task ?  time.task.name : 'Project',
+                        };
+                        items[time.id] = {
+                            id:time.id,
+                            label: time.time,
+                            time: {
+                                start:new Date(time.date).getTime(),
+                                end: new Date(time.date).getTime(),
+                            },
+                            rowId: time.task_id ? time.task_id : 0,
+                            style:{
+                                background:'#67FFC8'
+                            }
+                        };
                     }
+
+                    this.data.list.rows = rows;
+                    this.data.chart.items = items;
 
                 })
                     .catch((error) => console.log(error))
@@ -175,6 +177,12 @@
                     this.getTimes();
                 })
                     .catch((error) => console.log(error))
+            },
+            beforeDestroy() {
+                subs.forEach(unsub => unsub());
+            },
+            onState(state) {
+                this.state = state;
             }
         }
     }

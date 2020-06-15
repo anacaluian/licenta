@@ -25,7 +25,16 @@ class ProjectController extends Controller
 
     public function project(Request $request){
 
-        $response = $this->projectService->project($request->route('id'));
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->projectService->project($request->all());
         return response()->json($response);
     }
 
@@ -34,6 +43,7 @@ class ProjectController extends Controller
         $v = Validator::make($request->all(), [
             'name' => 'required',
             'owner' => 'required',
+            'rate' => 'numeric|min:0|integer'
         ]);
         if ($v->fails()) {
             return response()->json([

@@ -1,13 +1,6 @@
 <template>
-    <div class="container-fluid ml-5" >
-        <div class="col-4 mt-4">
-            <treeselect
-                    v-model="project"
-                    :multiple="false"
-                    :options="projects"
-            ></treeselect>
-        </div>
-        <GSTC :config="data" @state="onState" />
+    <div class="container-fluid ml-5 no-scroll" >
+        <GSTC class="shadow-lg" :config="data" @state="onState" />
     </div>
 </template>
 <script>
@@ -24,20 +17,20 @@
                         rows:{},
                         columns: {
                             data: {
-                                id: {
-                                    id: "id",
-                                    data: "id",
-                                    width: 50,
-                                    header: {
-                                        content: "ID"
-                                    }
-                                },
                                 label: {
                                     id: "label",
                                     data: "label",
                                     width: 200,
                                     header: {
-                                        content: "Label"
+                                        content: "Project"
+                                    }
+                                },
+                                total: {
+                                    id: "total",
+                                    data: "total",
+                                    width: 200,
+                                    header: {
+                                        content: "Total"
                                     }
                                 }
                             }
@@ -53,81 +46,48 @@
                         }
                     }
                 },
-                times:[],
-                project:null,
-                projects:[]
-
             }
         },
         mounted(){
-            this.getTimes();
-        },
-        watch:{
-            project:function () {
-                let rows= {};
-                let items = {};
-                let times = this.times[this.project]
-                for (let time of times){
-                    rows[time.id] = {
-                        id:time.id,
-                        label: time.task ?  time.task.name : 'Project',
-                    };
-                    items[time.id] = {
-                        id:time.id,
-                        label: time.description,
-                        time: {
-                            start:new Date(time.date).getTime(),
-                            end: new Date(time.date).getTime(),
-                        },
-                        rowId: time.id,
-                    };
-                }
-
-                this.data.list.rows = rows;
-                this.data.chart.items = items;
-            }
+            // this.getTimes();
+            this.getMonth();
         },
         beforeDestroy() {
             subs.forEach(unsub => unsub());
         },
         methods:{
-             getTimes(){
-            //     let rows= {};
-            //     let items = {};
-            //     rows[1] = {
-            //         id:1,
-            //         label: 'Room ',
-            //     };
-            //     items[1] = {
-            //         id:1,
-            //         label: 'User id ',
-            //         time: {
-            //             start:new Date('2020-06-02').getTime(),
-            //             end: new Date('2020-06-03').getTime(),
-            //         },
-            //         rowId: 1,
-            //     };
-
-                // this.data.list.rows = rows;
-                // this.data.chart.items = items;
-
+            getMonth(){
                 this.axios({
                     method: 'get',
-                    url: laroute.route('times', {project:0,
-                        member:0}),
+                    url: laroute.route('times.month', {}),
                 }).then((response) => {
-                    this.times = response.data.data;
-                    for(let time in this.times){
-                       this.projects.push({
-                           id:time,
-                           label:time
-                       })
-                        this.project = time
-                    }
+                    let rows= {};
+                    let items = {};
                     let first = response.data.first_day;
                     let last = response.data.last_day;
                     this.data.chart.time.from = new Date(first).getTime();
                     this.data.chart.time.to = new Date(last).getTime();
+                    for (let[index,project] of response.data.data.entries()){
+                            rows[index] = {
+                                id:index,
+                                label: project.name,
+                                total:project.total + '€',
+                            };
+                            items[index] = {
+                                id:index,
+                                label:project.hours +' Hours ' +  project.minutes + ' Minutes',
+                                time: {
+                                    start:new Date(project.from).getTime(),
+                                    end: new Date(project.to).getTime(),
+                                },
+                                rowId: index,
+                                style:{
+                                    background:'#67FFC8'
+                                }
+                            };
+                        this.data.list.rows = rows;
+                        this.data.chart.items = items;
+                    }
                 })
                     .catch((error) => console.log(error))
             },
@@ -137,6 +97,34 @@
         }
     }
 </script>
-<style scoped>
-
+<style>
+    .no-scroll{
+        width: 96%;
+    }
+    .gantt-schedule-timeline-calendar{
+        background-color: #2c2e38 !important;
+        color: #CFCFD0 !important;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+    }
+    .gantt-schedule-timeline-calendar__list-column-header-resizer{
+        background: #373a44 !important;
+        color: #67FFC8;
+    }
+    .gantt-schedule-timeline-calendar__list-column-header-resizer{
+        background: #373a44 !important;
+        color: #67FFC8;
+    }
+    .gantt-schedule-timeline-calendar__chart-calendar-date.gantt-schedule-timeline-calendar__chart-calendar-date--month.gantt-schedule-timeline-calendar__chart-calendar-date--level-0.gstc-current{
+        background: #373a44 !important;
+        color: #67FFC8;
+    }
+    .gantt-schedule-timeline-calendar__chart-calendar-date.gantt-schedule-timeline-calendar__chart-calendar-date--day.gantt-schedule-timeline-calendar__chart-calendar-date--level-1{
+        background: #373a44 !important;
+        color: #67FFC8;
+    }
+    .gantt-schedule-timeline-calendar__list-toggle{
+        background: #373a44 !important;
+    }
 </style>

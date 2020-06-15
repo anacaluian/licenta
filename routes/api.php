@@ -48,7 +48,7 @@ Route::prefix('auth')->group(function () {
 
 
         Route::get('projects', 'ProjectController@index')->name('projects');
-        Route::get('project/{id}', 'ProjectController@project')->name('projects.data');
+        Route::post('project/data', 'ProjectController@project')->name('projects.data');
         Route::post('projects/create', 'ProjectController@create')->name('projects.create');
         Route::post('projects/edit', 'ProjectController@edit')->name('projects.edit');
         Route::post('projects/state', 'ProjectController@state')->name('projects.state');
@@ -79,6 +79,7 @@ Route::prefix('auth')->group(function () {
 
         Route::get('times/{project}/{member}', 'TimeController@index')->name('times');
         Route::post('times/create', 'TimeController@create')->name('times.create');
+        Route::get('times/month', 'TimeController@monthlyTime')->name('times.month');
 
         Route::get('emails', 'GmailController@index')->name('emails');
         Route::get('emails/sync', 'GmailController@sync')->name('emails.sync');

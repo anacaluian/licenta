@@ -96,7 +96,7 @@ const routes = [
         name: 'member.dashboard',
         component: MemberDashboard,
         meta: {
-            auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
+            auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
     },
     {
         path: '/projects/:id',
@@ -113,7 +113,7 @@ const routes = [
                 name: 'project.notes',
                 component: Notes,
                 meta: {
-                    auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                    auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
                 }
             },
             {
@@ -121,7 +121,7 @@ const routes = [
                 name: 'project.files',
                 component: Files,
                 meta: {
-                    auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                    auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
                 }
             },
             {
@@ -129,7 +129,7 @@ const routes = [
                 name: 'project.time',
                 component: Time,
                 meta: {
-                    auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                    auth: {roles: [1,2], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
                 }
             },
             {
@@ -137,12 +137,12 @@ const routes = [
                 name: 'project.activity',
                 component: Activity,
                 meta: {
-                    auth: {roles: 2, redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+                    auth: {roles: [1,2], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
                 }
             },
         ],
         meta: {
-            auth: {roles: [2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
+            auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}
         }
     },
     // CLIENT ROUTES

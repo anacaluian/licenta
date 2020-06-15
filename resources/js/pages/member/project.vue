@@ -20,7 +20,7 @@
             </div>
             <hr>
             <div  v-if="$route.name == 'project'"class="row">
-                <treeselect class="col-sm-2" v-model="assignee" placeholder="Filter Assignee" :multiple="true" :options="members"></treeselect>
+                <treeselect class="col-sm-2" v-model="assignee" placeholder="Filter Assignee" :multiple="false" :options="members"></treeselect>
                 <date-picker id="picker" class="col-sm-2"  placeholder="Filter Due On Date" v-model="due_on" valueType="format"></date-picker>
                 <div class="ml-auto mr-4">
                     <b-dropdown id="people"  :text="'People(' + members.length + ')'">
@@ -37,7 +37,7 @@
         </div>
         <div class="content-middle">
             <router-view></router-view>
-            <taskList v-if="$route.name == 'project'"> </taskList>
+            <taskList v-if="$route.name && $route.name === 'project'"> </taskList>
         </div>
     </div>
 </template>

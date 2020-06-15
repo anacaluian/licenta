@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid ml-5 mr-5 mt-5">
+    <div class="container-fluid ml-5 mr-5 mt-3">
         <div class="row ml-1">
             <h6 class="ap"><strong>Active Projects</strong></h6>
         </div>

@@ -39,4 +39,9 @@ class TimeController extends Controller
         $response = $this->timeService->create($request->all());
         return response()->json($response);
     }
+
+    public function monthlyTime(){
+        $response = $this->timeService->monthlyTime();
+        return response()->json($response);
+    }
 }

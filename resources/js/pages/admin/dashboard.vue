@@ -9,6 +9,9 @@
                     <b-badge v-if="row.item.state == 'in_progress'" pill variant="success">In progress</b-badge>
                     <b-badge v-if="row.item.state == 'completed'" pill variant="danger">Completed</b-badge>
                 </template>
+                <template v-slot:cell(rate)="row">
+                   {{row.item.rate + '€'}}
+                </template>
                 <template v-slot:cell(members)="row">
                     <div v-for="member in row.item.members_project" >
                         {{member.first_name + ' ' + member.last_name}}
@@ -74,6 +77,19 @@
                 ></b-form-input>
             </b-form-group>
             <b-form-group
+                    class="custom"
+                    label="Hourly rate:"
+                    description="Default price rate is 5€."
+
+            >
+                <b-form-input
+                        v-model="form.rate"
+                        required
+                        type="number"
+                        step="0.01"
+                        placeholder="Enter project hourly rate"
+                ></b-form-input>
+            </b-form-group>
             <b-form-group
                     class="custom"
                     label="Lists:"
@@ -146,6 +162,19 @@
             </b-form-group>
             <b-form-group
                     class="custom"
+                    label="Hourly rate:"
+                    description="Default price rate is 5€."
+            >
+                <b-form-input
+                        v-model="selectedProject.rate"
+                        required
+                        type="number"
+                        step="0.01"
+                        placeholder="Enter project hourly rate"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
                     label="Lists:"
             >
                 <tags
@@ -191,6 +220,7 @@
                 tasks:'',
                 tasks_edit:'',
                 form: {
+                    rate:0,
                     name: null,
                     owner: null,
                     edit:[],
@@ -202,6 +232,7 @@
                 selectedProject: {
                     edit:'',
                     id: null,
+                    rate:0,
                     name: null,
                     owner: null,
                     tasks:[],
@@ -212,7 +243,7 @@
                 members: [],
                 clients: [],
                 data: [],
-                fields: ['name', 'owner', 'support_email','state','members','clients','created','actions'],
+                fields: ['name', 'owner', 'support_email','state','rate','members','clients','created','actions'],
                 isLoading: false,
             }
         },
@@ -275,6 +306,7 @@
                 console.log(data);
                 this.selectedProject.id = id;
                 this.selectedProject.name = data[0].name;
+                this.selectedProject.rate = data[0].rate;
                 this.selectedProject.owner = data[0].owner;
                 this.selectedProject.support_email = data[0].support_email;
                 this.selectedProject.members = [];
@@ -370,7 +402,10 @@
 
 </style>
 <style>
-
+    .ti-new-tag-input.ti-valid{
+        background-color: transparent;
+        color:white;
+    }
     .modal-content {
         background-color: #373a44 !important;
     }

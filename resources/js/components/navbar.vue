@@ -2,13 +2,10 @@
     <div>
         <b-navbar class="nav-css" v-if="$auth.check()" toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand>
-                <div class="row ml-4">
+                <div class="row ml-2">
                     <router-link  class="home" to="/">
-                        <h2>Projects</h2>
+                        <h3 class="logo"><i class="fab fa-pushed  fa-2x"></i></h3>
                     </router-link>
-                    <!--<b-button v-if="$auth.check(2) && $route.name == 'project'"  @click="$router.push({ name: 'member.dashboard'})" pill class="ml-3 outlined" variant="outline-secondary">-->
-                      <!--Projects-->
-                    <!--</b-button>-->
                 </div>
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -40,6 +37,8 @@
     export default {
         data() {
             return {
+                project_name:'',
+                visible:false,
                 memberMenu:[
                     {
                         title: 'Projects',
@@ -56,6 +55,11 @@
                 {
                     title: 'Projects',
                     icon: 'fas fa-th-large',
+                    href: { path: '/projects' }
+                },
+                {
+                    title: 'Projects Management',
+                    icon: 'fas fa-tasks',
                     href: { path: '/admin' }
                 },
                 {
@@ -102,6 +106,13 @@
                 }
             }
         },
+        mounted(){
+            this.visible = false;
+            this.$root.$on('project', data => {
+                this.project_name = data;
+                this.visible = true;
+            });
+        }
     }
 </script>
 <style scoped>
@@ -109,7 +120,9 @@
         border-color:transparent !important ;
         color: #67FFC8 !important;
     }
-
+    .logo{
+        color: #67FFC8 !important;
+    }
     .outlined:hover{
         border-color: #67FFC8 !important;
     }
@@ -166,6 +179,7 @@
         background-color: #2c2e38 !important;
     }
 
+
     .vsm--icon{
         color: #B9B9B9 !important;
         background-color: #2c2e38 !important;
@@ -173,6 +187,12 @@
 
     .router-link-active h2{
         color: white !important;
+    }
+
+    .b-avatar-text > span{
+        display: flex;
+        justify-content: center;
+        line-height: 2.5;
     }
 
 </style>

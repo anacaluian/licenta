@@ -38,6 +38,11 @@ class ProjectServiceProvider
                     ->with('clients_project')
                     ->get();
             }
+            if ($filters['role'] == 1){
+                $projects = $projects->with('members_project')
+                    ->with('clients_project')
+                    ->get();
+            }
 
         }else{
             $projects = $projects->with('members_project')->with('clients_project')->get();
@@ -49,8 +54,29 @@ class ProjectServiceProvider
         ];
     }
 
-    public function project($project_id){
-        $project = $this->projectModel->where('id',$project_id)->with('tasks')->first();
+    public function project(array $data){
+
+        $project = $this->projectModel->where('id',$data['id'])->newQuery();
+
+        if (!array_key_exists('assignee',$data) && !array_key_exists('due',$data)){
+            $project = $project->with('tasks')->first();
+        }
+        if (array_key_exists('assignee',$data)){
+            $project = $project->with(['tasks' => function($query) use ($data){
+                $query->where('assignee_id', $data['assignee']);
+            }])->first();
+        }
+        if (array_key_exists('due',$data)){
+            $project = $project->with(['tasks' => function($query) use ($data){
+                $query->where('due_on', $data['due']);
+            }])->first();
+        }
+
+        if (array_key_exists('assignee',$data) && array_key_exists('due',$data)){
+            $project = $project->with(['tasks' => function($query) use ($data){
+                $query->where('due_on', $data['due'])->where('assignee_id', $data['assignee']);
+            }])->first();
+        }
         return [
             'status' => 'success',
             'data' => $project
@@ -59,10 +85,12 @@ class ProjectServiceProvider
     }
 
     public function create(array $data){
-
         $project = new Project();
         $project->name = $data['name'];
         $project->owner = $data['owner'];
+        if ( $data['rate']){
+            $project->rate = $data['rate'];
+        }
         $project->support_email = $data['support_email'];
         if ($data['tasks']){
             $project->tasks_list = json_encode($data['tasks']);
@@ -86,6 +114,9 @@ class ProjectServiceProvider
         $project = $this->projectModel::find($data['id']);
         $project->name = $data['name'];
         $project->owner = $data['owner'];
+        if ($data['rate']){
+            $project->rate = $data['rate'];
+        }
         $project->support_email = $data['support_email'];
         if ($data['tasks']){
             $project->tasks_list = json_encode($data['tasks']);

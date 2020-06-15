@@ -11,7 +11,7 @@ class Project extends Model
     protected $primaryKey = 'id';
     protected static $logName = 'project';
     protected $fillable = [
-        'name','state','owner','support_email','tasks_list'
+        'name','state','owner','support_email','tasks_list','rate'
     ];
 
     public function members()
