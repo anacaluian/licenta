@@ -9,7 +9,7 @@
             >
                 <b-card-text>
                     <div class="alert alert-danger" v-if="has_error">
-                        <p>Credentiale introduse nu se potrivesc cu cele din baza noastra de date.</p>
+                        <p>These credentials do not match our records.</p>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

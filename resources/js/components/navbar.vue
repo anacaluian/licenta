@@ -18,11 +18,15 @@
                     <b-nav-item-dropdown v-if="$auth.check()" :text="'Hello, ' + $auth.user().first_name" right>
                         <b-dropdown-item  v-if="$auth.check()">
                             <router-link  :to="{ path : '/profile' }">
+                                <i class="fas fa-user-alt"></i>
                                My Profile
                             </router-link>
                         </b-dropdown-item>
                         <b-dropdown-item v-if="$auth.check()">
-                            <a class="user" @click.prevent="$auth.logout()">Logout</a>
+                            <a class="user" @click.prevent="$auth.logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>

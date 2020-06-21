@@ -20,7 +20,7 @@ class CreateEmailsTable extends Migration
             $table->string('project_email');
             $table->string('received_at');
             $table->string('subject');
-            $table->string('message');
+            $table->text('message');
             $table->softDeletes();
             $table->timestamps();
         });

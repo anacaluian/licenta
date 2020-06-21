@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+//Route::group(['middleware' => 'auth:api'], function(){
+//    Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
+//});
 
 Route::prefix('auth')->group(function () {
     Route::post('register', 'AuthController@register')->name('register');
@@ -33,6 +34,7 @@ Route::prefix('auth')->group(function () {
 
 
     Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
         Route::post('logout', 'AuthController@logout')->name('logout');
         Route::post('profile/photo', 'UserController@profilePhoto')->name('profile.photo');
         Route::post('user/update', 'UserController@update')->name('user.update');
@@ -94,7 +96,3 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-Route::group(['middleware' => 'auth:api'], function(){
-    // Users
-    Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
-});
