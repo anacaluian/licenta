@@ -16,7 +16,7 @@ class Task extends Model
 
     public function assignee()
     {
-        return $this->hasOne('App\User','id','assignee_id');
+        return $this->belongsTo('App\User','assignee_id','id');
     }
 
 }

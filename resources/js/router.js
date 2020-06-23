@@ -1,22 +1,21 @@
-import VueRouter from 'vue-router'// Pages
-import Register from './pages/register'
+import VueRouter from 'vue-router'
 import Login from './pages/login'
 import Project from './pages/member/project'
 import Members from './pages/member/members'
 import Discussions from './components/discussions'
-import Notes from './components/notes'// Routes
-import Files from './components/files'// Routes
-import Time from './components/time'// Routes
-import Profile from './components/profile.vue'// Routes
-import Activity from './components/activity.vue'// Routes
+import Notes from './components/notes'
+import Files from './components/files'
+import Time from './components/time'
+import Profile from './components/profile.vue'
+import Activity from './components/activity.vue'
 import MemberDashboard from './pages/member/dashboard'
-import AdminDashboard from './pages/admin/dashboard'// Routes
-import AdminMembers from './pages/admin/members'// Routes
-import AdminClients from './pages/admin/clients'// Routes
-import AdminEmails from './pages/admin/emails'// Routes
-import AdminInvoices from './pages/admin/invoices'// Routes
-import ClientDashboard from './pages/client/dashboard'// Routes
-import ForgotPassword from './pages/forgot-password'// Routes
+import AdminDashboard from './pages/admin/dashboard'
+import AdminMembers from './pages/admin/members'
+import AdminClients from './pages/admin/clients'
+import AdminEmails from './pages/admin/emails'
+import AdminInvoices from './pages/admin/invoices'
+import ClientDashboard from './pages/client/dashboard'
+import ForgotPassword from './pages/forgot-password'
 const routes = [
     {
         path: '/',

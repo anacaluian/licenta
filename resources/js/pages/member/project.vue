@@ -24,7 +24,7 @@
                 <date-picker id="picker" class="col-sm-2"  placeholder="Filter Due On Date" v-model="due_on" valueType="format"></date-picker>
                 <div class="ml-auto mr-4">
                     <b-dropdown id="people"  :text="'People(' + members.length + ')'">
-                        <b-dropdown-item v-for="member in members">
+                        <b-dropdown-item v-for="member in members" :key="member.id">
                             <b-avatar id="member_avatar" v-if="member.photo" :src="member.photo"></b-avatar>
                             <b-avatar id="member_avatar"  v-else  variant="primary"
                                       :text="member.label.split(' ')[0][0].toUpperCase() + member.label.split(' ')[1][0].toUpperCase()"></b-avatar>

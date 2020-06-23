@@ -5,7 +5,7 @@
                 :key="index"
                 :title="index.replace(/_/g,' ')"
                 tag="article"
-                style="max-width: 20rem; min-width: 13%;overflow-y: auto;
+                style="max-width: -moz-min-content; min-width: 13%;overflow-y: auto;
         overflow-x: hidden;"
                 class="mb-2 card  mr-3"
         >
@@ -19,6 +19,9 @@
                             @click="showTaskDetails(element)"
                             :key="element.name"
                     >
+                        <b-avatar id="task_avatar" v-if="element.assignee && element.assignee.profile_photo" :src="element.assignee.profile_photo"></b-avatar>
+                        <b-avatar id="task_avatar_text" v-if="element.assignee && !element.assignee.profile_photo"  variant="primary"
+                                  :text="element.assignee.first_name[0].toUpperCase()+element.assignee.last_name[0].toUpperCase()"></b-avatar>
                         #{{element.id}}: {{ element.name }}
                     </div>
                 </draggable>
@@ -166,16 +169,16 @@
                     label="Assignee:">
                 <treeselect  class="assignee-select"  placeholder="Select a member" v-model="form.assignee" :multiple="false" :options="members" />
             </b-form-group>
-            <b-form-group
-                    class="custom"
-                    label="Label:"
-            >
-                <b-form-input
-                        v-model="form.label"
-                        required
-                        placeholder="Choose label"
-                ></b-form-input>
-            </b-form-group>
+            <!--<b-form-group-->
+                    <!--class="custom"-->
+                    <!--label="Label:"-->
+            <!--&gt;-->
+                <!--<b-form-input-->
+                        <!--v-model="form.label"-->
+                        <!--required-->
+                        <!--placeholder="Choose label"-->
+                <!--&gt;</b-form-input>-->
+            <!--</b-form-group>-->
         </b-modal>
     </div>
 </template>
@@ -343,6 +346,7 @@
                     url: laroute.route('tasks.update.task', {}),
                     data: this.selectedTask
                 }).then((response) => {
+                    this.getProject();
                 })
                     .catch((error) => console.log(error))
             },
@@ -600,4 +604,18 @@
         line-height: 2.5;
     }
 
+    #task_avatar > span > img{
+        width: 23%;
+        height: auto;
+        margin-right: 3px;
+    }
+    #task_avatar_text {
+        width: 6%;
+        height: auto;
+        display: inline-flex;
+        justify-content: center;
+        line-height: 2.5;
+        margin-right: 3px;
+
+    }
 </style>

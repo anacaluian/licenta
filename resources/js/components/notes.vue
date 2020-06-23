@@ -8,7 +8,8 @@
                     v-for="(note, index) in notes"
                     :key="index"
                     tag="article"
-                    style="width:11%;"
+                    style="max-width: -moz-min-content; min-width: 13%;overflow-y: auto;
+        overflow-x: hidden;"
                     aria-controls="note-preview"
                     aria-expanded="true"
                     @click="showNoteDetails(note)"
@@ -17,7 +18,7 @@
                 <h5 class="card-title" v-html="note.title"></h5>
                 <b-card-text>
                     <p> <small>by {{note.author.first_name +' '+ note.author.last_name }}</small></p>
-                    <p v-html="note.content.slice(0,50)">...</p>
+                    <p v-html="note.content.slice(0,30)">...</p>
                 </b-card-text>
                 <b-card-footer>
                         <p>
@@ -47,6 +48,16 @@
                             <span @click="deleteNote(selectedNote.id)"><i class="fas fa-trash-alt"></i></span>
                         </div>
                         <editor-content class="ml-4 mt-4 text-dark" :editor="content" />
+                    </div>
+                    <div class="note-details">
+                        <div class="p-2">
+                            <p><strong>Created by</strong></p>
+                            <h5 v-if="selectedNote.author" class="task-prop">{{selectedNote.author.first_name  +" "+ selectedNote.author.last_name}}</h5>
+                        </div>
+                        <div class="p-2">
+                            <p><strong>Last update</strong></p>
+                            <h5 class="task-prop">{{ new Date(selectedNote.updated_at).toLocaleDateString("en-US") }}</h5>
+                        </div>
                     </div>
                 </div>
             </b-sidebar>
@@ -190,6 +201,20 @@
         height: 88%;
         border-radius: 16px;
         background-color: #FFF0CE;
+    }
+    .note-details{
+        position: fixed;
+        padding-top: 2%;
+        margin: 0;
+        top: 5%;
+        left: 85.5%;
+        width: 16%;
+        height: 88%;
+    }
+    .task-prop{
+        text-transform: capitalize;
+        font-weight: bold;
+        color: #67FFC8;
     }
 </style>
 <style>

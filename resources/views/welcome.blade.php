@@ -19,9 +19,17 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
 </head>
-<body style="height: 100%;">
+<body>
 <div id="app">
     <index></index>
 </div>
 </body>
 </html>
+<style>
+    body{
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 100%;
+    }
+
+</style>

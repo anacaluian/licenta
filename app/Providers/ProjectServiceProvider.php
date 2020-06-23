@@ -59,7 +59,9 @@ class ProjectServiceProvider
         $project = $this->projectModel->where('id',$data['id'])->newQuery();
 
         if (!array_key_exists('assignee',$data) && !array_key_exists('due',$data)){
-            $project = $project->with('tasks')->first();
+            $project = $project->with(['tasks' => function($query){
+                $query->with('assignee');
+            }])->first();
         }
         if (array_key_exists('assignee',$data)){
             $project = $project->with(['tasks' => function($query) use ($data){

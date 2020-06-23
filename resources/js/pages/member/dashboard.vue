@@ -7,6 +7,7 @@
             <div class="card-group">
                 <b-card
                         v-for="project in projects"
+                        :key="project.id"
                         :title="project.name"
                         style="max-width: 20rem;min-height: 100%;"
                         class="mb-2 mr-4 project-card shadow-lg p-3 mb-5 bg-white rounded"

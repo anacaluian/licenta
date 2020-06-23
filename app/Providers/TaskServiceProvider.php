@@ -19,7 +19,7 @@ class TaskServiceProvider
     }
 
     public function index($data){
-        $tasks = $this->taskModel->newQuery();
+        $tasks = $this->taskModel->with('assignee')->newQuery();
         $tasks = $tasks->where('project_id',$data['project_id']);
         if (array_key_exists('assignees', $data) && $data['assignees'] != 'null' ){
             $assignees = json_decode($data['assignees']);
@@ -30,7 +30,7 @@ class TaskServiceProvider
         if (array_key_exists('due_on', $data) && $data['due_on'] != 'null'){
             $tasks = $tasks->where('due_on',$data['due_on']);
         }
-        $tasks = $tasks->with('assignee')->get();
+        $tasks = $tasks->get();
         $collection = collect($tasks);
         $grouped = $collection->groupBy('task_list');
         $grouped->toArray();
@@ -41,7 +41,6 @@ class TaskServiceProvider
     }
 
     public function create(array $data){
-
         $task = new Task();
         $task->name = $data['name'];
         $task->project_id = $data['project_id'];
@@ -51,7 +50,7 @@ class TaskServiceProvider
         if ($task->save()){
 
             activity()
-                ->causedBy(Auth::user()->id())
+                ->causedBy(Auth::user()->id)
                 ->performedOn(new Task())
                 ->withProperties(['project' => $data['project_id']])
                 ->createdAt(now())
@@ -80,9 +79,10 @@ class TaskServiceProvider
     }
 
     public function updateTask(array $data){
-       $update = $this->taskModel->find($data['id'])->update([
+        $update = $this->taskModel->find($data['id'])->update([
            'details' => $data['details'],
-           'due_on' => $data['due_on']
+           'due_on' => $data['due_on'],
+           'assignee_id' => $data['assignee_id']
        ]);
        if ($update){
            return response()->json('success', 200);
