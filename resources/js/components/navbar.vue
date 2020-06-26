@@ -13,6 +13,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
+                    <notification-center class="mr-2" appId="XiNNmnN7cU" :subscriberId="$auth.user().email"/>
                     <b-avatar v-if="$auth.user().profile_photo" :src="$auth.user().profile_photo"></b-avatar>
                     <b-avatar v-else  variant="primary"
                               :text="$auth.user().first_name[0].toUpperCase()+$auth.user().last_name[0].toUpperCase()"></b-avatar>

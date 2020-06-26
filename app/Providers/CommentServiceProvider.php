@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
-
+use GuzzleHttp\Client;
 class CommentServiceProvider
 {
     protected $commentModel;
@@ -60,7 +60,18 @@ class CommentServiceProvider
                 ->withProperties(['project' => $data['project_id']])
                 ->createdAt(now())
                 ->log(Auth::user()->first_name .' '. Auth::user()->last_name . ' commented on Task #' .  $data['task_id'] . '.');
+
+            $dataObj = new \stdClass();
+            $dataObj->user = Auth::user()->first_name .' '. Auth::user()->last_name;
+            $dataObj->task = $data['task_id'];
+            $client = new Client();
+            $response = $client->post('https://api.ravenhub.io/company/XiNNmnN7cU/subscribers/member@demo.com/events/KEfn4Uy3Ha', [
+                'Content-type' => 'application/json',
+                'Access-Control-Allow-Origin' => '*'
+            ],$dataObj );
         }
+
+
         return response()->json('error',500);
 
     }

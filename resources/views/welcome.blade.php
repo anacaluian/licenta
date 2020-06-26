@@ -8,6 +8,7 @@
     <title>Projects - Task Manager</title>  <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>  <!-- Fonts -->
     <script src="{{ asset('js/laroute.js') }}" defer></script>
+    <script src="https://embed.ravenhub.io/js/app.js"></script>
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">  <!-- Styles -->

@@ -21,6 +21,20 @@ class TimeController extends Controller
         return response()->json($response);
     }
 
+    public function delete(Request $request){
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->timeService->delete($request->get('id'));
+        return response()->json($response);
+    }
+
     public function create(Request $request){
         $v = Validator::make($request->all(), [
             'project_id' => 'required',

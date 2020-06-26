@@ -31,8 +31,6 @@ Route::prefix('auth')->group(function () {
     Route::post('reset', 'AuthController@reset')->name('forgot-password');
 
 
-
-
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
         Route::post('logout', 'AuthController@logout')->name('logout');
@@ -82,6 +80,7 @@ Route::prefix('auth')->group(function () {
         Route::get('times/{project}/{member}', 'TimeController@index')->name('times');
         Route::post('times/create', 'TimeController@create')->name('times.create');
         Route::get('times/month', 'TimeController@monthlyTime')->name('times.month');
+        Route::post('times/delete', 'TimeController@delete')->name('times.delete');
 
         Route::get('emails', 'GmailController@index')->name('emails');
         Route::get('emails/sync', 'GmailController@sync')->name('emails.sync');

@@ -199,6 +199,7 @@
             preview,
             EditorContent,
             EditorMenuBar,
+
         },
         props: {
             title: String,
@@ -380,6 +381,15 @@
                     data: formData
                 }).then((response) => {
                     this.getComments();
+                        // this.axios({
+                        //     method: 'post',
+                        //     url: 'https://api.ravenhub.io/company/XiNNmnN7cU/subscribers/member@demo.com/events/KEfn4Uy3Ha',
+                        //     headers: {'Content-type': 'application/json'},
+                        //     data:{
+                        //         "user" : this.$auth.user().first_name,
+                        //         "task" : this.selectedTask.id
+                        //     }
+                        // });
                 })
                     .catch((error) => console.log(error))
             },

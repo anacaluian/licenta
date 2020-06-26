@@ -52,7 +52,6 @@ class GmailServiceProvider
 
             $client->setAccessToken($accessToken);
 
-            // Check to see if there was an error.
             if (array_key_exists('error', $accessToken)) {
                 return response()->json(new \Exception(join(', ', $accessToken),500));
             }

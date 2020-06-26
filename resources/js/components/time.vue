@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-button  v-b-modal.time class="add-time"><i class="fas fa-plus"></i> New Time Record</b-button>
-        <b-modal id="time" title="Add New Time Record" @ok="addTime">
+        <b-button @click="triggerModal" class="add-time"><i class="fas fa-plus"></i> New Time Record</b-button>
+        <b-modal  ref="modal_add" id="time"  title="Time Record" @ok="addTime">
             <b-form-group>
                 <treeselect  class="assignee-select"  placeholder="Select a task" v-model="form.task" :multiple="false" :options="tasks" />
             </b-form-group>
@@ -33,24 +33,57 @@
             </b-form-group>
         </b-modal>
         <div class="mt-4">
-            <GSTC :config="data" @state="onState" />
-
+            <GSTC id="popover" :config="data" @state="onState" />
         </div>
+        <b-modal  ref="modal" id="time"  cancel-title="Delete" title="Time Record" @ok="addTime" @cancel="deleteTime(form.task)">
+            <b-form-group>
+                <treeselect  class="assignee-select"  placeholder="Select a task" v-model="form.task" :multiple="false" :options="tasks" />
+            </b-form-group>
+            <b-form-group>
+                <!--<b-form-datepicker id="datepicker" v-model="form.date" class="mb-2"></b-form-datepicker>-->
+                <date-picker  id="picker" class="picker" placeholder="Select Date" v-model="form.date" valueType="format"></date-picker>
+
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+            >
+                <b-form-input
+                        v-model="form.time"
+                        required
+                        placeholder="Enter time, eg 1:30 or 1.50"
+                ></b-form-input>
+            </b-form-group>
+            <b-form-group
+                    class="custom"
+            >
+                <b-form-textarea
+                        id="textarea"
+                        v-model="form.description"
+                        placeholder="Description"
+                        rows="3"
+                        max-rows="6"
+                ></b-form-textarea>
+
+            </b-form-group>
+        </b-modal>
     </div>
 
 </template>
 <script>
     import GSTC from "vue-gantt-schedule-timeline-calendar";
+    import Selection from "gantt-schedule-timeline-calendar/dist/Selection.plugin.js"
     let subs = [];
     export default {
         components: {
-            GSTC
+            GSTC,
+            Selection
         },
         data() {
             return {
-
-
                 data:{
+                    actions: {
+                        'chart-timeline-items-row-item': [this.clickAction]
+                    },
                     list: {
                         rows:{},
                         columns: {
@@ -82,12 +115,11 @@
                             from:new Date('2020-04-01').getTime(),
                             to:new Date('2020-04-06').getTime(),
                         }
-                    }
+                    },
                 },
 
-
-
                     form: {
+                        id:'',
                         time: '',
                         description: '',
                         task: null,
@@ -95,6 +127,7 @@
                         project_id: this.$route.params.id,
                         member_id: this.$auth.user().id
                     },
+                selectedTime:[],
                     tasks: [],
 
                 }
@@ -105,7 +138,42 @@
         },
 
         methods:{
-            getTimes(){
+
+            deleteTime(task){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('times.delete', {}),
+                    data:{
+                        id:task
+                    }
+                }).then((response) => {
+                    this.getTimes();
+                }).catch((error) => console.log(error))
+            },
+            triggerModal(){
+                this.form.time ='';
+                this.form.id ='';
+                this.form.description = '';
+                this.form.task = null;
+                this.form.date = null;
+                this.$refs['modal_add'].show()
+            },
+            clickAction(element, data) {
+        element.addEventListener('click', (event) =>{
+            this.form.time = data.item.label;
+            this.form.id = data.item.id;
+            this.form.description = data.item.description;
+            this.form.task = data.item.task;
+            this.form.date = data.item.date;
+            this.$refs['modal'].show()
+        });
+                return {
+            update(element, newData) {
+                data = newData;
+            },
+        };
+    },
+    getTimes(){
                 this.axios({
                     method: 'get',
                     url: laroute.route('times', {project:this.$route.params.id,
@@ -130,6 +198,9 @@
                         items[time.id] = {
                             id:time.id,
                             label: time.time,
+                            description:time.description,
+                            task:time.task_id,
+                            date:time.date,
                             time: {
                                 start:new Date(time.date).getTime(),
                                 end: new Date(time.date).getTime(),
@@ -264,5 +335,9 @@ input:focus,textarea:focus {
     }
     .gantt-elastic__grid-line-time{
         stroke:transparent !important;
+    }
+    .gantt-schedule-timeline-calendar__chart-calendar
+    {
+        background:transparent !important;
     }
 </style>

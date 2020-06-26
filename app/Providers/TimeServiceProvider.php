@@ -88,6 +88,7 @@ class TimeServiceProvider extends ServiceProvider
         if (array_key_exists('task',$data) && $data['task']){
             $record->task_id = $data['task'];
         }
+            $record->description = $data['description'];
         if($record->save()){
             return response()->json('success', 200);
         }
@@ -137,5 +138,12 @@ class TimeServiceProvider extends ServiceProvider
             'first_day' => Carbon::now()->startOfMonth()->toDateString(),
             'last_day' => Carbon::now()->endOfMonth()->toDateString(),
         ];
+    }
+    public function delete($id){
+       $delete =  $this->timeModel->where('id',$id)->delete();
+       if ($delete){
+           return response()->json('success', 200);
+       }
+        return response()->json('error', 500);
     }
 }
