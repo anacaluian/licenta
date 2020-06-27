@@ -38,6 +38,8 @@ Route::prefix('auth')->group(function () {
         Route::post('user/update', 'UserController@update')->name('user.update');
 
 
+        Route::get('admin', 'UserController@admin')->name('admin');
+        Route::post('admin/change', 'UserController@changeRole')->name('admin.change.role');
         Route::get('members', 'UserController@members')->name('members');
         Route::post('members/edit', 'UserController@membersEdit')->name('members.edit');
         Route::post('members/delete', 'UserController@membersDelete')->name('members.delete');

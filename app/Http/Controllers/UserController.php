@@ -22,6 +22,27 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    public function admin()
+    {
+        $response = $this->userService->admin();
+        return response()->json($response);
+    }
+
+    public function changeRole(Request $request){
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+            'current_role' => 'required',
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->userService->changeRole($request->get('id'),$request->get('current_role'));
+        return response()->json($response);
+    }
+
     public function members()
     {
         $response = $this->userService->members();

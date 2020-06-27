@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Comment;
 use App\File;
+use App\MemberToProject;
 use App\User;
 use function Couchbase\defaultDecoder;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
+
 class CommentServiceProvider
 {
     protected $commentModel;
@@ -41,34 +47,44 @@ class CommentServiceProvider
         ];
     }
 
-    public function create(array $data){
+    public function create(array $data)
+    {
         $comment = new Comment();
         $comment->user_id = $data['user_id'];
         $comment->project_id = $data['project_id'];
         $comment->task_id = $data['task_id'];
         $comment->comment = $data['comment'];
-        if ($comment->save()){
-            if (array_key_exists('files',$data) ){
-               $upload = $this->upload($comment->id,$data['user_id'],$data['project_id'],$data['files']);
-                if($upload) {
-                    return response()->json('success',200);
+        if ($comment->save()) {
+            if (array_key_exists('files', $data)) {
+                $upload = $this->upload($comment->id, $data['user_id'], $data['project_id'], $data['files']);
+                if ($upload) {
+                    return response()->json('success', 200);
                 }
             }
             activity()
-                ->causedBy( $data['user_id'])
+                ->causedBy($data['user_id'])
                 ->performedOn($comment)
                 ->withProperties(['project' => $data['project_id']])
                 ->createdAt(now())
-                ->log(Auth::user()->first_name .' '. Auth::user()->last_name . ' commented on Task #' .  $data['task_id'] . '.');
+                ->log(Auth::user()->first_name . ' ' . Auth::user()->last_name . ' commented on Task #' . $data['task_id'] . '.');
 
-            $dataObj = new \stdClass();
-            $dataObj->user = Auth::user()->first_name .' '. Auth::user()->last_name;
-            $dataObj->task = $data['task_id'];
+            $json = [
+                'user' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                'task' => $data['task_id'],
+                'project' => $data['project_id'],
+            ];
+
+            $members = MemberToProject::where('project_id', $data['project_id'])->where('member_id', '!=', Auth::user()->id)->with('member')->get();
             $client = new Client();
-            $response = $client->post('https://api.ravenhub.io/company/XiNNmnN7cU/subscribers/member@demo.com/events/KEfn4Uy3Ha', [
-                'Content-type' => 'application/json',
-                'Access-Control-Allow-Origin' => '*'
-            ],$dataObj );
+
+            foreach ($members as $member){
+                $email = $member->member->email;
+                $response = $client->post('https://api.ravenhub.io/company/XiNNmnN7cU/subscribers/'.$email.'/events/2tT1qdwn9v', [
+                    'headers' => [],
+                    'json' => $json,
+                ]);
+            }
+
         }
 
 

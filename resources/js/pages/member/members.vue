@@ -1,6 +1,6 @@
 <template>
     <div class="content container-fluid shadow-lg">
-        <h5 class="p-2" style="color: #B9B9B9 !important">Project Members</h5>
+        <h5 class="p-2" style="color: #B9B9B9 !important">Projects Members</h5>
         <b-table class="table-sm" :dark="true" thead-class="hidden_header"  hover :items="members" :fields="fields">
             <template v-slot:cell(first_name)="row">
                 <p>
@@ -11,6 +11,10 @@
                         {{row.item.first_name}} {{row.item.last_name}}
                     </strong></p>
             </template>
+            <template v-slot:cell(role)="row">
+               <p v-if="row.item.role == 2">Member</p>
+               <p v-else>Admin <i class="fas fa-crown"></i></p>
+            </template>
         </b-table>
     </div>
 </template>
@@ -19,7 +23,7 @@
         data(){
             return{
                 members:[],
-                fields:['first_name','email']
+                fields:['first_name','email','role']
             }
         },
         mounted(){

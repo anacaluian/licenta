@@ -200,5 +200,34 @@
         justify-content: center;
         line-height: 2.5;
     }
+    .open-feed.inactiveBell svg[data-v-4de2d455]{
+        fill: #67FFC8 !important;
+    }
 
+</style>
+<style>
+    .b-avatar.badge-secondary.rounded-circle{
+        width: 2.0em !important;
+        background-color: transparent;
+    }
+    .notification-center-header[data-v-4de2d455]{
+        color:#67FFC8 !important;
+    }
+    .card.border-light.read{
+        background-color: #373a44 !important;
+        color: white;
+    }
+    .raven-action-button{
+        background-color: #67FFC8 !important;
+        border-color: #67FFC8 !important;
+    }
+    .feed-window{
+        background-color: #373a44 !important;
+    }
+    .feed-area.show{
+        background-color: #373a44 !important;
+    }
+    .card.read{
+        border-color:  #67FFC8 !important;
+    }
 </style>

@@ -9,9 +9,17 @@
                     <b-button v-b-modal.edit @click="selectMember(row.item.id)" pill class="outlined"
                               variant="outline-secondary">Edit
                     </b-button>
+                    <b-button @click="promote(row.item.id,row.item.role)" pill class="outlined" variant="outline-secondary">
+                        <div v-if="row.item.role == 1">Demote</div>
+                        <div v-else>Promote</div>
+                    </b-button>
                     <b-button @click="deleteMember(row.item.id)" pill class="outlined" variant="outline-secondary">
                         Delete
                     </b-button>
+                </template>
+                <template v-slot:cell(role)="row">
+                    <p v-if="row.item.role == 1">Admin <i class="fas fa-crown"></i></p>
+                    <p v-else>Member</p>
                 </template>
             </b-table>
         </div>
@@ -114,13 +122,26 @@
                     email:null,
                 },
                 data:[],
-                fields:['first_name','last_name','email','actions']
+                fields:['first_name','last_name','email','role','actions']
             }
         },
         mounted(){
             this.getMembers();
         },
         methods:{
+            promote(id,current_role){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('admin.change.role', {}),
+                    data:{
+                        id:id,
+                        current_role: current_role
+                    }
+                }).then((response) => {
+                    this.getMembers();
+                })
+                    .catch((error) => console.log(error))
+            },
             createMember(){
                 var self = this
                 this.$auth.register({
@@ -144,7 +165,8 @@
                             id:member.id,
                             first_name: member.first_name,
                             last_name:  member.last_name,
-                            email:  member.email
+                            email:  member.email,
+                            role: member.role
                         })
                     }
                 })

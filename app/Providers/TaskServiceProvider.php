@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Comment;
 use App\File;
+use App\MemberToProject;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
@@ -55,6 +57,23 @@ class TaskServiceProvider
                 ->withProperties(['project' => $data['project_id']])
                 ->createdAt(now())
                 ->log(Auth::user()->first_name .' '. Auth::user()->last_name . ' added new task.');
+
+            $members = MemberToProject::where('project_id', $data['project_id'])->where('member_id', '!=', Auth::user()->id)->with('member')->with('project')->get();
+            $client = new Client();
+            foreach ($members as $member){
+                $json = [
+                    'user' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                    'name' => $data['name'],
+                    'task' => $task->id,
+                    'project' => $member->project->name,
+                    'project_id' => $data['project_id']
+                ];
+                $email = $member->member->email;
+                $response = $client->post('https://api.ravenhub.io/company/XiNNmnN7cU/subscribers/'.$email.'/events/1PY685slKM', [
+                    'headers' => [],
+                    'json' => $json,
+                ]);
+            }
 
             return response()->json('success', 200);
         }

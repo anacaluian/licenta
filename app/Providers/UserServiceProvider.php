@@ -26,9 +26,30 @@ class UserServiceProvider
             ], 200);
     }
 
+
+    public function admin(){
+
+        $admim = $this->userModel::where('role',1)->get();
+        return response()->json(
+            [
+                'status' => 'success',
+                'admin' => $admim->toArray()
+            ], 200);
+    }
+
+    public function changeRole($id,$current_role){
+        $change = $this->userModel->where('id',$id)->update([
+            'role' => $current_role == 2 ? 1 : 2
+        ]);
+        if ($change){
+            return response()->json('success',200);
+        }
+        return response()->json('error',500);
+    }
+
     public function members(){
 
-        $members = $this->userModel::where('role',2)->get();
+        $members = $this->userModel::whereIn('role',[1,2])->get();
         return response()->json(
             [
                 'status' => 'success',

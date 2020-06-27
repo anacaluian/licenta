@@ -18,4 +18,8 @@ class MemberToProject extends Model
         return $this->hasOne('App\User', 'id', 'member_id');
     }
 
+    public function project(){
+        return $this->hasOne('App\Project', 'id', 'project_id');
+    }
+
 }
