@@ -3,9 +3,15 @@
 namespace App\Providers;
 
 use App\ClientToProject;
+use App\Comment;
+use App\File;
 use App\MemberToProject;
+use App\Note;
 use App\Project;
+use App\Task;
+use App\Time;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -171,6 +177,18 @@ class ProjectServiceProvider
 
     public function delete(array $data){
 
+
+        $time = Time::where('project_id',$data['id'])->delete();
+        $comments = Comment::where('project_id',$data['id'])->delete();
+        $task = Task::where('project_id',$data['id'])->delete();
+        $notes = Note::where('project_id',$data['id'])->delete();
+        $members = MemberToProject::where('project_id',$data['id'])->delete();
+        $clients = ClientToProject::where('project_id',$data['id'])->delete();
+        $files = File::where('project_id',$data['id'])->get();
+        foreach ($files as $item) {
+            Storage::disk('public')->delete($item->file_path);
+            $item->delete();
+        }
         $project = $this->projectModel::find($data['id']);
         if($project->delete()){
             return response()->json('success', 200);

@@ -191,9 +191,18 @@
                     url: laroute.route('members.edit', {}),
                     data:this.selectedMember
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Member edited!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getMembers()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>  this.$toast.open({
+                        message: error.message,
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             deleteMember(id){
                 this.axios({
@@ -203,9 +212,20 @@
                         id:id
                     }
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Member deleted!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getMembers()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: error.message,
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    )
             }
         }
     }

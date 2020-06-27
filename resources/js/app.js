@@ -21,6 +21,9 @@ import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import VueTagsInput from '@johmun/vue-tags-input';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css';
+
 
 window.Vue = require('vue');
 Vue.router = router;
@@ -28,6 +31,7 @@ Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 // axios.defaults.baseURL = `${process.env.MIX_APP_URL}`
 Vue.use(VueAuth, auth);
+Vue.use(VueToast);
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
 /**

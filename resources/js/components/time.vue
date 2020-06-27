@@ -35,7 +35,7 @@
         <div class="mt-4">
             <GSTC id="popover" :config="data" @state="onState" />
         </div>
-        <b-modal  ref="modal" id="time"  cancel-title="Delete" title="Time Record" @ok="addTime" @cancel="deleteTime(form.task)">
+        <b-modal  ref="modal" id="time"  cancel-title="Delete" title="Time Record" @ok="addTime" @cancel="deleteTime(form.id)">
             <b-form-group>
                 <treeselect  class="assignee-select"  placeholder="Select a task" v-model="form.task" :multiple="false" :options="tasks" />
             </b-form-group>

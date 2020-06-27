@@ -190,7 +190,7 @@ class GmailServiceProvider
     }
 
     function index(){
-        $emails = $this->emailModel::all();
+        $emails = $this->emailModel::has('project')->get();
 
         $collection = collect($emails);
         $grouped = $collection->groupBy('project_email');

@@ -87,9 +87,18 @@
                     method: 'get',
                     url: laroute.route('emails.sync', {}),
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Gmail synced!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getEmails()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>   this.$toast.open({
+                        message: 'Something went wrong',
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             post(id){
                 this.axios({
@@ -99,6 +108,11 @@
                         id:id
                     }
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Task posted!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getEmails()
                 })
                     .catch((error) => console.log(error))
@@ -111,6 +125,11 @@
                         id:id
                     }
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Task removed!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getEmails()
                 })
                     .catch((error) => console.log(error))
@@ -123,9 +142,20 @@
                         email_id:email_id
                     }
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Email deleted!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getEmails()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: 'Something went wrong!',
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    )
             },
             add(){
                 this.axios({

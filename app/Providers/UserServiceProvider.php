@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\ClientToProject;
+use App\MemberToProject;
 use App\User;
 use http\Env\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +26,17 @@ class UserServiceProvider
                 'status' => 'success',
                 'users' => $users->toArray()
             ], 200);
+    }
+
+    public function changePassword($id,$password){
+        $change = User::findOrFail($id)->update([
+            'password' =>  bcrypt($password)
+        ]);
+        if ($change){
+            return response()->json('success',200);
+        }else{
+            return response()->json('error',500);
+        }
     }
 
 
@@ -74,6 +87,7 @@ class UserServiceProvider
 
     public function membersDelete(array $data){
 
+        $project = MemberToProject::where('member_id',$data['id'])->delete();
         $members = $this->userModel::find($data['id']);
         if ($members->delete()){
             return response()->json(
@@ -113,6 +127,7 @@ class UserServiceProvider
 
     public function clientsDelete(array $data){
 
+        $project = ClientToProject::where('client_id',$data['id'])->delete();
         $clients = $this->userModel::find($data['id']);
         if ($clients->delete()){
             return response()->json(

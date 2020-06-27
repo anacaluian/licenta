@@ -56,44 +56,59 @@ class TimeServiceProvider extends ServiceProvider
     }
 
     public function create(array $data){
-       $check = $this->timeModel->newQuery();
-       $check->where('member_id', $data['member_id'])->where('project_id',$data['project_id']);
-        if ( $data['date']){
-            $check->where("date",$data['date']);
-        }else{
-            $today = Carbon::today()->toDateString();
-            $check->where("date",$today);
-        }
-        if (array_key_exists('task',$data) && $data['task']){
-            $check->where("task_id",$data['task']);
-        }else{
-            $project = 0;
-            $check->where("task_id",$project);
-        }
-        if ($check->exists()){
-            $check->update([
-                'time' =>  $data['time']
-            ]);
-        }else{
-          $record = new Time();
-        $record->member_id = $data['member_id'];
-        $record->project_id = $data['project_id'];
-        $record->time = $data['time'];
-        if ( $data['date']){
-            $record->date = $data['date'];
-        }else{
-            $today = Carbon::today()->toDateString();
-            $record->date = $today;
-        }
-        if (array_key_exists('task',$data) && $data['task']){
-            $record->task_id = $data['task'];
-        }
-            $record->description = $data['description'];
-        if($record->save()){
-            return response()->json('success', 200);
-        }
-        return response()->json('error', 500);
-        }
+
+
+
+        return $this->timeModel->updateOrCreate([
+            'member_id'=> $data['member_id'],
+            'project_id' => $data['project_id'],
+            'date' => $data['date'] ? $data['date'] : Carbon::today()->toDateString(),
+            'time' => $data['time'],
+            'task_id'=> $data['task'] ? $data['task'] : 0,
+            'description' =>  $data['description']
+        ]);
+
+//
+//       $check = $this->timeModel->newQuery();
+//       $check->where('member_id', $data['member_id'])->where('project_id',$data['project_id']);
+//        if ( $data['date']){
+//            $check->where("date",$data['date']);
+//        }else{
+//            $today = Carbon::today()->toDateString();
+//            $check->where("date",$today);
+//        }
+//        if (array_key_exists('task',$data) && $data['task']){
+//            $check->where("task_id",$data['task']);
+//        }else{
+//            $project = 0;
+//            $check->where("task_id",$project);
+//        }
+//        if ($check->exists()){
+//            $check->update([
+//                'time' =>  $data['time'],
+//                'date' =>  $data['date'],
+//                'description' =>  $data['description']
+//            ]);
+//        }else{
+//          $record = new Time();
+//        $record->member_id = $data['member_id'];
+//        $record->project_id = $data['project_id'];
+//        $record->time = $data['time'];
+//        if ( $data['date']){
+//            $record->date = $data['date'];
+//        }else{
+//            $today = Carbon::today()->toDateString();
+//            $record->date = $today;
+//        }
+//        if (array_key_exists('task',$data) && $data['task']){
+//            $record->task_id = $data['task'];
+//        }
+//            $record->description = $data['description'];
+//        if($record->save()){
+//            return response()->json('success', 200);
+//        }
+//        return response()->json('error', 500);
+//        }
 
     }
 

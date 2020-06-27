@@ -5,7 +5,7 @@
                 :key="index"
                 :title="index.replace(/_/g,' ')"
                 tag="article"
-                style="max-width: -moz-min-content; min-width: 13%;overflow-y: auto;
+                style="max-width: -moz-min-content; min-width: 15%;overflow-y: auto;
         overflow-x: hidden;"
                 class="mb-2 card  mr-3"
         >
@@ -313,7 +313,12 @@
                 }).then((response) => {
                     this.getProject();
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                        message: error.message,
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             addTask() {
                 this.axios({
@@ -321,9 +326,19 @@
                     url: laroute.route('tasks.create', {}),
                     data: this.form
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Task created!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getProject();
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: error.message,
+                            type: 'error',
+                            position: 'bottom-right'
+                        }))
             },
             async showTaskDetails(task){
                  this.taskComments = [];
@@ -331,8 +346,10 @@
                 this.selectedTask = task;
                 this.editor.setContent(task.details);
               await this.getComments();
+              document.getElementById('notifications').style.display = 'none';
             },
             closeTaskDetails(){
+                document.getElementById('notifications').style.display = 'inline';
                 this.visible = false;
                 let editor_json = this.editor.getJSON();
                 let final = '';
@@ -615,7 +632,7 @@
     }
 
     #task_avatar > span > img{
-        width: 23%;
+        width: 19%;
         height: auto;
         margin-right: 3px;
     }

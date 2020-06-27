@@ -22,6 +22,23 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    public function changePassword(Request $request)
+    {
+        $v = Validator::make($request->all(), [
+            'id' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
+        $response = $this->userService->changePassword($request->get('id'),$request->get('password'));
+        return response()->json($response);
+    }
+
     public function admin()
     {
         $response = $this->userService->admin();

@@ -297,9 +297,20 @@
                     url: laroute.route('projects.create', {}),
                     data: this.form
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Project created!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getProjects();
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: error.message,
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    )
             },
             selectProject(id) {
                 let data = this.data.filter((item) => item.id === id);
@@ -328,9 +339,18 @@
                     url: laroute.route('projects.edit', {}),
                     data: this.selectedProject
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Project edited!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getProjects();
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>   this.$toast.open({
+                        message: error.message,
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             changeState(id, state) {
                 this.axios({
@@ -346,7 +366,6 @@
                     .catch((error) => console.log(error))
             },
             deleteProject(id) {
-                console.log(id)
                 this.axios({
                     method: 'post',
                     url: laroute.route('projects.delete', {}),
@@ -354,9 +373,18 @@
                         id: id,
                     }
                 }).then((response) => {
+                    this.$toast.open({
+                        message: 'Project deleted!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                     this.getProjects();
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>   this.$toast.open({
+                        message: error.message,
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
         }
     }

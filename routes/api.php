@@ -36,6 +36,7 @@ Route::prefix('auth')->group(function () {
         Route::post('logout', 'AuthController@logout')->name('logout');
         Route::post('profile/photo', 'UserController@profilePhoto')->name('profile.photo');
         Route::post('user/update', 'UserController@update')->name('user.update');
+        Route::post('user/password', 'UserController@changePassword')->name('user.password');
 
 
         Route::get('admin', 'UserController@admin')->name('admin');

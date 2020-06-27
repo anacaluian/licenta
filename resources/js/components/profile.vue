@@ -54,6 +54,31 @@
         <div class="p-3">
             <b-button @click="save" class="save">Save Changes </b-button>
         </div>
+        <h5 class="pl-5 pt-5">CHANGE PASSWORD</h5>
+        <hr>
+        <b-form-group
+                class="custom col-8"
+                label="Password"
+        >
+            <b-form-input
+                    v-model="pass"
+                    required
+                    type="password"
+            ></b-form-input>
+        </b-form-group>
+        <b-form-group
+                class="custom col-8"
+                label="Confirm Password"
+        >
+            <b-form-input
+                    v-model="password_confirmation "
+                    required
+                    type="password"
+            ></b-form-input>
+            <div class="p-3">
+                <b-button @click="changePassword" class="save">Change Password </b-button>
+            </div>
+        </b-form-group>
     </div>
 </template>
 <script>
@@ -65,10 +90,36 @@
                     last_name: this.$auth.user().last_name,
                     email: this.$auth.user().email,
                     user_id:this.$auth.user().id
-                }
+                },
+                pass:'',
+                password_confirmation :''
             }
         },
         methods:{
+            changePassword(){
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('user.password', {}),
+                    data: {
+                        id:this.$auth.user().id,
+                        password:this.pass,
+                        password_confirmation :this.password_confirmation
+                    }
+                }).then((response) => {
+                    this.$toast.open({
+                        message: 'Password changed!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
+                })
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: error.message,
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    )
+            },
             addPhoto(){
                 let formData = new FormData();
                 let file = this.$refs.files.files[0];
@@ -82,9 +133,18 @@
                     },
                     data: formData
                 }).then((response) => {
-                    this.$auth.refresh();
+                    this.$toast.open({
+                        message: 'Photo changed!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: error.message,
+                            type: 'error',
+                            position: 'bottom-right'
+                        }))
             },
             save(){
                 this.axios({
@@ -92,9 +152,19 @@
                     url: laroute.route('user.update', {}),
                     data:this.form
                 }).then((response) => {
-                    this.$auth.refresh();
+                    this.$toast.open({
+                        message: 'Profile updated!',
+                        type: 'success',
+                        position: 'bottom-right'
+                    });
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: error.members,
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    )
             }
         }
     }
@@ -124,6 +194,8 @@
         color: #CFCFD0;
         background: #373a44;
         border-radius: 16px;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     .custom-select {
