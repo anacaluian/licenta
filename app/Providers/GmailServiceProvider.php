@@ -129,10 +129,8 @@ class GmailServiceProvider
         try {
             $tokensFolder = glob('./../tokens/*.{json}', GLOB_BRACE);
             foreach($tokensFolder as $token) {
-                // Get the API client and construct the service object.
                 $client = $this->getClient($token);
                 $service = new \Google_Service_Gmail($client);
-// Print the labels in the user's account.
                 $user = 'me';
                 $opt_param = ["q"=>"is:unread"];
                 $messages = [];
@@ -159,9 +157,7 @@ class GmailServiceProvider
                     if ($mark){
                         $data->save();
                     }
-
                 }
-
             }
             return response()->json( 'success',200);
 

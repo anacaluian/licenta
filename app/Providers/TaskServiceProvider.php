@@ -111,6 +111,7 @@ class TaskServiceProvider
 
     public function delete($id){
 
+
         $comments = Comment::where('task_id',$id)->get();
 
         foreach ($comments as $comment){
@@ -122,6 +123,8 @@ class TaskServiceProvider
             }
             $comment->delete();
         }
+
+        $time = Time::where('task_id',$id)->delete();
 
         $task = $this->taskModel->find($id)->delete();
         if ($task){

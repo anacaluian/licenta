@@ -304,17 +304,17 @@
                     });
                     this.getProjects();
                 })
-                    .catch((error) =>
-                        this.$toast.open({
-                            message: error.message,
-                            type: 'error',
-                            position: 'bottom-right'
-                        })
+                    .catch((error) =>{
+                            this.$toast.open({
+                                message: Object.values(error.response.data.errors)[0][0],
+                                type: 'error',
+                                position: 'bottom-right'
+                            })
+                    }
                     )
             },
             selectProject(id) {
                 let data = this.data.filter((item) => item.id === id);
-                console.log(data);
                 this.selectedProject.id = id;
                 this.selectedProject.name = data[0].name;
                 this.selectedProject.rate = data[0].rate;
@@ -346,11 +346,13 @@
                     });
                     this.getProjects();
                 })
-                    .catch((error) =>   this.$toast.open({
-                        message: error.message,
-                        type: 'error',
-                        position: 'bottom-right'
-                    }))
+                    .catch((error) =>  {
+                        this.$toast.open({
+                            message: Object.values(error.response.data.errors)[0][0],
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    })
             },
             changeState(id, state) {
                 this.axios({
@@ -363,7 +365,13 @@
                 }).then((response) => {
                     this.getProjects();
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>
+                        this.$toast.open({
+                            message: Object.values(error.response.data.errors)[0][0],
+                            type: 'error',
+                            position: 'bottom-right'
+                        })
+                    )
             },
             deleteProject(id) {
                 this.axios({
@@ -380,8 +388,9 @@
                     });
                     this.getProjects();
                 })
-                    .catch((error) =>   this.$toast.open({
-                        message: error.message,
+                    .catch((error) =>
+                        this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
                         type: 'error',
                         position: 'bottom-right'
                     }))

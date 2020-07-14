@@ -94,8 +94,9 @@
                     });
                     this.getEmails()
                 })
-                    .catch((error) =>   this.$toast.open({
-                        message: 'Something went wrong',
+                    .catch((error) =>
+                        this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
                         type: 'error',
                         position: 'bottom-right'
                     }))
@@ -115,7 +116,11 @@
                     });
                     this.getEmails()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>  this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             remove(id){
                 this.axios({
@@ -132,7 +137,11 @@
                     });
                     this.getEmails()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>  this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             deleteEmail(email_id){
                 this.axios({
@@ -151,7 +160,7 @@
                 })
                     .catch((error) =>
                         this.$toast.open({
-                            message: 'Something went wrong!',
+                            message: Object.values(error.response.data.errors)[0][0],
                             type: 'error',
                             position: 'bottom-right'
                         })
@@ -166,7 +175,11 @@
                     document.getElementById('redirect').click();
                     this.$refs['code'].show()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>  this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             generateToken(){
                 this.axios({

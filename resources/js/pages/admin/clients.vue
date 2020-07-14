@@ -160,15 +160,34 @@
                     .catch((error) => console.log(error))
             },
             createClient(){
-                this.$auth.register({
-                    data:this.form,
-                    success: function () {
-                        this.getClients()
-                    },
-                    error: function (res) {
-                        console.log(res.response.data.errors)
-                    }
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('register', {}),
+                    data:this.form
+                }).then((response) => {
+                    this.getClients()
+                    this.form.first_name = '';
+                    this.form.last_name = '';
+                    this.form.email = '';
+                    this.form.phone = '';
                 })
+                    .catch((error) => this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
+
+
+
+                // this.$auth.register({
+                //     data:this.form,
+                //     success: function () {
+                //         this.getClients()
+                //     },
+                //     error: function (res) {
+                //         console.log(res.response.data.errors)
+                //     }
+                // })
             },
             selectClient(id){
                 if (id && this.data) {
@@ -192,7 +211,11 @@
                 }).then((response) => {
                     this.getClients()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>  this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             },
             deleteClient(id){
                 let self = this;
@@ -205,7 +228,11 @@
                 }).then((response) => {
                     this.getClients()
                 })
-                    .catch((error) => console.log(error))
+                    .catch((error) =>  this.$toast.open({
+                        message: Object.values(error.response.data.errors)[0][0],
+                        type: 'error',
+                        position: 'bottom-right'
+                    }))
             }
         }
     }

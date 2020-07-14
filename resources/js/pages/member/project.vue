@@ -20,7 +20,7 @@
             </div>
             <hr>
             <div  v-if="$route.name == 'project'"class="row">
-                <treeselect class="col-sm-2" v-model="assignee" placeholder="Filter Assignee" :multiple="false" :options="members"></treeselect>
+                <treeselect style="left:1%" class="col-sm-2" v-model="assignee" placeholder="Filter Assignee" :multiple="false" :options="members"></treeselect>
                 <date-picker id="picker" class="col-sm-2"  placeholder="Filter Due On Date" v-model="due_on" valueType="format"></date-picker>
                 <div class="ml-auto mr-4">
                     <b-dropdown id="people"  :text="'People(' + members.length + ')'">
@@ -136,9 +136,9 @@
         padding: 0;
         margin: 0;
         top: auto;
-        left: 3%;
+        left: 4%;
         width: 95%;
-        height: 90%;
+        height: 88%;
         background-color:#2c2e38 !important;
         border-radius: 10px;
         inset: 0 -1px 0 0 #25262B;
@@ -148,7 +148,7 @@
         padding: 0;
         margin: 0;
         top: auto;
-        left: 3%;
+        left: 4%;
         width: 95%;
         height: 12%;
         border-top-left-radius: 10px;
@@ -167,7 +167,7 @@
         border-bottom-right-radius: 10px;
         background-color: #2c2e38 !important;
         overflow-y: auto;
-        overflow-x: hidden;
+        overflow-x: auto;
     }
     .up-nav{
         margin-left: 40px;

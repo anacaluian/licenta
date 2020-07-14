@@ -114,7 +114,7 @@
                 })
                     .catch((error) =>
                         this.$toast.open({
-                            message: error.message,
+                            message: Object.values(error.response.data.errors)[0][0],
                             type: 'error',
                             position: 'bottom-right'
                         })
@@ -141,7 +141,7 @@
                 })
                     .catch((error) =>
                         this.$toast.open({
-                            message: error.message,
+                            message: Object.values(error.response.data.errors)[0][0],
                             type: 'error',
                             position: 'bottom-right'
                         }))
@@ -160,7 +160,7 @@
                 })
                     .catch((error) =>
                         this.$toast.open({
-                            message: error.members,
+                            message: Object.values(error.response.data.errors)[0][0],
                             type: 'error',
                             position: 'bottom-right'
                         })

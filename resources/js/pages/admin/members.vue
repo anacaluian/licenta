@@ -144,15 +144,25 @@
             },
             createMember(){
                 var self = this
-                this.$auth.register({
-                    data:this.form,
-                    success: function () {
-                        this.getMembers()
-                    },
-                    error: function (res) {
-                        console.log(res.response.data.errors)
-                    }
+                this.axios({
+                    method: 'post',
+                    url: laroute.route('register', {}),
+                    data:this.form
+                }).then((response) => {
+                    this.getMembers()
                 })
+                    .catch((error) => console.log(error.response.data.errors))
+
+
+                // this.$auth.register({
+                //     data:this.form,
+                //     success: function () {
+                //         this.getMembers()
+                //     },
+                //     error: function (res) {
+                //         console.log(res.response.data.errors)
+                //     }
+                // })
             },
             getMembers(){
                 this.axios({

@@ -57,6 +57,17 @@ class ProjectController extends Controller
     }
 
     public function edit(Request $request){
+        $v = Validator::make($request->all(), [
+            'name' => 'required',
+            'owner' => 'required',
+            'rate' => 'numeric|min:0|integer'
+        ]);
+        if ($v->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ], 422);
+        }
         $response = $this->projectService->edit($request->all());
         return response()->json($response);
     }

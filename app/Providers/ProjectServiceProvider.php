@@ -106,11 +106,13 @@ class ProjectServiceProvider
           $project->save();
         $project_id = $project->id;
         if($project_id){
-            foreach ($data['members'] as $key => $member_id){
-                $item = new MemberToProject();
-                $item->project_id = $project_id;
-                $item->member_id = $member_id;
-                $item->save();
+            if ($data['members']){
+                foreach ($data['members'] as $key => $member_id){
+                    $item = new MemberToProject();
+                    $item->project_id = $project_id;
+                    $item->member_id = $member_id;
+                    $item->save();
+                }
             }
             return response()->json('success', 200);
         }

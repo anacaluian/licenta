@@ -1,15 +1,14 @@
 <template>
-    <div class="row ml-2">
+    <div class="ml-2" style="display: block ruby;">
         <b-card
                 v-for="(list, index) in lists"
                 :key="index"
                 :title="index.replace(/_/g,' ')"
                 tag="article"
-                style="max-width: -moz-min-content; min-width: 15%;overflow-y: auto;
-        overflow-x: hidden;"
+                style="max-width: -moz-min-content; min-width: 18%;overflow-y: hidden;overflow-x: hidden;max-height: 650px;"
                 class="mb-2 card  mr-3"
         >
-            <b-card-text>
+            <b-card-text style="max-width: inherit; min-width: 18%;overflow-y: auto;overflow-x: hidden;max-height: 490px;">
                 <draggable class="list-group" group="people" :list="list" @end="update">
                     <div
                             class="list-group-item"
@@ -94,7 +93,7 @@
                                             class="menubar__button ml-2"
                                     >
                                         <i class="fas fa-paperclip"></i>
-                                        <input type="file" style="display: none" ref="files" class="form-control-file"  multiple="multiple">
+                                        <input @change="fileNotification" type="file" style="display: none" ref="files" class="form-control-file"  multiple="multiple">
                                     </label>
                                 </div>
                             </editor-menu-bar>
@@ -129,7 +128,7 @@
                     <div class="right-content">
                         <div class="p-2">
                             <p><strong>Task List</strong></p>
-                            <h5 class="task-prop">{{selectedTask.task_list}}</h5>
+                            <h5 v-if="selectedTask.task_list" class="task-prop">{{selectedTask.task_list.replace(/_/g," ")}}</h5>
                         </div>
                         <div class="p-2">
                             <p><strong>Assignee</strong></p>
@@ -208,7 +207,6 @@
             return {
                 form: {
                     name: null,
-                    label: null,
                     assignee: null,
                     project_id: this.$route.params.id
                 },
@@ -254,6 +252,13 @@
             this.comment.destroy()
         },
         methods: {
+            fileNotification(){
+                this.$toast.open({
+                    message: 'File uploaded!',
+                    type: 'success',
+                    position: 'bottom-right'
+                });
+            },
             getProject(assignee, due) {
                 let data ={
                     id: this.$route.params.id
@@ -274,6 +279,7 @@
                     this.$root.$emit('project', response.data.data.name);
                     if (response.data.data.tasks_list) {
                         let task_list = JSON.parse(response.data.data.tasks_list);
+                        this.lists.backlog = [];
                         for (let name of task_list) {
                             this.lists[name.text] = [];
                         }
@@ -326,6 +332,8 @@
                     url: laroute.route('tasks.create', {}),
                     data: this.form
                 }).then((response) => {
+                    this.form.name =null
+                    this.form.assignee =null
                     this.$toast.open({
                         message: 'Task created!',
                         type: 'success',
@@ -335,7 +343,7 @@
                 })
                     .catch((error) =>
                         this.$toast.open({
-                            message: error.message,
+                            message: Object.values(error.response.data.errors)[0][0],
                             type: 'error',
                             position: 'bottom-right'
                         }))

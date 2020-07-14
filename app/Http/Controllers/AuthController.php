@@ -23,7 +23,8 @@ class AuthController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users',
-            'role' => 'required'
+            'role' => 'required',
+            'phone' => 'regex:/(0)[0-9]{9}/'
         ]);
         if ($v->fails()) {
             return response()->json([

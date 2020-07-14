@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <b-button @click="addNote" class="add-notes"><i class="fas fa-plus"></i> New Note</b-button>
+            <b-button @click="addNote" class="add-notes"><i id="plus" class="fas fa-plus"></i> New Note</b-button>
         </div>
         <div class="row ml-2 mt-4">
             <b-card
@@ -218,6 +218,9 @@
     }
 </style>
 <style>
+    #plus{
+        color: white !important;
+    }
     #note-preview{
         border-bottom-left-radius: 16px;
         border-top-left-radius: 16px;

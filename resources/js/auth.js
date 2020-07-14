@@ -16,3 +16,5 @@ const config = {
     notFoundRedirect: {path: '/projects'},
 }
 export default config
+
+

@@ -69,6 +69,9 @@ class UserController extends Controller
     public function membersEdit(Request $request){
         $v = Validator::make($request->all(), [
             'id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
         ]);
         if ($v->fails()) {
             return response()->json([
@@ -102,6 +105,10 @@ class UserController extends Controller
     public function clientsEdit(Request $request){
         $v = Validator::make($request->all(), [
             'id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone' => 'regex:/(0)[0-9]{9}/'
         ]);
         if ($v->fails()) {
             return response()->json([

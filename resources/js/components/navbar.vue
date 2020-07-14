@@ -6,7 +6,7 @@
                     <router-link  class="home" to="/">
                         <h3 class="logo"><i class="fab fa-pushed  fa-2x"></i></h3>
                     </router-link>
-                    <h2 class="ml-2" v-if="visible && $route.name === 'project'">{{project_name}}</h2>
+                    <h2 class="ml-2" v-if="visible && $route.name.includes('project')">{{project_name}}</h2>
                 </div>
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
