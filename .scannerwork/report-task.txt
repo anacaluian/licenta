@@ -1,0 +1,6 @@
+projectKey=RabbitMq
+serverUrl=http://localhost:9000
+serverVersion=9.3.0.51899
+dashboardUrl=http://localhost:9000/dashboard?id=RabbitMq
+ceTaskId=AYATFLNd1t-Y40vSPHY1
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYATFLNd1t-Y40vSPHY1

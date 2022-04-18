@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('files/test', 'FileController@loadXML')->name('files.test');
+//Route::get('notes/{project}/{data?}', 'NoteController@index')->name('notethyts');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -71,7 +74,7 @@ Route::prefix('auth')->group(function () {
         Route::post('comments/upload/{task}', 'CommentController@upload')->name('comments.upload');
         Route::post('comments/delete', 'CommentController@delete')->name('comments.delete');
 
-        Route::get('notes/{project}', 'NoteController@index')->name('notes');
+        Route::post('notes/{project}', 'NoteController@index')->name('notes');
         Route::post('notes/create', 'NoteController@create')->name('notes.create');
         Route::post('notes/update', 'NoteController@update')->name('notes.update');
         Route::post('notes/delete', 'NoteController@delete')->name('notes.delete');

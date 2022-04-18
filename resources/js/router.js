@@ -16,6 +16,7 @@ import AdminEmails from './pages/admin/emails'
 import AdminInvoices from './pages/admin/invoices'
 import ClientDashboard from './pages/client/dashboard'
 import ForgotPassword from './pages/forgot-password'
+import TestFile from './pages/test'
 const routes = [
     {
         path: '/',
@@ -151,6 +152,13 @@ const routes = [
         component: ClientDashboard,
         meta: {
             auth: {roles: 3, redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: TestFile,
+        meta: {
+            auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
     },
 
 

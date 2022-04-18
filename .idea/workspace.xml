@@ -5,32 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5bbd945-b557-49e3-8147-7b86e2a97075" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/licenta.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/licenta.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/GmailServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/GmailServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/ProjectServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ProjectServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/TaskServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TaskServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/TimeServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TimeServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_01_195338_create_projects_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_01_195338_create_projects_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/NoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/NoteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/laroute.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/laroute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/files.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/files.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/notes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/notes.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/profile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/admin/clients.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/admin/clients.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/admin/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/admin/dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/admin/emails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/admin/emails.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/admin/members.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/admin/members.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/member/project.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/member/project.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/reset.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/member/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/member/dashboard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +27,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -53,105 +43,12 @@
     <expand />
     <select />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="members.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/admin/members.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="152" column="18" selection-start-line="152" selection-start-column="18" selection-end-line="152" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="task_list.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/components/task_list.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#b-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#b-card-text#0;n#b-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/member/dashboard.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-276" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="project.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/member/project.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="61" column="67" selection-start-line="61" selection-start-column="67" selection-end-line="61" selection-end-column="67" />
-              <folding>
-                <element signature="n#style#0;n#treeselect#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clients.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/admin/clients.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="235" column="13" lean-forward="true" selection-start-line="235" selection-start-column="13" selection-end-line="235" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-487">
-              <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/admin/dashboard.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="350" column="50" selection-start-line="350" selection-start-column="50" selection-end-line="350" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/components/profile.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="163" column="42" selection-start-line="163" selection-start-column="42" selection-end-line="163" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="emails.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/pages/admin/emails.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="158" column="36" selection-start-line="158" selection-start-column="36" selection-end-line="158" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProjectServiceProvider.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Providers/ProjectServiceProvider.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="824">
-              <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -189,6 +86,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -254,6 +159,9 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
@@ -380,6 +288,7 @@
     <option name="width" value="1861" />
     <option name="height" value="1096" />
   </component>
+  <component name="ProjectId" id="27LKzwRsEbFB70WyOKqDvCXszv2" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -477,35 +386,31 @@
       </pane>
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SearchEverywhereHistoryKey" value="projectser&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/ProjectServiceProvider.php&#10;das&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/admin/dashboard.vue&#10;profi&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/profile.vue&#10;dash&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/admin/dashboard.vue&#10;api&#9;FILE&#9;file://D:/Licenta2.0/licenta/routes/api.php&#10;route&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/router.js&#10;auth&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/auth.js&#10;app.&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/app.js&#10;files&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/files.vue&#10;fileco&#9;null&#9;null&#10;fileser&#9;null&#9;null&#10;nav&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;tas&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/task_list.vue&#10;task_&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/task_list.vue&#10;emai&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Email.php&#10;gmail&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/GmailServiceProvider.php&#10;profile&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/profile.vue&#10;pack&#9;FILE&#9;file://D:/Licenta2.0/licenta/package.json&#10;time&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/time.vue&#10;times&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/TimeServiceProvider.php&#10;taskserv&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/TaskServiceProvider.php&#10;authcontr&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Http/Controllers/AuthController.php&#10;usercp&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Http/Controllers/UserController.php&#10;user&#9;null&#9;null&#10;task&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/TaskServiceProvider.php&#10;userse&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/UserServiceProvider.php&#10;member&#9;null&#9;null&#10;navbar&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/navbar.vue&#10;commentse&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/CommentServiceProvider.php&#10;usercontroller&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Http/Controllers/UserController.php&#10;register.vu&#9;FILE&#9;file://D:/Licenta2.0/licenta/node_modules/@websanova/vue-auth/demos/2.x/src/pages/auth/Register.vue&#10;app&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/app.js&#10;time.vu&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/time.vue&#10;use&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/UserServiceProvider.php&#10;note&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/notes.vue&#10;router.&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/router.js&#10;userser&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/UserServiceProvider.php&#10;usercont&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Http/Controllers/UserController.php&#10;commen&#9;null&#9;null&#10;wel&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;timeco&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Http/Controllers/TimeController.php&#10;timeser&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/TimeServiceProvider.php&#10;notes&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/components/notes.vue&#10;taskco&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Http/Controllers/TaskController.php&#10;taskSer&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Providers/TaskServiceProvider.php&#10;welcome&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/views/welcome.blade.php&#10;login&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/login.vue&#10;project&#9;FILE&#9;file://D:/Licenta2.0/licenta/app/Project.php&#10;router&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/router.js&#10;project.vu&#9;FILE&#9;file://D:/Licenta2.0/licenta/resources/js/pages/member/project.vue" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Facultate\Licenta2.0\licenta\storage\app\public" />
+      <recent name="E:\Facultate\Licenta2.0\licenta\storage\app\public\files" />
       <recent name="D:\Licenta2.0\licenta" />
       <recent name="D:\Licenta2.0\licenta\app\Providers" />
       <recent name="D:\Licenta2.0\licenta\tokens" />
-      <recent name="D:\Licenta2.0\licenta\resources\js\components" />
-      <recent name="D:\Licenta2.0\licenta\storage\app\files" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -570,6 +475,15 @@
       <workItem from="1594546098047" duration="7267000" />
       <workItem from="1594627316205" duration="32000" />
       <workItem from="1594749512723" duration="11186000" />
+      <workItem from="1649094204699" duration="4000" />
+      <workItem from="1649516267585" duration="187000" />
+      <workItem from="1649588096420" duration="2846000" />
+      <workItem from="1649689685303" duration="764000" />
+      <workItem from="1649778506747" duration="8000" />
+      <workItem from="1650108876114" duration="9779000" />
+      <workItem from="1650133428465" duration="2253000" />
+      <workItem from="1650206239435" duration="23236000" />
+      <workItem from="1650300084177" duration="6544000" />
     </task>
     <servers />
   </component>
@@ -604,15 +518,7 @@
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="2" />
-    </breakpoint-manager>
+    <option name="version" value="3" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/vue-notification-system/node_modules/ws/browser.js">

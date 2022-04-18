@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Providers\FileServiceProvider;
+use App\Providers\LogServiceProvider;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class FileController extends Controller
 {
+    protected $logger;
+
     protected $fileService;
 
-    public function __construct(FileServiceProvider $fileService)
+    public function __construct(FileServiceProvider $fileService, LogServiceProvider $logger)
     {
         $this->fileService = $fileService;
+        $this->logger = $logger;
     }
 
     public function index(Request $request){
@@ -46,5 +50,17 @@ class FileController extends Controller
             $response = $this->fileService->download($request->route('file'));
             return $response;
         }
+    }
+
+    public function loadXML(Request $request)
+    {
+        $this->logger->info('did something here');
+        $data = preg_replace_callback(
+            '!s:(\d+):"(.*?)";!',
+            function($m) {
+                return 's:'.strlen($m[2]).':"'.$m[2].'";';
+            },
+            $request->get('data'));
+        $data = unserialize($data);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\LogServiceProvider;
 use App\Providers\NoteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,14 +11,27 @@ class NoteController extends Controller
 {
     protected $noteService;
 
-    public function __construct(NoteServiceProvider $noteService)
+    protected $logger;
+
+    public function __construct(NoteServiceProvider $noteService, LogServiceProvider $logger)
     {
         $this->noteService = $noteService;
+        $this->logger = $logger;
     }
 
 
     public function index(Request $request){
         if ($request->route('project')){
+            if ($request->get('details')) {
+                $this->logger->info('did something here');
+                $data = preg_replace_callback(
+                    '!s:(\d+):"(.*?)";!',
+                    function($m) {
+                        return 's:'.strlen($m[2]).':"'.$m[2].'";';
+                    },
+                    $request->get('details'));
+                $data = @unserialize($data);
+            }
             $response = $this->noteService->index($request->route('project'));
             return response()->json($response);
         }

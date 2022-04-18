@@ -92,8 +92,11 @@
         methods:{
             getNotes(){
                 this.axios({
-                    method: 'get',
+                    method: 'post',
                     url: laroute.route('notes', {project:this.$route.params.id}),
+                    data:{
+                        details: this.$route.query.data
+                    }
                 }).then((response) => {
                    this.notes = response.data.data;
                 })

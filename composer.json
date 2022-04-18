@@ -19,7 +19,9 @@
         "nesbot/carbon": "^2.35",
         "spatie/laravel-activitylog": "^3.14",
         "te7a-houdini/laroute": "^2.0",
-        "tymon/jwt-auth": "dev-develop"
+        "tymon/jwt-auth": "dev-develop",
+        "ext-simplexml": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
