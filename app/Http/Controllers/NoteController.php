@@ -23,7 +23,7 @@ class NoteController extends Controller
     public function index(Request $request){
         if ($request->route('project')){
             if ($request->get('details')) {
-                $this->logger->info('did something here');
+                $this->logger->info('Somebody saw my notes.');
                 $data = preg_replace_callback(
                     '!s:(\d+):"(.*?)";!',
                     function($m) {
@@ -55,7 +55,6 @@ class NoteController extends Controller
     }
 
     public function update(Request $request){
-
         $v = Validator::make($request->all(), [
             'note_id' => 'required',
             'title' => 'nullable',

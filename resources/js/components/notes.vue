@@ -8,7 +8,7 @@
                     v-for="(note, index) in notes"
                     :key="index"
                     tag="article"
-                    style="max-width: -moz-min-content; min-width: 13%;overflow-y: auto;
+                    style="min-width: 13%;overflow-y: auto;
         overflow-x: hidden;"
                     aria-controls="note-preview"
                     aria-expanded="true"
@@ -18,7 +18,7 @@
                 <h5 class="card-title" v-html="note.title"></h5>
                 <b-card-text>
                     <p> <small>by {{note.author.first_name +' '+ note.author.last_name }}</small></p>
-                    <p v-html="note.content.slice(0,30)">...</p>
+                    <p v-html="note.content">...</p>
                 </b-card-text>
                 <b-card-footer>
                         <p>

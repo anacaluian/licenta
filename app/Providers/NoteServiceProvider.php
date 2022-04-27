@@ -19,6 +19,7 @@ class NoteServiceProvider extends ServiceProvider
         $notes = $this->noteModel->where('project_id',$project)->with('author')->get();
 
         foreach ($notes as $note) {
+            $note->content = htmlspecialchars_decode($note->content);
             $date = Carbon::parse($note->updated_at);
             $now = Carbon::now();
             $diff = $date->diffInDays($now);
@@ -55,7 +56,6 @@ class NoteServiceProvider extends ServiceProvider
            return response()->json('success', 200);
        }
         return response()->json('error', 500);
-
     }
 
     public function delete($id){
