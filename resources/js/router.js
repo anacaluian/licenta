@@ -16,7 +16,11 @@ import AdminEmails from './pages/admin/emails'
 import AdminInvoices from './pages/admin/invoices'
 import ClientDashboard from './pages/client/dashboard'
 import ForgotPassword from './pages/forgot-password'
-import TestFile from './pages/test'
+import axios from 'axios'
+import laroute from './../../public/js/laroute'
+import Vue from 'vue'
+
+
 const routes = [
     {
         path: '/',
@@ -153,19 +157,24 @@ const routes = [
         meta: {
             auth: {roles: 3, redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
     },
-    {
-        path: '/test',
-        name: 'test',
-        component: TestFile,
-        meta: {
-            auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
-    },
-
-
 ]
 const router = new VueRouter({
     history: true,
     mode: 'history',
     routes,
 })
+
+
+router.afterEach(async (to, from)  => {
+    let queries = to.query;
+    if (queries.hasOwnProperty('_project_user')) {
+        Vue.auth.impersonate({
+            url: laroute.route('take', {}),
+            data: {
+                user:queries._project_user
+            },
+            redirect: null
+            });
+    }
+});
 export default router

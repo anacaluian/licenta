@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,7 +15,7 @@ class User extends Authenticatable implements JWTSubject
     protected static $logName = 'user';
 
     protected $fillable = [
-        'first_name','last_name', 'email', 'password','profile_photo',
+        'first_name','last_name', 'username', 'email', 'password','profile_photo',
     ];
 
     protected $hidden = [

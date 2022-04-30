@@ -35,6 +35,7 @@ class AuthController extends Controller
       $user = new User;
       $user->first_name = $request->get('first_name');
       $user->last_name = $request->get('last_name');
+      $user->username = strtolower(str_replace(' ', '', $user->first_name)) . '.' . strtolower(str_replace(' ', '', $user->last_name));
       $user->email = $request->get('email');
       $user->role = $request->get('role');
       if ( $request->get('phone')){
@@ -75,13 +76,13 @@ class AuthController extends Controller
 
     public function user()
     {
-
         $user = User::where('id',Auth::user()->id)->get();
 
         $userobj = new \stdClass;
         $userobj->id = $user->pluck('id')->first();
         $userobj->first_name = $user->pluck('first_name')->first();
         $userobj->last_name = $user->pluck('last_name')->first();
+        $userobj->username = $user->pluck('username')->first();
         $userobj->profile_photo = $user->pluck('profile_photo')->first();
         $userobj->email = $user->pluck('email')->first();
         $userobj->roles =[$user->pluck('role')->first()];
@@ -90,9 +91,19 @@ class AuthController extends Controller
             'status' => 'success',
             'data' => $userobj
         ]);
+    }
 
+    public function take(Request $request)
+    {
+        $user = User::where('username', $request->get('user'))->get();
 
-
+        if ($user) {
+            if ($token = $this->guard()->tokenById($user->pluck('id')->first())) {
+                return response()
+                    ->json(['status' => 'successs'], 200)
+                    ->header('Authorization', $token);
+            }
+        }
     }
 
     public function refresh()

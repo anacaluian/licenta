@@ -139,7 +139,6 @@ class UserServiceProvider
     }
 
     public function show($id){
-
         $user =  $this->userModel::find($id);
         return response()->json(
             [

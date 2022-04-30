@@ -29,6 +29,7 @@ Route::prefix('auth')->group(function () {
     Route::post('login', 'AuthController@login')->name('login');
     Route::get('refresh', 'AuthController@refresh')->name('refresh');
     Route::get('user', 'AuthController@user')->name('user');
+    Route::post('impersonate', 'AuthController@take')->name('take');
     Route::post('reset', 'AuthController@reset')->name('forgot-password');
 
 

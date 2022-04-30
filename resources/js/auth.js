@@ -11,6 +11,7 @@ const config = {
     registerData: {url: '/api/auth/register', method: 'POST'},
     loginData: {url: '/api/auth/login', method: 'POST', redirect:'' , fetchUser: true },
     logoutData: {url: '/api/auth/logout', method: 'POST', redirect: '/', makeRequest: true},
+    impersonateData: {url:'/api/auth/impersonate', method: 'POST', enabled: true, fetchUser: true},
     fetchData: {url:'/api/auth/user', method: 'GET', enabled: true, fetchUser: true},
     refreshData: {url: '/api/auth/refresh', method: 'GET', enabled: true, interval: 30},
     notFoundRedirect: {path: '/projects'},

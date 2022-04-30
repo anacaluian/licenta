@@ -23,7 +23,8 @@
         "vue": "^2.6.11",
         "vue-sidebar-menu": "^4.5.4",
         "vue-template-compiler": "^2.6.10",
-        "vue-timeline": "^0.1.0"
+        "vue-timeline": "^0.1.0",
+        "ziggy": "^2.4.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
@@ -36,8 +37,10 @@
         "es6-promise": "^4.2.8",
         "gantt-elastic": "^1.0.11",
         "gantt-elastic-header": "^0.1.11",
+        "net": "^1.0.2",
         "tiptap": "^1.27.1",
         "tiptap-extensions": "^1.29.1",
+        "tls": "0.0.1",
         "vue-axios": "^2.1.5",
         "vue-gantt-schedule-timeline-calendar": "^1.0.33",
         "vue-notification-system": "^1.0.4",

@@ -33,7 +33,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueAuth, auth);
 Vue.use(VueToast);
 Vue.use(BootstrapVue);
-Vue.use(VueSidebarMenu);
+Vue.use(VueSidebarMenu)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
