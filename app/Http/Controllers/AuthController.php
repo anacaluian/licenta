@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Mail\ForgotPassword;
 use App\Mail\Register;
 use App\Providers\AuthServiceProvider;
+use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 
 class AuthController extends Controller
 {
-
-
     public function register(Request $request)
     {
         $v = Validator::make($request->all(), [
@@ -95,6 +95,9 @@ class AuthController extends Controller
 
     public function take(Request $request)
     {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Not authenticated'], 401);
+        }
         $user = User::where('username', $request->get('user'))->get();
 
         if ($user) {

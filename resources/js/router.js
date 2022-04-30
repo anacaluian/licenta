@@ -16,7 +16,6 @@ import AdminEmails from './pages/admin/emails'
 import AdminInvoices from './pages/admin/invoices'
 import ClientDashboard from './pages/client/dashboard'
 import ForgotPassword from './pages/forgot-password'
-import axios from 'axios'
 import laroute from './../../public/js/laroute'
 import Vue from 'vue'
 
@@ -103,7 +102,7 @@ const routes = [
             auth: {roles: [1,2,3], redirect: {name: 'home'}, forbiddenRedirect: '/403'}        }
     },
     {
-        path: '/projects/:id',
+        path: '/projects/:project',
         name: 'project',
         component: Project,
         children: [
@@ -164,6 +163,14 @@ const router = new VueRouter({
     routes,
 })
 
+router.afterEach(async (to, from, next)  => {
+    if (to.params.project) {
+        let project = atob(to.params.project);
+        project = JSON.parse(project);
+        to.params.id = project.id;
+    }
+    next;
+});
 
 router.afterEach(async (to, from)  => {
     let queries = to.query;

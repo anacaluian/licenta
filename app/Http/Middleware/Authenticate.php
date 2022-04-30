@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\LogServiceProvider;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
 
@@ -9,6 +10,8 @@ class Authenticate extends Middleware
 {
     public function handle($request, Closure $next, ...$guards)
     {
+        $logger = new LogServiceProvider();
+        $logger->log("path:" . $request->url() . " request: " . json_encode($request->all()));
         if ($this->authenticate($request, $guards) === 'authentication_error') {
             return response()->json(['error' => 'Unauthorized']);
         }

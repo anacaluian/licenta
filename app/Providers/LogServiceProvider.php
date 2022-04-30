@@ -17,6 +17,12 @@ class LogServiceProvider
         $this->content = '';
     }
 
+    public function log($log)
+    {
+        $time = sprintf("[%d-%d-%d %d:%d:%d]", Carbon::now()->year, Carbon::now()->month, Carbon::now()->day,Carbon::now()->hour, Carbon::now()->minute, Carbon::now()->second);
+        $this->content = sprintf("app.LOG%s %s Trace: %s \n", $time, $log, json_encode(debug_backtrace()));
+    }
+
     public function warning($log)
     {
         $time = sprintf("[%d-%d-%d %d:%d:%d]", Carbon::now()->year, Carbon::now()->month, Carbon::now()->day,Carbon::now()->hour, Carbon::now()->minute, Carbon::now()->second);

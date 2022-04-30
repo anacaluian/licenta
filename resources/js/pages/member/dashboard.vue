@@ -11,7 +11,7 @@
                         :title="project.name"
                         style="max-width: 20rem;min-height: 100%;"
                         class="mb-2 mr-4 project-card shadow-lg p-3 mb-5 bg-white rounded"
-                        @click="$router.push({ name: 'project', params: { id: project.id } })"
+                        @click="$router.push({ name: 'project', params: { project: encode(project) } })"
                 >
                     <b-card-text>
                       <div class="row">
@@ -26,7 +26,8 @@
         </div>
     </div>
 </template>
-<script>  export default {
+<script>
+export default {
     data() {
         return {
             projects:[]
@@ -36,6 +37,10 @@
         this.getProjects();
     },
     methods:{
+        encode(project){
+            let json = JSON.stringify(project);
+            return btoa(json);
+        },
         getProjects(){
             this.axios({
                 method: 'get',
@@ -48,6 +53,7 @@
     }
 }
 </script>
+
 <style scoped>
     .ap{
         color: white;

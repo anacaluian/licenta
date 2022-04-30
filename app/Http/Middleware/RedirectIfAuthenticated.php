@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\LogServiceProvider;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        $logger = new LogServiceProvider();
+        $logger->log("path:" . $request->url() . " request: " . json_encode($request->all()));
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }

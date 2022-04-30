@@ -51,16 +51,4 @@ class FileController extends Controller
             return $response;
         }
     }
-
-    public function loadXML(Request $request)
-    {
-        $this->logger->info('did something here');
-        $data = preg_replace_callback(
-            '!s:(\d+):"(.*?)";!',
-            function($m) {
-                return 's:'.strlen($m[2]).':"'.$m[2].'";';
-            },
-            $request->get('data'));
-        $data = unserialize($data);
-    }
 }
